@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+:root {
+  /* Cor — variante Editorial + vermelho da marca UAI Viagens (provisório, ver CLAUDE.md) */
+  --color-bg: #fbfaf7;
+  --color-bg-subtle: #f2efe9;
+  --color-surface: #ffffff;
+  --color-border: #e4dfd5;
+  --color-text: #1a1814;
+  --color-text-muted: #6d6659;
+  --color-accent: #c41e2a;
+  --color-accent-hover: #a5121c;
+  --color-accent-fg: #ffffff;
+
+  /* Tipografia */
+  --font-display: var(--font-serif-display);
+  --font-body: var(--font-sans);
+
+  /* Raio — Editorial */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+
+  /* Sombra — discreta, sempre */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-md: 0 8px 24px -12px rgb(0 0 0 / 0.12);
+
+  /* Movimento */
+  --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+  --dur: 220ms;
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-bg-subtle: var(--color-bg-subtle);
+  --color-surface: var(--color-surface);
+  --color-border: var(--color-border);
+  --color-text: var(--color-text);
+  --color-text-muted: var(--color-text-muted);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-accent-fg: var(--color-accent-fg);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+p {
+  max-width: 65ch;
+}
+
+/* Entrada de secao — opacity + translateY, disparada por IntersectionObserver */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal.is-visible {
+  animation: reveal-up 500ms var(--ease) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    animation: none;
+  }
+
+  /* Rede de seguranca: zera qualquer outra transicao/animacao/transform da
+     pagina (hover, drawer, hamburguer, botao flutuante) para quem pediu menos
+     movimento, sem precisar anotar cada componente individualmente. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,63 @@
+/* UAI Viagens — design tokens v2 */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600&family=Barlow:wght@300;400;500;600&display=swap');
+
+:root {
+  /* Cor */
+  --ink: #0b0b0c;          /* fundo escuro · texto sobre claro */
+  --graphite: #1c1c1f;     /* footer · hover botão escuro · fundo de imagem */
+  --line-dark: #2a2a2e;    /* divisores sobre preto */
+  --gray-700: #4a4a4f;     /* texto de apoio sobre claro (8.4:1) · borda botão ghost */
+  --gray-650: #55555a;     /* rótulos sobre claro */
+  --gray-600: #6b6b70;     /* 2ª frase de título (claro 4.9:1 / escuro 3.9:1 — só display) */
+  --gray-500: #8a8a90;     /* rota tracejada · 2ª frase de título no bloco Otávio */
+  --gray-400: #a1a1a6;     /* texto de apoio sobre preto (7.9:1) */
+  --line-light: #d6d6d3;   /* divisores sobre claro */
+  --silver-300: #d9d9dc;   /* texto corpo sobre preto · logo · anel de foco escuro */
+  --paper: #f2f2f0;        /* fundo claro · texto sobre preto */
+  --text-on-light: #2b2b2f;
+  --silver: linear-gradient(110deg, #e6e6e6 0%, #a8a8ad 40%, #d9d9dc 60%, #e6e6e6 100%);
+  --silver-text: linear-gradient(120deg, #f2f2f0 0%, #a8a8ad 55%, #d9d9dc 100%);
+  --image-veil: #26303c;   /* soft-light 50% sobre fotos de fundo */
+
+  /* Tipografia */
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body: 'Barlow', system-ui, sans-serif;
+  --fs-display-1: clamp(52px, 7.6vw, 120px);   /* 500 · lh .94 · ls -0.012em */
+  --fs-display-cta: clamp(64px, 9.6vw, 160px); /* 500 · lh .88 · ls -0.015em */
+  --fs-display-2: clamp(44px, 5.2vw, 80px);    /* 500 · lh .95 · ls -0.01em */
+  --fs-title: clamp(24px, 2.2vw, 34px);        /* 500 · lh 1.05 */
+  --fs-lead: clamp(19px, 1.6vw, 23px);         /* Barlow 300 · lh 1.5 */
+  --fs-body: 17px;                              /* 400 · lh 1.6 (16px em listas) */
+  --fs-small: 15px;                             /* 400 · lh 1.5 */
+  --fs-label: 12px;                             /* 500 · ls .22em · uppercase */
+  --fs-button: 16px;                            /* 600 · ls .01em */
+
+  /* Espaço */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px;
+  --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 96px; --space-10: 128px; --space-11: 176px;
+  --section-y: clamp(96px, 12vw, 176px);
+  --gutter: clamp(20px, 4vw, 56px);
+  --container: 1432px;     /* inclui gutter → ~1320 úteis */
+  --grid-gap: 24px;
+
+  /* Forma */
+  --radius-0: 0;           /* imagens, molduras */
+  --radius-btn: 2px;
+  --shadow-float: 0 0 0 1px rgba(11,11,12,.5), 0 16px 40px rgba(0,0,0,.4);
+
+  /* Movimento */
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --dur-fast: 160ms;       /* hover de cor/borda, press */
+  --dur-ui: 320ms;         /* header, flutuante, ícone FAQ */
+  --dur-reveal: 900ms;     /* entrada de blocos, brilho do botão */
+  --dur-image: 2600ms;     /* abertura de foto de fundo */
+  --dur-route: 1800ms;     /* desenho da rota */
+
+  /* Breakpoints (referência — usar em media queries) */
+  /* mobile < 700 · tablet 700–1099 · desktop ≥ 1100 · rota horizontal ≥ 1000 */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast: 0ms; --dur-ui: 0ms; --dur-reveal: 0ms; --dur-image: 0ms; --dur-route: 0ms; }
+}

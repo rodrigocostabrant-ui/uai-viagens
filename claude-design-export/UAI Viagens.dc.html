@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&amp;family=Barlow:wght@300;400;500;600&amp;display=swap">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#0b0b0c;color:#f2f2f0;font-family:'Barlow',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+a:hover{color:#ffffff}
+::selection{background:#a8a8ad;color:#0b0b0c}
+:focus-visible{outline:2px solid #d9d9dc;outline-offset:3px}
+.on-light :focus-visible{outline-color:#0b0b0c}
+img{display:block}
+</style>
+</helmet>
+
+<header style="position:fixed;top:0;left:0;right:0;z-index:40;background:{{ headerBg }};border-bottom:1px solid {{ headerLine }};transition:background .3s ease,border-color .3s ease">
+  <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px);height:{{ headerH }};display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="#topo" aria-label="UAI Viagens, voltar ao topo" style="display:flex;align-items:center;flex:none">
+      <svg viewBox="0 0 160 120" style="height:{{ logoH }};width:auto" aria-hidden="true"><defs><linearGradient id="uaiSilverH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6e6e6"></stop><stop offset=".5" stop-color="#a8a8ad"></stop><stop offset="1" stop-color="#d9d9dc"></stop></linearGradient></defs><g fill="url(#uaiSilverH)"><rect x="12" y="20" width="11" height="48"></rect><rect x="45" y="20" width="11" height="48"></rect><path d="M14 72 Q34 86 54 72" fill="none" stroke="url(#uaiSilverH)" stroke-width="3.6" stroke-linecap="round"></path><polygon points="94,12 106.3,40 74.8,56"></polygon><polygon points="71.7,63 109.3,47 122,76 66,76"></polygon><rect x="132" y="30" width="10" height="46"></rect><path transform="translate(134 0) scale(.95)" d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path><text x="78" y="112" text-anchor="middle" font-family="Barlow, sans-serif" font-weight="300" font-size="31" letter-spacing="2">viagens</text></g></svg>
+    </a>
+    <sc-if value="{{ fullNav }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Principal" style="display:flex;align-items:center;gap:36px">
+        <a href="#servicos" style="font:500 13px/1 'Barlow',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a1a1a6;padding:8px 0" style-hover="color:#f2f2f0">Serviços</a>
+        <a href="#como-funciona" style="font:500 13px/1 'Barlow',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a1a1a6;padding:8px 0" style-hover="color:#f2f2f0">Como funciona</a>
+        <a href="#quem-cuida" style="font:500 13px/1 'Barlow',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a1a1a6;padding:8px 0" style-hover="color:#f2f2f0">Quem cuida</a>
+        <a href="#duvidas" style="font:500 13px/1 'Barlow',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a1a1a6;padding:8px 0" style-hover="color:#f2f2f0">Dúvidas</a>
+        <a href="https://wa.me/5531989519239?text=Ol%C3%A1%2C%20UAI%20Viagens!%20Vi%20o%20site%20e%20gostaria%20de%20planejar%20uma%20viagem." target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:12px 18px;border:1px solid #6b6b70;border-radius:2px;font:600 13px/1 'Barlow',sans-serif;letter-spacing:.06em;color:#f2f2f0;white-space:nowrap;transition:border-color .2s,background .2s" style-hover="border-color:#d9d9dc;background:rgba(242,242,240,.06)">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path><path d="M12.004 2c-5.514 0-9.997 4.483-9.997 9.997 0 1.763.462 3.483 1.34 4.997L2 22l5.144-1.35a9.96 9.96 0 0 0 4.86 1.238h.004c5.514 0 9.996-4.483 9.996-9.997C21.999 6.483 17.517 2 12.004 2zm0 18.184h-.003a8.19 8.19 0 0 1-4.174-1.144l-.3-.178-3.054.801.815-2.978-.195-.306a8.176 8.176 0 0 1-1.254-4.382c0-4.519 3.678-8.197 8.169-8.197 2.182 0 4.233.85 5.775 2.394a8.11 8.11 0 0 1 2.39 5.807c0 4.519-3.679 8.183-8.169 8.183z"></path></svg>
+          Quero planejar minha viagem
+        </a>
+      </nav>
+    </sc-if>
+    <sc-if value="{{ compactNav }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;gap:8px">
+        <a href="https://wa.me/5531989519239?text=Ol%C3%A1%2C%20UAI%20Viagens!%20Vi%20o%20site%20e%20gostaria%20de%20planejar%20uma%20viagem." target="_blank" rel="noopener" aria-label="Quero planejar minha viagem pelo WhatsApp" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:2px;background:linear-gradient(135deg,#e6e6e6 0%,#a8a8ad 55%,#d9d9dc 100%);color:#0b0b0c">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path><path d="M12.004 2c-5.514 0-9.997 4.483-9.997 9.997 0 1.763.462 3.483 1.34 4.997L2 22l5.144-1.35a9.96 9.96 0 0 0 4.86 1.238h.004c5.514 0 9.996-4.483 9.996-9.997C21.999 6.483 17.517 2 12.004 2zm0 18.184h-.003a8.19 8.19 0 0 1-4.174-1.144l-.3-.178-3.054.801.815-2.978-.195-.306a8.176 8.176 0 0 1-1.254-4.382c0-4.519 3.678-8.197 8.169-8.197 2.182 0 4.233.85 5.775 2.394a8.11 8.11 0 0 1 2.39 5.807c0 4.519-3.679 8.183-8.169 8.183z"></path></svg>
+        </a>
+        <button type="button" onClick="{{ toggleMenu }}" aria-label="{{ menuLabel }}" aria-expanded="{{ menuOpen }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid #6b6b70;border-radius:2px;color:#f2f2f0;cursor:pointer">
+          <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></sc-if>
+          <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></sc-if>
+        </button>
+      </div>
+    </sc-if>
+  </div>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <nav aria-label="Menu" style="position:fixed;top:64px;left:0;right:0;bottom:0;background:#0b0b0c;padding:32px 20px 40px;display:flex;flex-direction:column;justify-content:space-between;border-top:1px solid #2a2a2e">
+      <div style="display:flex;flex-direction:column">
+        <a href="#servicos" onClick="{{ closeMenu }}" style="font:600 40px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#f2f2f0;padding:18px 0;border-bottom:1px solid #2a2a2e">Serviços</a>
+        <a href="#como-funciona" onClick="{{ closeMenu }}" style="font:600 40px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#f2f2f0;padding:18px 0;border-bottom:1px solid #2a2a2e">Como funciona</a>
+        <a href="#quem-cuida" onClick="{{ closeMenu }}" style="font:600 40px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#f2f2f0;padding:18px 0;border-bottom:1px solid #2a2a2e">Quem cuida</a>
+        <a href="#duvidas" onClick="{{ closeMenu }}" style="font:600 40px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#f2f2f0;padding:18px 0;border-bottom:1px solid #2a2a2e">Dúvidas</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <a href="https://wa.me/5531989519239?text=Ol%C3%A1%2C%20UAI%20Viagens!%20Vi%20o%20site%20e%20gostaria%20de%20planejar%20uma%20viagem." target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:0 24px;border-radius:2px;background:linear-gradient(135deg,#e6e6e6 0%,#a8a8ad 55%,#d9d9dc 100%);color:#0b0b0c;font:600 16px/1 'Barlow',sans-serif">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path><path d="M12.004 2c-5.514 0-9.997 4.483-9.997 9.997 0 1.763.462 3.483 1.34 4.997L2 22l5.144-1.35a9.96 9.96 0 0 0 4.86 1.238h.004c5.514 0 9.996-4.483 9.996-9.997C21.999 6.483 17.517 2 12.004 2zm0 18.184h-.003a8.19 8.19 0 0 1-4.174-1.144l-.3-.178-3.054.801.815-2.978-.195-.306a8.176 8.176 0 0 1-1.254-4.382c0-4.519 3.678-8.197 8.169-8.197 2.182 0 4.233.85 5.775 2.394a8.11 8.11 0 0 1 2.39 5.807c0 4.519-3.679 8.183-8.169 8.183z"></path></svg>
+          Quero planejar minha viagem
+        </a>
+        <p style="margin:0;text-align:center;font:400 14px/1.5 'Barlow',sans-serif;color:#a1a1a6">Atendimento por uma pessoa, direto no WhatsApp.</p>
+      </div>
+    </nav>
+  </sc-if>
+</header>
+
+<main id="topo">
+
+<section data-screen-label="01 Hero" aria-label="Início" style="position:relative;min-height:max(680px,100vh);display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:#0b0b0c">
+  <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&amp;fit=crop&amp;w=2000&amp;q=70" alt="Praia de água clara vista de cima, ao fim da tarde" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.18) brightness(.78)">
+  <div style="position:absolute;inset:0;background:#26303c;mix-blend-mode:soft-light;opacity:.55"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,12,.7) 0%,rgba(11,11,12,.15) 30%,rgba(11,11,12,.35) 55%,rgba(11,11,12,.94) 100%)"></div>
+  <div style="position:relative;max-width:1360px;width:100%;margin:0 auto;padding:140px clamp(20px,4vw,56px) 0">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px">
+      <span style="width:40px;height:1px;background:linear-gradient(90deg,#e6e6e6,#a8a8ad,#d9d9dc)"></span>
+      <span style="font:500 12px/1.2 'Barlow',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#d9d9dc">Agência de viagens · Belo Horizonte</span>
+    </div>
+    <sc-if value="{{ headA }}" hint-placeholder-val="{{ true }}">
+      <h1 style="margin:0;max-width:15ch;font:600 clamp(52px,7.4vw,112px)/.9 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:-.005em;color:#f2f2f0;text-wrap:balance">Sua próxima viagem, <span style="background:linear-gradient(135deg,#e6e6e6 0%,#a8a8ad 50%,#d9d9dc 100%);-webkit-background-clip:text;background-clip:text;color:transparent">sem o trabalho</span> de organizar tudo sozinho.</h1>
+    </sc-if>
+    <sc-if value="{{ headB }}" hint-placeholder-val="{{ false }}">
+      <h1 style="margin:0;max-width:14ch;font:600 clamp(52px,7.4vw,112px)/.9 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#f2f2f0;text-wrap:balance">Você escolhe pra onde. <span style="background:linear-gradient(135deg,#e6e6e6 0%,#a8a8ad 50%,#d9d9dc 100%);-webkit-background-clip:text;background-clip:text;color:transparent">A gente organiza o caminho.</span></h1>
+    </sc-if>
+    <sc-if value="{{ headC }}" hint-placeholder-val="{{ false }}">
+      <h1 style="margin:0;max-width:14ch;font:600 clamp(52px,7.4vw,112px)/.9 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#f2f2f0;text-wrap:balance">Não sabe por onde começar? <span style="background:linear-gradient(135deg,#e6e6e6 0%,#a8a8ad 50%,#d9d9dc 100%);-webkit-background-clip:text;background-clip:text;color:transparent">Começa pela conversa.</span></h1>
+    </sc-if>
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px 48px;margin-top:40px">
+      <p style="margin:0;max-width:520px;font:400 clamp(17px,1.4vw,20px)/1.55 'Barlow',sans-serif;color:#d9d9dc;text-wrap:pretty">A UAI pesquisa, compara, reserva e monta o roteiro com você. Do primeiro passo até o embarque.</p>
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:flex-start">
+        <a href="https://wa.me/5531989519239?text=Ol%C3%A1%2C%20UAI%20Viagens!%20Vi%20o%20site%20e%20gostaria%20de%20planejar%20uma%20viagem." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:14px;min-height:60px;padding:0 28px;border-radius:2px;background:linear-gradient(135deg,#e6e6e6 0%,#a8a8ad 55%,#d9d9dc 100%);background-size:160% 160%;background-position:0% 0%;color:#0b0b0c;font:600 17px/1 'Barlow',sans-serif;transition:background-position .4s ease,box-shadow .3s ease" style-hover="background-position:100% 100%;box-shadow:0 0 0 1px #f2f2f0,0 12px 32px rgba(0,0,0,.5);color:#0b0b0c">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path><path d="M12.004 2c-5.514 0-9.997 4.483-9.997 9.997 0 1.763.462 3.483 1.34 4.997L2 22l5.144-1.35a9.96 9.96 0 0 0 4.86 1.238h.004c5.514 0 9.996-4.483 9.996-9.997C21.999 6.483 17.517 2 12.004 2zm0 18.184h-.003a8.19 8.19 0 0 1-4.174-1.144l-.3-.178-3.054.801.815-2.978-.195-.306a8.176 8.176 0 0 1-1.254-4.382c0-4.519 3.678-8.197 8.169-8.197 2.182 0 4.233.85 5.775 2.394a8.11 8.11 0 0 1 2.39 5.807c0 4.519-3.679 8.183-8.169 8.183z"></path></svg>
+          Quero planejar minha viagem
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </a>
+        <span style="font:400 14px/1.4 'Barlow',sans-serif;color:#a1a1a6">Uma pessoa responde. Sem robô, sem compromisso.</span>
+      </div>
+    </div>
+    <div style="margin-top:clamp(48px,7vw,88px);border-top:1px solid rgba(242,242,240,.18);padding:22px 0 28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px">
+      <div style="display:flex;flex-wrap:wrap;gap:8px 28px;font:500 13px/1.3 'Barlow',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#d9d9dc">
+        <span>Pacotes nacionais e internacionais</span><span>Hospedagens</span><span>Cruzeiros</span><span>Roteiros personalizados</span>
+      </div>
+      <span style="font:400 13px/1.3 'Barlow',sans-serif;letter-spacing:.06em;color:#a1a1a6">Presencial em BH · Online em todo o Brasil</span>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="02 Ponto de partida" class="on-light" style="background:#f2f2f0;color:#0b0b0c;padding:clamp(88px,11vw,168px) 0">
+  <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:40px clamp(40px,6vw,96px);align-items:end">
+      <h2 style="margin:0;font:600 clamp(44px,5.6vw,84px)/.92 'Barlow Condensed',sans-serif;text-transform:uppercase;text-wrap:balance">Não sabe por onde começar? <span style="color:#6b6b70">É daí que a gente parte.</span></h2>
+      <p style="margin:0;max-width:520px;font:400 clamp(17px,1.35vw,20px)/1.6 'Barlow',sans-serif;color:#2b2b2f;text-wrap:pretty">Escolher destino, comparar hotel, voo e horário, encaixar tudo no seu período e no seu orçamento. Isso toma um tempo que quase ninguém tem. Você conta o que imagina e a UAI assume o resto.</p>
+    </div>
+    <div style="margin-top:clamp(56px,7vw,104px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));border-top:1px solid #0b0b0c">
+      <div style="padding:28px 28px 8px 0;display:flex;flex-direction:column;gap:12px">
+        <span style="font:600 28px/1 'Barlow Condensed',sans-serif;text-transform:uppercase">Pesquisa</span>
+        <p style="margin:0;font:400 16px/1.55 'Barlow',sans-serif;color:#4a4a4f;text-wrap:pretty">Destinos, datas e opções que fazem sentido pro seu jeito de viajar.</p>
+      </div>
+      <div style="padding:28px 28px 8px 0;display:flex;flex-direction:column;gap:12px">
+        <span style="font:600 28px/1 'Barlow Condensed',sans-serif;text-transform:uppercase">Comparação</span>
+        <p style="margin:0;font:400 16px/1.55 'Barlow',sans-serif;color:#4a4a4f;text-wrap:pretty">Voo, hospedagem e horário lado a lado. Sem vinte abas abertas.</p>
+      </div>
+      <div style="padding:28px 28px 8px 0;display:flex;flex-direction:column;gap:12px">
+        <span style="font:600 28px/1 'Barlow Condensed',sans-serif;text-transform:uppercase">Reservas</span>
+        <p style="margin:0;font:400 16px/1.55 'Barlow',sans-serif;color:#4a4a4f;text-wrap:pretty">Tudo fechado e conferido num lugar só, antes de você sair de casa.</p>
+      </div>
+      <div style="padding:28px 28px 8px 0;display:flex;flex-direction:column;gap:12px">
+        <span style="font:600 28px/1 'Barlow Condensed',sans-serif;text-transform:uppercase">Roteiro</span>
+        <p style="margin:0;font:400 16px/1.55 'Barlow',sans-serif;color:#4a4a4f;text-wrap:pretty">Os dias pensados, inclusive o deslocamento entre um lugar e outro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicos" data-screen-label="03 Serviços" style="scroll-margin-top:64px;background:#0b0b0c;color:#f2f2f0;padding:clamp(88px,11vw,168px) 0">
+  <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:28px 64px">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div style="display:flex;align-items:center;gap:14px">
+          <span style="width:40px;height:1px;background:linear-gradient(90deg,#e6e6e6,#a8a8ad,#d9d9dc)"></span>
+          <span style="font:500 12px/1.2 'Barlow',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#a1a1a6">O que a UAI organiza</span>
+        </div>
+        <h2 style="margin:0;max-width:13ch;font:600 clamp(44px,5.6vw,84px)/.92 'Barlow Condensed',sans-serif;text-transform:uppercase;text-wrap:balance">Quatro jeitos de começar. <span style="background:linear-gradient(135deg,#e6e6e6 0%,#a8a8ad 50%,#d9d9dc 100%);-webkit-background-clip:text;background-clip:text;color:transparent">O mesmo cuidado.</span></h2>
+      </div>
+      <p style="margin:0;max-width:380px;font:400 17px/1.6 'Barlow',sans-serif;color:#a1a1a6;text-wrap:pretty">A viagem completa ou só a parte que falta. Você diz o que já tem, a UAI organiza o que ainda não tem.</p>
+    </div>
+    <div style="margin-top:clamp(56px,7vw,96px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:clamp(12px,1.6vw,24px);align-items:start">
+      <figure style="margin:0;padding-top:{{ off1 }}px;display:flex;flex-direction:column;gap:18px">
+        <div style="position:relative;aspect-ratio:3/4;overflow:hidden;background:#1c1c1f">
+          <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="Rua de Paris com a Torre Eiffel ao fundo" style="width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15) brightness(.82);transform:scale(1.001);transition:transform .8s ease,filter .5s ease" style-hover="transform:scale(1.04);filter:grayscale(1) contrast(1.15) brightness(.96)">
+        </div>
+        <figcaption style="display:flex;flex-direction:column;gap:8px;border-top:1px solid #3a3a3f;padding-top:16px">
+          <span style="font:600 clamp(22px,2.1vw,30px)/1 'Barlow Condensed',sans-serif;text-transform:uppercase">Pacotes nacionais e internacionais</span>
+          <span style="font:400 15px/1.5 'Barlow',sans-serif;color:#a1a1a6;text-wrap:pretty">Passagem, hospedagem e logística já pensadas juntas.</span>
+        </figcaption>
+      </figure>
+      <figure style="margin:0;padding-top:{{ off2 }}px;display:flex;flex-direction:column;gap:18px">
+        <div style="position:relative;aspect-ratio:3/4;overflow:hidden;background:#1c1c1f">
+          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="Piscina de hotel à noite, cercada de palmeiras" style="width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15) brightness(.82);transform:scale(1.001);transition:transform .8s ease,filter .5s ease" style-hover="transform:scale(1.04);filter:grayscale(1) contrast(1.15) brightness(.96)">
+        </div>
+        <figcaption style="display:flex;flex-direction:column;gap:8px;border-top:1px solid #3a3a3f;padding-top:16px">
+          <span style="font:600 clamp(22px,2.1vw,30px)/1 'Barlow Condensed',sans-serif;text-transform:uppercase">Hospedagens</span>
+          <span style="font:400 15px/1.5 'Barlow',sans-serif;color:#a1a1a6;text-wrap:pretty">Hotéis e acomodações escolhidos pro seu estilo de viagem.</span>
+        </figcaption>
+      </figure>
+      <figure style="margin:0;padding-top:{{ off3 }}px;display:flex;flex-direction:column;gap:18px">
+        <div style="position:relative;aspect-ratio:3/4;overflow:hidden;background:#1c1c1f">
+          <img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="Navio de cruzeiro em alto-mar" style="width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15) brightness(.82);transform:scale(1.001);transition:transform .8s ease,filter .5s ease" style-hover="transform:scale(1.04);filter:grayscale(1) contrast(1.15) brightness(.96)">
+        </div>
+        <figcaption style="display:flex;flex-direction:column;gap:8px;border-top:1px solid #3a3a3f;padding-top:16px">
+          <span style="font:600 clamp(22px,2.1vw,30px)/1 'Barlow Condensed',sans-serif;text-transform:uppercase">Cruzeiros</span>
+          <span style="font:400 15px/1.5 'Barlow',sans-serif;color:#a1a1a6;text-wrap:pretty">Cabine, roteiro e reserva resolvidos antes de você embarcar.</span>
+        </figcaption>
+      </figure>
+      <figure style="margin:0;padding-top:{{ off4 }}px;display:flex;flex-direction:column;gap:18px">
+        <div style="position:relative;aspect-ratio:3/4;overflow:hidden;background:#1c1c1f">
+          <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="Cordilheira com picos nevados" style="width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15) brightness(.82);transform:scale(1.001);transition:transform .8s ease,filter .5s ease" style-hover="transform:scale(1.04);filter:grayscale(1) contrast(1.15) brightness(.96)">
+        </div>
+        <figcaption style="display:flex;flex-direction:column;gap:8px;border-top:1px solid #3a3a3f;padding-top:16px">
+          <span style="font:600 clamp(22px,2.1vw,30px)/1 'Barlow Condensed',sans-serif;text-transform:uppercase">Roteiros personalizados</span>
+          <span style="font:400 15px/1.5 'Barlow',sans-serif;color:#a1a1a6;text-wrap:pretty">Desenhados a partir do seu período, do seu orçamento e do que você quer viver.</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="como-funciona" data-screen-label="04 Como funciona" class="on-light" style="scroll-margin-top:64px;background:#f2f2f0;color:#0b0b0c;padding:clamp(88px,11vw,168px) 0;overflow:hidden">
+  <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px)">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px">
+      <span style="width:40px;height:1px;background:#6b6b70"></span>
+      <span style="font:500 12px/1.2 'Barlow',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#55555a">Como funciona</span>
+    </div>
+    <h2 style="margin:0;max-width:16ch;font:600 clamp(44px,5.6vw,84px)/.92 'Barlow Condensed',sans-serif;text-transform:uppercase;text-wrap:balance">Do primeiro “oi” <span style="color:#6b6b70">até o embarque.</span></h2>
+
+    <sc-if value="{{ notMobile }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:96px;position:relative">
+        <div style="display:flex;justify-content:space-between;font:500 12px/1 'Barlow',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#55555a;margin-bottom:18px">
+          <span>Você, hoje</span><span>Seu destino</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:auto 64px auto">
+          <div style="grid-column:1;grid-row:1;padding:0 32px 32px 0;display:flex;flex-direction:column;gap:12px;justify-content:flex-end">
+            <span style="font:500 12px/1 'Barlow',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#55555a">Partida</span>
+            <span style="font:600 32px/1 'Barlow Condensed',sans-serif;text-transform:uppercase">Você conta o que imagina</span>
+            <p style="margin:0;font:400 16px/1.55 'Barlow',sans-serif;color:#4a4a4f;text-wrap:pretty">Destino, período, quem vai com você e o que não pode faltar. Pode chegar só com a vontade.</p>
+          </div>
+          <div style="grid-column:3;grid-row:1;padding:0 32px 32px 0;display:flex;flex-direction:column;gap:12px;justify-content:flex-end">
+            <span style="font:500 12px/1 'Barlow',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#55555a">Ajuste</span>
+            <span style="font:600 32px/1 'Barlow Condensed',sans-serif;text-transform:uppercase">Você escolhe e ajusta</span>
+            <p style="margin:0;font:400 16px/1.55 'Barlow',sans-serif;color:#4a4a4f;text-wrap:pretty">Muda o que quiser. Reservas e roteiro só fecham quando fizer sentido pra você.</p>
+          </div>
+          <div style="grid-column:1/5;grid-row:2;position:relative">
+            <svg viewBox="0 0 1000 64" preserveAspectRatio="none" style="position:absolute;left:0;top:0;width:100%;height:64px" aria-hidden="true"><defs><linearGradient id="routeG" x1="0" x2="1"><stop offset="0" stop-color="#6b6b70"></stop><stop offset=".5" stop-color="#a8a8ad"></stop><stop offset="1" stop-color="#1c1c1f"></stop></linearGradient></defs><line x1="0" y1="32" x2="1000" y2="32" stroke="url(#routeG)" stroke-width="1.5" stroke-dasharray="6 6" vector-effect="non-scaling-stroke"></line></svg>
+            <div style="position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);align-items:center">
+              <span style="width:18px;height:18px;border-radius:50%;background:#0b0b0c;box-shadow:0 0 0 5px #f2f2f0,0 0 0 6px #a8a8ad"></span>
+              <span style="width:18px;height:18px;border-radius:50%;background:#0b0b0c;box-shadow:0 0 0 5px #f2f2f0,0 0 0 6px #a8a8ad"></span>
+              <span style="width:18px;height:18px;border-radius:50%;background:#0b0b0c;box-shadow:0 0 0 5px #f2f2f0,0 0 0 6px #a8a8ad"></span>
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <span style="width:18px;height:18px;border-radius:50%;background:#0b0b0c;box-shadow:0 0 0 5px #f2f2f0,0 0 0 6px #a8a8ad"></span>
+                <span style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;background:#0b0b0c;color:#d9d9dc;border-radius:50%"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:rotate(45deg)"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg></span>
+              </div>
+            </div>
+          </div>
+          <div style="grid-column:2;grid-row:3;padding:32px 32px 0 0;display:flex;flex-direction:column;gap:12px">
+            <span style="font:500 12px/1 'Barlow',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#55555a">Conexão</span>
+            <span style="font:600 32px/1 'Barlow Condensed',sans-serif;text-transform:uppercase">A UAI monta as possibilidades</span>
+            <p style="margin:0;font:400 16px/1.55 'Barlow',sans-serif;color:#4a4a4f;text-wrap:pretty">Você recebe opções já comparadas e pensadas pro seu perfil de viagem.</p>
+          </div>
+          <div style="grid-column:4;grid-row:3;padding:32px 0 0 0;display:flex;flex-direction:column;gap:12px">
+            <span style="font:500 12px/1 'Barlow',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#55555a">Embarque</span>
+            <span style="font:600 32px/1 'Barlow Condensed',sans-serif;text-transform:uppercase">Você viaja com tudo organizado</span>
+            <p style="margin:0;font:400 16px/1.55 'Barlow',sans-serif;color:#4a4a4f;text-wrap:pretty">E com alguém da UAI a uma mensagem de distância durante a viagem.</p>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:56px;position:relative;padding-left:44px">
+        <span style="position:absolute;left:8px;top:6px;bottom:30px;border-left:1.5px dashed #a8a8ad"></span>
+        <span style="display:block;font:500 12px/1 'Barlow',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#55555a;margin:0 0 28px">Você, hoje</span>
+        <div style="position:relative;display:flex;flex-direction:column;gap:10px;padding-bottom:40px">
+          <span style="position:absolute;left:-44px;top:2px;width:18px;height:18px;border-radius:50%;background:#0b0b0c;box-shadow:0 0 0 5px #f2f2f0,0 0 0 6px #a8a8ad"></span>
+          <span style="font:500 12px/1.6 'Barlow',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#55555a">Partida</span>
+          <span style="font:600 28px/1 'Barlow Condensed',sans-serif;text-transform:uppercase">Você conta o que imagina</span>
+          <p style="margin:0;font:400 16px/1.55 'Barlow',sans-serif;color:#4a4a4f">Destino, período, quem vai com você e o que não pode faltar. Pode chegar só com a vontade.</p>
+        </div>
+        <div style="position:relative;display:flex;flex-direction:column;gap:10px;padding-bottom:40px">
+          <span style="position:absolute;left:-44px;top:2px;width:18px;height:18px;border-radius:50%;background:#0b0b0c;box-shadow:0 0 0 5px #f2f2f0,0 0 0 6px #a8a8ad"></span>
+          <span style="font:500 12px/1.6 'Barlow',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#55555a">Conexão</span>
+          <span style="font:600 28px/1 'Barlow Condensed',sans-serif;text-transform:uppercase">A UAI monta as possibilidades</span>
+          <p style="margin:0;font:400 16px/1.55 'Barlow',sans-serif;color:#4a4a4f">Você recebe opções já comparadas e pensadas pro seu perfil de viagem.</p>
+        </div>
+        <div style="position:relative;display:flex;flex-direction:column;gap:10px;padding-bottom:40px">
+          <span style="position:absolute;left:-44px;top:2px;width:18px;height:18px;border-radius:50%;background:#0b0b0c;box-shadow:0 0 0 5px #f2f2f0,0 0 0 6px #a8a8ad"></span>
+          <span style="font:500 12px/1.6 'Barlow',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#55555a">Ajuste</span>
+          <span style="font:600 28px/1 'Barlow Condensed',sans-serif;text-transform:uppercase">Você escolhe e ajusta</span>
+          <p style="margin:0;font:400 16px/1.55 'Barlow',sans-serif;color:#4a4a4f">Muda o que quiser. Reservas e roteiro só fecham quando fizer sentido pra você.</p>
+        </div>
+        <div style="position:relative;display:flex;flex-direction:column;gap:10px;padding-bottom:32px">
+          <span style="position:absolute;left:-44px;top:2px;width:18px;height:18px;border-radius:50%;background:#0b0b0c;box-shadow:0 0 0 5px #f2f2f0,0 0 0 6px #a8a8ad"></span>
+          <span style="font:500 12px/1.6 'Barlow',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#55555a">Embarque</span>
+          <span style="font:600 28px/1 'Barlow Condensed',sans-serif;text-transform:uppercase">Você viaja com tudo organizado</span>
+          <p style="margin:0;font:400 16px/1.55 'Barlow',sans-serif;color:#4a4a4f">E com alguém da UAI a uma mensagem de distância durante a viagem.</p>
+        </div>
+        <div style="position:relative;display:flex;align-items:center;gap:14px">
+          <span style="position:absolute;left:-60px;width:50px;height:50px;display:flex;align-items:center;justify-content:center;background:#0b0b0c;color:#d9d9dc;border-radius:50%"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:rotate(135deg)"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg></span>
+          <span style="font:500 12px/1 'Barlow',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#55555a">Seu destino</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <div style="margin-top:clamp(64px,8vw,112px);padding-top:32px;border-top:1px solid #c9c9c7;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px">
+      <p style="margin:0;font:600 clamp(26px,2.6vw,36px)/1.05 'Barlow Condensed',sans-serif;text-transform:uppercase;max-width:22ch">A primeira parada é uma conversa.</p>
+      <a href="https://wa.me/5531989519239?text=Ol%C3%A1%2C%20UAI%20Viagens!%20Vi%20o%20site%20e%20gostaria%20de%20planejar%20uma%20viagem." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:14px;min-height:60px;padding:0 28px;border-radius:2px;background:#0b0b0c;color:#f2f2f0;font:600 17px/1 'Barlow',sans-serif;box-shadow:inset 0 0 0 1px #0b0b0c;transition:background .25s ease,color .25s ease" style-hover="background:#1c1c1f;color:#ffffff">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="#d9d9dc" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path><path d="M12.004 2c-5.514 0-9.997 4.483-9.997 9.997 0 1.763.462 3.483 1.34 4.997L2 22l5.144-1.35a9.96 9.96 0 0 0 4.86 1.238h.004c5.514 0 9.996-4.483 9.996-9.997C21.999 6.483 17.517 2 12.004 2zm0 18.184h-.003a8.19 8.19 0 0 1-4.174-1.144l-.3-.178-3.054.801.815-2.978-.195-.306a8.176 8.176 0 0 1-1.254-4.382c0-4.519 3.678-8.197 8.169-8.197 2.182 0 4.233.85 5.775 2.394a8.11 8.11 0 0 1 2.39 5.807c0 4.519-3.679 8.183-8.169 8.183z"></path></svg>
+        Quero planejar minha viagem
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="quem-cuida" data-screen-label="05 Quem cuida" style="scroll-margin-top:64px;background:#0b0b0c;color:#f2f2f0;padding:clamp(88px,11vw,168px) 0">
+  <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:56px clamp(48px,7vw,112px);align-items:center">
+    <div style="position:relative;padding-bottom:clamp(40px,6vw,88px);padding-right:clamp(40px,7vw,120px)">
+      <figure style="margin:0;position:relative">
+        <img src="assets/otavio-1.jpg" alt="Otávio, responsável pela UAI Viagens, em retrato de estúdio" style="width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 20%;filter:grayscale(1) contrast(1.12)">
+        <span aria-hidden="true" style="position:absolute;top:-10px;left:-6px;font:300 18px/1 'Barlow',sans-serif;color:#a1a1a6">+</span>
+        <span aria-hidden="true" style="position:absolute;top:-10px;right:-6px;font:300 18px/1 'Barlow',sans-serif;color:#a1a1a6">+</span>
+        <span aria-hidden="true" style="position:absolute;bottom:-10px;left:-6px;font:300 18px/1 'Barlow',sans-serif;color:#a1a1a6">+</span>
+      </figure>
+      <figure style="margin:0;position:absolute;right:0;bottom:0;width:44%;border:6px solid #0b0b0c">
+        <img src="assets/otavio-2.jpg" alt="Otávio sorrindo, de braços abertos" style="width:100%;aspect-ratio:1/1;object-fit:cover;object-position:50% 25%;filter:grayscale(1) contrast(1.12)">
+      </figure>
+      <span style="position:absolute;left:0;bottom:4px;font:500 12px/1.3 'Barlow',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#a1a1a6">Otávio · UAI Viagens</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span style="width:40px;height:1px;background:linear-gradient(90deg,#e6e6e6,#a8a8ad,#d9d9dc)"></span>
+        <span style="font:500 12px/1.2 'Barlow',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#a1a1a6">Quem cuida da sua viagem</span>
+      </div>
+      <h2 style="margin:0;font:600 clamp(44px,5vw,76px)/.92 'Barlow Condensed',sans-serif;text-transform:uppercase;text-wrap:balance">Do outro lado do WhatsApp, <span style="background:linear-gradient(135deg,#e6e6e6 0%,#a8a8ad 50%,#d9d9dc 100%);-webkit-background-clip:text;background-clip:text;color:transparent">tem o Otávio.</span></h2>
+      <p style="margin:0;max-width:520px;font:400 clamp(17px,1.35vw,19px)/1.6 'Barlow',sans-serif;color:#d9d9dc;text-wrap:pretty">A UAI Viagens é conduzida pelo Otávio e pela equipe que organiza cada roteiro, uma viagem de cada vez. Quando você manda mensagem, quem lê é uma pessoa. Em Belo Horizonte, dá pra conversar pessoalmente. No resto do Brasil, online.</p>
+      <div style="display:flex;flex-direction:column;border-top:1px solid #2a2a2e">
+        <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 24px;padding:20px 0;border-bottom:1px solid #2a2a2e">
+          <span style="font:600 22px/1.1 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#f2f2f0">Atendimento direto</span>
+          <span style="font:400 16px/1.5 'Barlow',sans-serif;color:#a1a1a6">Uma pessoa conversa com você. Sem robô e sem formulário automático.</span>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 24px;padding:20px 0;border-bottom:1px solid #2a2a2e">
+          <span style="font:600 22px/1.1 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#f2f2f0">Roteiro do seu jeito</span>
+          <span style="font:400 16px/1.5 'Barlow',sans-serif;color:#a1a1a6">Pensado pra como você gosta de viajar, não um pacote igual pra todo mundo.</span>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 24px;padding:20px 0;border-bottom:1px solid #2a2a2e">
+          <span style="font:600 22px/1.1 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#f2f2f0">Até o embarque</span>
+          <span style="font:400 16px/1.5 'Barlow',sans-serif;color:#a1a1a6">O acompanhamento não termina na venda da passagem.</span>
+        </div>
+      </div>
+      <div>
+        <a href="https://wa.me/5531989519239?text=Ol%C3%A1%2C%20UAI%20Viagens!%20Vi%20o%20site%20e%20gostaria%20de%20planejar%20uma%20viagem." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:14px;min-height:60px;padding:0 28px;border-radius:2px;background:linear-gradient(135deg,#e6e6e6 0%,#a8a8ad 55%,#d9d9dc 100%);background-size:160% 160%;background-position:0% 0%;color:#0b0b0c;font:600 17px/1 'Barlow',sans-serif;transition:background-position .4s ease,box-shadow .3s ease" style-hover="background-position:100% 100%;box-shadow:0 0 0 1px #f2f2f0,0 12px 32px rgba(0,0,0,.5);color:#0b0b0c">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path><path d="M12.004 2c-5.514 0-9.997 4.483-9.997 9.997 0 1.763.462 3.483 1.34 4.997L2 22l5.144-1.35a9.960 9.960 0 0 0 4.86 1.238h.004c5.514 0 9.996-4.483 9.996-9.997C21.999 6.483 17.517 2 12.004 2zm0 18.184h-.003a8.19 8.19 0 0 1-4.174-1.144l-.3-.178-3.054.801.815-2.978-.195-.306a8.176 8.176 0 0 1-1.254-4.382c0-4.519 3.678-8.197 8.169-8.197 2.182 0 4.233.85 5.775 2.394a8.11 8.11 0 0 1 2.39 5.807c0 4.519-3.679 8.183-8.169 8.183z"></path></svg>
+          Quero planejar minha viagem
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="duvidas" data-screen-label="06 Depoimentos e dúvidas" class="on-light" style="scroll-margin-top:64px;background:#f2f2f0;color:#0b0b0c;padding:clamp(88px,11vw,168px) 0">
+  <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px 48px">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div style="display:flex;align-items:center;gap:14px">
+          <span style="width:40px;height:1px;background:#6b6b70"></span>
+          <span style="font:500 12px/1.2 'Barlow',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#55555a">Quem já viajou com a UAI</span>
+        </div>
+        <h2 style="margin:0;font:600 clamp(40px,4.6vw,68px)/.92 'Barlow Condensed',sans-serif;text-transform:uppercase">Na palavra de quem foi.</h2>
+      </div>
+      <span style="font:500 12px/1.4 'Barlow',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#55555a;border:1px dashed #6b6b70;padding:8px 12px;display:inline-block;max-width:100%">Espaço reservado · depoimentos reais entram aqui</span>
+    </div>
+    <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px">
+      <div style="position:relative;border:1px dashed #a1a1a6;padding:32px;min-height:280px;display:flex;flex-direction:column;justify-content:space-between;gap:32px">
+        <span aria-hidden="true" style="position:absolute;top:-10px;left:-6px;font:300 18px/1 'Barlow',sans-serif;color:#6b6b70">+</span><span aria-hidden="true" style="position:absolute;top:-10px;right:-6px;font:300 18px/1 'Barlow',sans-serif;color:#6b6b70">+</span><span aria-hidden="true" style="position:absolute;bottom:-10px;left:-6px;font:300 18px/1 'Barlow',sans-serif;color:#6b6b70">+</span><span aria-hidden="true" style="position:absolute;bottom:-10px;right:-6px;font:300 18px/1 'Barlow',sans-serif;color:#6b6b70">+</span>
+        <div style="display:flex;flex-direction:column;gap:12px" aria-hidden="true">
+          <span style="font:600 64px/.6 'Barlow Condensed',sans-serif;color:#a1a1a6">“</span>
+          <span style="height:10px;width:92%;background:#dcdcda"></span><span style="height:10px;width:100%;background:#dcdcda"></span><span style="height:10px;width:78%;background:#dcdcda"></span><span style="height:10px;width:56%;background:#dcdcda"></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px">
+          <span style="width:44px;height:44px;border-radius:50%;border:1px dashed #a1a1a6;flex:none"></span>
+          <span style="font:400 14px/1.4 'Barlow',sans-serif;color:#55555a">Depoimento de cliente · texto, nome e foto após autorização</span>
+        </div>
+      </div>
+      <div style="position:relative;border:1px dashed #a1a1a6;padding:32px;min-height:280px;display:flex;flex-direction:column;justify-content:space-between;gap:32px">
+        <span aria-hidden="true" style="position:absolute;top:-10px;left:-6px;font:300 18px/1 'Barlow',sans-serif;color:#6b6b70">+</span><span aria-hidden="true" style="position:absolute;top:-10px;right:-6px;font:300 18px/1 'Barlow',sans-serif;color:#6b6b70">+</span><span aria-hidden="true" style="position:absolute;bottom:-10px;left:-6px;font:300 18px/1 'Barlow',sans-serif;color:#6b6b70">+</span><span aria-hidden="true" style="position:absolute;bottom:-10px;right:-6px;font:300 18px/1 'Barlow',sans-serif;color:#6b6b70">+</span>
+        <div style="display:flex;flex-direction:column;gap:12px" aria-hidden="true">
+          <span style="font:600 64px/.6 'Barlow Condensed',sans-serif;color:#a1a1a6">“</span>
+          <span style="height:10px;width:100%;background:#dcdcda"></span><span style="height:10px;width:84%;background:#dcdcda"></span><span style="height:10px;width:64%;background:#dcdcda"></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px">
+          <span style="width:44px;height:44px;border-radius:50%;border:1px dashed #a1a1a6;flex:none"></span>
+          <span style="font:400 14px/1.4 'Barlow',sans-serif;color:#55555a">Depoimento de cliente · texto, nome e foto após autorização</span>
+        </div>
+      </div>
+      <div style="position:relative;border:1px dashed #a1a1a6;padding:32px;min-height:280px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;text-align:center">
+        <span aria-hidden="true" style="position:absolute;top:-10px;left:-6px;font:300 18px/1 'Barlow',sans-serif;color:#6b6b70">+</span><span aria-hidden="true" style="position:absolute;top:-10px;right:-6px;font:300 18px/1 'Barlow',sans-serif;color:#6b6b70">+</span><span aria-hidden="true" style="position:absolute;bottom:-10px;left:-6px;font:300 18px/1 'Barlow',sans-serif;color:#6b6b70">+</span><span aria-hidden="true" style="position:absolute;bottom:-10px;right:-6px;font:300 18px/1 'Barlow',sans-serif;color:#6b6b70">+</span>
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#6b6b70" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"></path></svg>
+        <span style="font:400 14px/1.4 'Barlow',sans-serif;color:#55555a;max-width:26ch">Foto ou vídeo de viagem de cliente · após autorização</span>
+      </div>
+    </div>
+
+    <div style="margin-top:clamp(88px,10vw,144px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:40px clamp(40px,6vw,96px);align-items:start">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div style="display:flex;align-items:center;gap:14px">
+          <span style="width:40px;height:1px;background:#6b6b70"></span>
+          <span style="font:500 12px/1.2 'Barlow',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#55555a">Dúvidas</span>
+        </div>
+        <h2 style="margin:0;max-width:10ch;font:600 clamp(40px,4.6vw,68px)/.92 'Barlow Condensed',sans-serif;text-transform:uppercase">Antes de chamar.</h2>
+        <p style="margin:0;max-width:340px;font:400 16px/1.6 'Barlow',sans-serif;color:#4a4a4f">Não achou a sua pergunta? Manda no WhatsApp, a resposta vem de uma pessoa.</p>
+      </div>
+      <div style="border-top:1px solid #0b0b0c">
+        <sc-for list="{{ faq }}" as="item" hint-placeholder-count="6">
+          <div style="border-bottom:1px solid #c9c9c7">
+            <button type="button" onClick="{{ item.toggle }}" aria-expanded="{{ item.open }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 0;background:transparent;border:0;cursor:pointer;text-align:left;color:#0b0b0c;font:500 clamp(18px,1.5vw,21px)/1.35 'Barlow',sans-serif" style-hover="color:#4a4a4f">
+              <span>{{ item.q }}</span>
+              <span style="flex:none;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid #a1a1a6;border-radius:50%;transform:rotate({{ item.rot }}deg);transition:transform .25s ease"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span>
+            </button>
+            <sc-if value="{{ item.open }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:0;padding:0 56px 28px 0;font:400 17px/1.6 'Barlow',sans-serif;color:#4a4a4f;text-wrap:pretty">{{ item.a }}</p>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="07 CTA final" style="position:relative;background:#0b0b0c;color:#f2f2f0;overflow:hidden;min-height:max(640px,88vh);display:flex;align-items:center">
+  <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&amp;fit=crop&amp;w=2000&amp;q=70" alt="Asa de avião sobre as nuvens" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.2) brightness(.62)">
+  <div style="position:absolute;inset:0;background:#26303c;mix-blend-mode:soft-light;opacity:.55"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,11,12,.92) 0%,rgba(11,11,12,.6) 55%,rgba(11,11,12,.3) 100%)"></div>
+  <div style="position:relative;max-width:1360px;width:100%;margin:0 auto;padding:120px clamp(20px,4vw,56px);display:flex;flex-direction:column;gap:32px">
+    <h2 style="margin:0;max-width:12ch;font:600 clamp(60px,9vw,144px)/.86 'Barlow Condensed',sans-serif;text-transform:uppercase">Pra onde <span style="background:linear-gradient(135deg,#e6e6e6 0%,#a8a8ad 50%,#d9d9dc 100%);-webkit-background-clip:text;background-clip:text;color:transparent">você quer ir?</span></h2>
+    <p style="margin:0;max-width:480px;font:400 clamp(17px,1.4vw,20px)/1.55 'Barlow',sans-serif;color:#d9d9dc;text-wrap:pretty">Ou só o que você está imaginando. Conta pra UAI. O resto vocês organizam juntos.</p>
+    <div style="display:flex;flex-direction:column;gap:14px;align-items:flex-start">
+      <a href="https://wa.me/5531989519239?text=Ol%C3%A1%2C%20UAI%20Viagens!%20Vi%20o%20site%20e%20gostaria%20de%20planejar%20uma%20viagem." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:16px;min-height:68px;padding:0 34px;border-radius:2px;background:linear-gradient(135deg,#e6e6e6 0%,#a8a8ad 55%,#d9d9dc 100%);background-size:160% 160%;background-position:0% 0%;color:#0b0b0c;font:600 19px/1 'Barlow',sans-serif;transition:background-position .4s ease,box-shadow .3s ease" style-hover="background-position:100% 100%;box-shadow:0 0 0 1px #f2f2f0,0 14px 40px rgba(0,0,0,.6);color:#0b0b0c">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path><path d="M12.004 2c-5.514 0-9.997 4.483-9.997 9.997 0 1.763.462 3.483 1.34 4.997L2 22l5.144-1.35a9.96 9.96 0 0 0 4.86 1.238h.004c5.514 0 9.996-4.483 9.996-9.997C21.999 6.483 17.517 2 12.004 2zm0 18.184h-.003a8.19 8.19 0 0 1-4.174-1.144l-.3-.178-3.054.801.815-2.978-.195-.306a8.176 8.176 0 0 1-1.254-4.382c0-4.519 3.678-8.197 8.169-8.197 2.182 0 4.233.85 5.775 2.394a8.11 8.11 0 0 1 2.39 5.807c0 4.519-3.679 8.183-8.169 8.183z"></path></svg>
+        Quero planejar minha viagem
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </a>
+      <span style="font:400 14px/1.4 'Barlow',sans-serif;color:#a1a1a6">Você fala direto com uma pessoa da UAI. Sem robô e sem compromisso.</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:#1c1c1f;color:#a1a1a6;padding:64px 0 32px">
+  <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px);display:flex;flex-direction:column;gap:48px">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:40px">
+      <svg viewBox="0 0 160 120" style="height:72px;width:auto" role="img" aria-label="UAI Viagens"><defs><linearGradient id="uaiSilverF" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6e6e6"></stop><stop offset=".5" stop-color="#a8a8ad"></stop><stop offset="1" stop-color="#d9d9dc"></stop></linearGradient></defs><g fill="url(#uaiSilverF)"><rect x="12" y="20" width="11" height="48"></rect><rect x="45" y="20" width="11" height="48"></rect><path d="M14 72 Q34 86 54 72" fill="none" stroke="url(#uaiSilverF)" stroke-width="3.6" stroke-linecap="round"></path><polygon points="94,12 106.3,40 74.8,56"></polygon><polygon points="71.7,63 109.3,47 122,76 66,76"></polygon><rect x="132" y="30" width="10" height="46"></rect><path transform="translate(134 0) scale(.95)" d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path><text x="78" y="112" text-anchor="middle" font-family="Barlow, sans-serif" font-weight="300" font-size="31" letter-spacing="2">viagens</text></g></svg>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,auto));gap:32px 64px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font:500 12px/1 'Barlow',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#a1a1a6">WhatsApp</span>
+          <a href="https://wa.me/5531989519239?text=Ol%C3%A1%2C%20UAI%20Viagens!%20Vi%20o%20site%20e%20gostaria%20de%20planejar%20uma%20viagem." target="_blank" rel="noopener" style="font:500 17px/1.3 'Barlow',sans-serif;color:#f2f2f0;text-decoration:underline;text-decoration-color:#6b6b70;text-underline-offset:5px" style-hover="text-decoration-color:#f2f2f0">+55 31 98951-9239</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font:500 12px/1 'Barlow',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#a1a1a6">Instagram</span>
+          <a href="https://www.instagram.com/uaiviagens_/" target="_blank" rel="noopener" style="font:500 17px/1.3 'Barlow',sans-serif;color:#f2f2f0;text-decoration:underline;text-decoration-color:#6b6b70;text-underline-offset:5px" style-hover="text-decoration-color:#f2f2f0">@uaiviagens_</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font:500 12px/1 'Barlow',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#a1a1a6">Atendimento</span>
+          <span style="font:400 17px/1.4 'Barlow',sans-serif;color:#f2f2f0">Presencial em Belo Horizonte<br>Online em todo o Brasil</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;border-top:1px solid #34343a;padding-top:24px;font:400 13px/1.5 'Barlow',sans-serif;color:#a1a1a6">
+      <span>UAI Viagens · CNPJ 55.372.856/0001-80</span>
+      <span>© 2026 UAI Viagens</span>
+    </div>
+  </div>
+</footer>
+
+<sc-if value="{{ showFloat }}" hint-placeholder-val="{{ false }}">
+  <a href="https://wa.me/5531989519239?text=Ol%C3%A1%2C%20UAI%20Viagens!%20Vi%20o%20site%20e%20gostaria%20de%20planejar%20uma%20viagem." target="_blank" rel="noopener" aria-label="Quero planejar minha viagem pelo WhatsApp" style="position:fixed;right:{{ floatInset }}px;bottom:{{ floatInset }}px;z-index:50;display:flex;align-items:center;gap:12px;height:56px;padding:0 {{ floatPad }}px;border-radius:28px;background:linear-gradient(135deg,#e6e6e6 0%,#a8a8ad 55%,#d9d9dc 100%);color:#0b0b0c;font:600 15px/1 'Barlow',sans-serif;box-shadow:0 0 0 1px rgba(11,11,12,.6),0 10px 30px rgba(0,0,0,.45);opacity:{{ floatOpacity }};transform:translateY({{ floatY }}px);pointer-events:{{ floatPE }};transition:opacity .3s ease,transform .3s ease,box-shadow .2s ease" style-hover="box-shadow:0 0 0 2px #f2f2f0,0 12px 34px rgba(0,0,0,.55);color:#0b0b0c">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path><path d="M12.004 2c-5.514 0-9.997 4.483-9.997 9.997 0 1.763.462 3.483 1.34 4.997L2 22l5.144-1.35a9.96 9.96 0 0 0 4.86 1.238h.004c5.514 0 9.996-4.483 9.996-9.997C21.999 6.483 17.517 2 12.004 2zm0 18.184h-.003a8.19 8.19 0 0 1-4.174-1.144l-.3-.178-3.054.801.815-2.978-.195-.306a8.176 8.176 0 0 1-1.254-4.382c0-4.519 3.678-8.197 8.169-8.197 2.182 0 4.233.85 5.775 2.394a8.11 8.11 0 0 1 2.39 5.807c0 4.519-3.679 8.183-8.169 8.183z"></path></svg>
+    <sc-if value="{{ notMobile }}" hint-placeholder-val="{{ true }}"><span>Quero planejar minha viagem</span></sc-if>
+  </a>
+</sc-if>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;headline&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Sem o trabalho&quot;,&quot;Você escolhe&quot;,&quot;Por onde começar&quot;],&quot;default&quot;:&quot;Sem o trabalho&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;floatingButton&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { w: typeof window !== 'undefined' ? window.innerWidth : 1440, y: 0, menu: false, faq: -1 };
+  componentDidMount() {
+    this.onResize = () => this.setState({ w: window.innerWidth });
+    this.onScroll = () => this.setState({ y: window.scrollY });
+    window.addEventListener('resize', this.onResize);
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.onResize(); this.onScroll();
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('scroll', this.onScroll);
+  }
+  renderVals() {
+    const { w, y, menu, faq } = this.state;
+    const isMobile = w < 860;
+    const solid = y > 40 || menu;
+    const head = this.props.headline ?? 'Sem o trabalho';
+    const visible = y > 640 && !menu;
+    const QA = [
+      ['A UAI trabalha com viagens internacionais?', 'Sim. Pacotes internacionais fazem parte do que a UAI organiza, do roteiro à documentação necessária.'],
+      ['Dá pra montar um roteiro personalizado, sem pacote pronto?', 'Dá. Você conta o que imagina e a UAI monta as opções a partir disso.'],
+      ['Vocês organizam só hospedagem ou só cruzeiro?', 'Sim. Hospedagem e cruzeiro podem ser organizados separados, de acordo com o que você já tem fechado.'],
+      ['Como é o atendimento?', 'Direto pelo WhatsApp, com uma pessoa da UAI acompanhando o planejamento com você. Em BH, também presencial.'],
+      ['Preciso já saber o destino?', 'Não. Você pode chegar só com a vontade de viajar. A conversa ajuda a definir o destino.'],
+      ['Quanto custa?', 'Depende do destino e do que você tem em mente. O primeiro passo é conversar pelo WhatsApp, sem compromisso.'],
+    ];
+    const offs = isMobile ? [0, 48, 0, 48] : [0, 112, 40, 152];
+    return {
+      isMobile, notMobile: !isMobile, fullNav: w >= 1100, compactNav: w < 1100,
+      headerBg: solid ? 'rgba(11,11,12,.97)' : 'transparent',
+      headerLine: solid ? '#2a2a2e' : 'transparent',
+      headerH: w < 1100 ? '64px' : '84px',
+      logoH: w < 1100 ? '40px' : '52px',
+      menuOpen: menu, menuClosed: !menu, menuLabel: menu ? 'Fechar menu' : 'Abrir menu',
+      toggleMenu: () => this.setState(s => ({ menu: !s.menu })),
+      closeMenu: () => this.setState({ menu: false }),
+      headA: head === 'Sem o trabalho', headB: head === 'Você escolhe', headC: head === 'Por onde começar',
+      off1: offs[0], off2: offs[1], off3: offs[2], off4: offs[3],
+      faq: QA.map(([q, a], i) => ({ q, a, open: faq === i, rot: faq === i ? 45 : 0, toggle: () => this.setState(s => ({ faq: s.faq === i ? -1 : i })) })),
+      showFloat: this.props.floatingButton ?? true,
+      floatOpacity: visible ? 1 : 0, floatY: visible ? 0 : 16, floatPE: visible ? 'auto' : 'none',
+      floatInset: isMobile ? 16 : 28, floatPad: isMobile ? 17 : 24,
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600&amp;family=Barlow:wght@300;400;500;600&amp;display=swap">
+<style>body{margin:0;background:#f2f2f0;color:#0b0b0c;font-family:'Barlow',system-ui,sans-serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#0b0b0c}a:hover{color:#4a4a4f}:focus-visible{outline:2px solid #0b0b0c;outline-offset:4px}</style>
+</helmet>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="logo" viewBox="0 0 160 120"><g fill="currentColor"><rect x="12" y="20" width="11" height="48"></rect><rect x="45" y="20" width="11" height="48"></rect><path d="M14 72 Q34 86 54 72" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"></path><polygon points="94,12 106.3,40 74.8,56"></polygon><polygon points="71.7,63 109.3,47 122,76 66,76"></polygon><rect x="132" y="30" width="10" height="46"></rect><path transform="translate(134 0) scale(.95)" d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path><text x="78" y="112" text-anchor="middle" font-family="Barlow, sans-serif" font-weight="300" font-size="31" letter-spacing="2">viagens</text></g></symbol>
+<symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.004 2c-5.514 0-9.997 4.483-9.997 9.997 0 1.763.462 3.483 1.34 4.997L2 22l5.144-1.35a9.96 9.96 0 0 0 4.86 1.238h.004c5.514 0 9.996-4.483 9.996-9.997C21.999 6.483 17.517 2 12.004 2zm0 18.184h-.003a8.19 8.19 0 0 1-4.174-1.144l-.3-.178-3.054.801.815-2.978-.195-.306a8.176 8.176 0 0 1-1.254-4.382c0-4.519 3.678-8.197 8.169-8.197 2.182 0 4.233.85 5.775 2.394a8.11 8.11 0 0 1 2.39 5.807c0 4.519-3.679 8.183-8.169 8.183z"></path></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"></path></symbol>
+<symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.5"></path></symbol>
+</defs></svg>
+
+<header style="background:#0b0b0c;color:#f2f2f0;padding:72px clamp(20px,4vw,56px) 64px">
+  <div style="max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:32px">
+    <svg viewBox="0 0 160 120" style="height:64px;width:auto;align-self:flex-start;color:#d9d9dc" aria-hidden="true"><use href="#logo"></use></svg>
+    <h1 style="margin:0;font:500 clamp(48px,6vw,88px)/.95 'Barlow Condensed',sans-serif;letter-spacing:-.01em">Design system <span style="color:#6b6b70">v2</span></h1>
+    <p style="margin:0;max-width:56ch;font:300 20px/1.55 'Barlow',sans-serif;color:#d9d9dc">Tokens, componentes e regras da landing da UAI Viagens. A página usa estes valores literalmente. O arquivo <code style="font:400 16px ui-monospace,Menlo,monospace;color:#f2f2f0">tokens.css</code> do handoff traz a mesma lista como variáveis CSS.</p>
+    <nav aria-label="Seções" style="display:flex;flex-wrap:wrap;gap:8px 28px;font:500 12px/1 'Barlow',sans-serif;letter-spacing:.2em;text-transform:uppercase">
+      <a href="#cor" style="color:#a1a1a6;padding:8px 0" style-hover="color:#f2f2f0">Cor</a><a href="#tipo" style="color:#a1a1a6;padding:8px 0" style-hover="color:#f2f2f0">Tipografia</a><a href="#espaco" style="color:#a1a1a6;padding:8px 0" style-hover="color:#f2f2f0">Espaço e grid</a><a href="#imagem" style="color:#a1a1a6;padding:8px 0" style-hover="color:#f2f2f0">Imagem</a><a href="#componentes" style="color:#a1a1a6;padding:8px 0" style-hover="color:#f2f2f0">Componentes</a><a href="#movimento" style="color:#a1a1a6;padding:8px 0" style-hover="color:#f2f2f0">Movimento</a><a href="#responsivo" style="color:#a1a1a6;padding:8px 0" style-hover="color:#f2f2f0">Responsivo</a>
+    </nav>
+  </div>
+</header>
+
+<main style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,56px)">
+
+<section id="cor" style="padding:96px 0 0">
+  <h2 style="margin:0 0 8px;font:500 48px/1 'Barlow Condensed',sans-serif">Cor</h2>
+  <p style="margin:0 0 40px;max-width:60ch;font:400 17px/1.6 'Barlow',sans-serif;color:#4a4a4f">Preto, prata e cinza, sem cor de destaque. O prata aparece no botão principal, nas linhas, na logo e em uma única frase por dobra. Nunca como texto corrido sobre o cinza claro.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px">
+    <div style="display:flex;flex-direction:column;gap:10px"><div style="height:96px;background:#0b0b0c"></div><b style="font:600 14px 'Barlow'">ink · #0b0b0c</b><span style="font:400 13px/1.4 'Barlow';color:#4a4a4f">Fundo das seções escuras. Texto sobre claro (19.2:1).</span></div>
+    <div style="display:flex;flex-direction:column;gap:10px"><div style="height:96px;background:#1c1c1f"></div><b style="font:600 14px 'Barlow'">graphite · #1c1c1f</b><span style="font:400 13px/1.4 'Barlow';color:#4a4a4f">Footer, fundo de imagem carregando, hover do botão escuro.</span></div>
+    <div style="display:flex;flex-direction:column;gap:10px"><div style="height:96px;background:#2a2a2e"></div><b style="font:600 14px 'Barlow'">line-dark · #2a2a2e</b><span style="font:400 13px/1.4 'Barlow';color:#4a4a4f">Divisores sobre preto.</span></div>
+    <div style="display:flex;flex-direction:column;gap:10px"><div style="height:96px;background:#4a4a4f"></div><b style="font:600 14px 'Barlow'">gray-700 · #4a4a4f</b><span style="font:400 13px/1.4 'Barlow';color:#4a4a4f">Texto de apoio sobre claro (8.4:1). Borda de botão sobre preto.</span></div>
+    <div style="display:flex;flex-direction:column;gap:10px"><div style="height:96px;background:#6b6b70"></div><b style="font:600 14px 'Barlow'">gray-600 · #6b6b70</b><span style="font:400 13px/1.4 'Barlow';color:#4a4a4f">2ª frase dos títulos sobre claro (4.9:1) e sobre preto (3.9:1, só título).</span></div>
+    <div style="display:flex;flex-direction:column;gap:10px"><div style="height:96px;background:#a1a1a6"></div><b style="font:600 14px 'Barlow'">gray-400 · #a1a1a6</b><span style="font:400 13px/1.4 'Barlow';color:#4a4a4f">Texto de apoio sobre preto (7.9:1). Nunca texto sobre claro.</span></div>
+    <div style="display:flex;flex-direction:column;gap:10px"><div style="height:96px;background:#d6d6d3"></div><b style="font:600 14px 'Barlow'">line-light · #d6d6d3</b><span style="font:400 13px/1.4 'Barlow';color:#4a4a4f">Divisores sobre claro.</span></div>
+    <div style="display:flex;flex-direction:column;gap:10px"><div style="height:96px;background:#f2f2f0;box-shadow:inset 0 0 0 1px #d6d6d3"></div><b style="font:600 14px 'Barlow'">paper · #f2f2f0</b><span style="font:400 13px/1.4 'Barlow';color:#4a4a4f">Fundo das seções claras. Texto sobre preto.</span></div>
+    <div style="display:flex;flex-direction:column;gap:10px"><div style="height:96px;background:linear-gradient(110deg,#e6e6e6 0%,#a8a8ad 40%,#d9d9dc 60%,#e6e6e6 100%)"></div><b style="font:600 14px 'Barlow'">silver · gradiente</b><span style="font:400 13px/1.4 'Barlow';color:#4a4a4f">#e6e6e6 → #a8a8ad → #d9d9dc. Botão principal, linhas, 1 frase de título.</span></div>
+  </div>
+  <div style="margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
+    <div style="background:#0b0b0c;color:#f2f2f0;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font:500 11px/1 'Barlow';letter-spacing:.2em;text-transform:uppercase;color:#a1a1a6">Sobre preto</span><span style="font:400 16px/1.5 'Barlow'">Título #f2f2f0 · texto #d9d9dc · apoio #a1a1a6</span></div>
+    <div style="background:#f2f2f0;padding:24px;display:flex;flex-direction:column;gap:8px;box-shadow:inset 0 0 0 1px #d6d6d3"><span style="font:500 11px/1 'Barlow';letter-spacing:.2em;text-transform:uppercase;color:#55555a">Sobre claro</span><span style="font:400 16px/1.5 'Barlow'">Título #0b0b0c · texto #2b2b2f · apoio #4a4a4f · rótulo #55555a</span></div>
+    <div style="background:#1c1c1f;color:#f2f2f0;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font:500 11px/1 'Barlow';letter-spacing:.2em;text-transform:uppercase;color:#8a8a90">Imagem</span><span style="font:400 16px/1.5 'Barlow'">Véu frio #26303c em soft-light (50%) e escurecimento de proteção só onde há texto.</span></div>
+  </div>
+</section>
+
+<section id="tipo" style="padding:96px 0 0">
+  <h2 style="margin:0 0 8px;font:500 48px/1 'Barlow Condensed',sans-serif">Tipografia</h2>
+  <p style="margin:0 0 40px;max-width:60ch;font:400 17px/1.6 'Barlow',sans-serif;color:#4a4a4f">Duas famílias: Barlow Condensed nos títulos e Barlow no texto. Na v2 os títulos saem da caixa-alta em peso 600 e vão para caixa normal em peso 500. A caixa-alta com espaçamento largo fica só nos rótulos.</p>
+  <div style="display:flex;flex-direction:column;border-top:1px solid #0b0b0c">
+    <div style="display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:24px;padding:24px 0;border-bottom:1px solid #d6d6d3;align-items:baseline"><span style="font:400 13px/1.5 ui-monospace,Menlo,monospace;color:#4a4a4f">display-1<br>Condensed 500<br>clamp(52, 7.6vw, 120) / .94<br>tracking −0.012em</span><span style="font:500 clamp(52px,7.6vw,120px)/.94 'Barlow Condensed',sans-serif;letter-spacing:-.012em">Pra onde você quer ir?</span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:24px;padding:24px 0;border-bottom:1px solid #d6d6d3;align-items:baseline"><span style="font:400 13px/1.5 ui-monospace,Menlo,monospace;color:#4a4a4f">display-2<br>Condensed 500<br>clamp(44, 5.2vw, 80) / .95<br>tracking −0.01em</span><span style="font:500 clamp(44px,5.2vw,80px)/.95 'Barlow Condensed',sans-serif;letter-spacing:-.01em">Quatro jeitos de começar. <span style="color:#6b6b70">O mesmo cuidado.</span></span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:24px;padding:24px 0;border-bottom:1px solid #d6d6d3;align-items:baseline"><span style="font:400 13px/1.5 ui-monospace,Menlo,monospace;color:#4a4a4f">title<br>Condensed 500<br>clamp(24, 2.2vw, 34) / 1.05</span><span style="font:500 34px/1.05 'Barlow Condensed',sans-serif">Você conta o que imagina</span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:24px;padding:24px 0;border-bottom:1px solid #d6d6d3;align-items:baseline"><span style="font:400 13px/1.5 ui-monospace,Menlo,monospace;color:#4a4a4f">lead<br>Barlow 300<br>clamp(19, 1.6vw, 23) / 1.5<br>máx. 30–40ch</span><span style="font:300 23px/1.5 'Barlow',sans-serif;max-width:34ch">A UAI pesquisa, compara, reserva e monta o roteiro com você.</span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:24px;padding:24px 0;border-bottom:1px solid #d6d6d3;align-items:baseline"><span style="font:400 13px/1.5 ui-monospace,Menlo,monospace;color:#4a4a4f">body<br>Barlow 400 · 16–17 / 1.6</span><span style="font:400 17px/1.6 'Barlow',sans-serif;color:#2b2b2f;max-width:60ch">Destino, período, quem vai com você e o que não pode faltar. Pode chegar só com a vontade.</span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:24px;padding:24px 0;border-bottom:1px solid #d6d6d3;align-items:baseline"><span style="font:400 13px/1.5 ui-monospace,Menlo,monospace;color:#4a4a4f">small<br>Barlow 400 · 14–15 / 1.45</span><span style="font:400 15px/1.45 'Barlow',sans-serif;color:#4a4a4f">Quem responde é o Otávio. Uma pessoa, sem robô.</span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:24px;padding:24px 0;border-bottom:1px solid #d6d6d3;align-items:baseline"><span style="font:400 13px/1.5 ui-monospace,Menlo,monospace;color:#4a4a4f">label<br>Barlow 500 · 12 / 1<br>tracking .2–.22em · CAIXA-ALTA</span><span style="display:flex;align-items:center;gap:12px;font:500 12px/1 'Barlow',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#55555a"><span style="width:32px;height:1px;background:#6b6b70"></span>Como funciona</span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:24px;padding:24px 0;border-bottom:1px solid #d6d6d3;align-items:baseline"><span style="font:400 13px/1.5 ui-monospace,Menlo,monospace;color:#4a4a4f">button<br>Barlow 600 · 16 / 1<br>tracking .01em</span><span style="font:600 16px/1 'Barlow',sans-serif">Quero planejar minha viagem</span></div>
+  </div>
+  <p style="margin:24px 0 0;max-width:70ch;font:400 15px/1.6 'Barlow',sans-serif;color:#4a4a4f">Regras: títulos com <code>text-wrap: balance</code>, texto com <code>pretty</code>. A segunda frase de um título vai em cinza, não em outra fonte. Só uma frase em prata por dobra: o hero e o CTA final.</p>
+</section>
+
+<section id="espaco" style="padding:96px 0 0">
+  <h2 style="margin:0 0 8px;font:500 48px/1 'Barlow Condensed',sans-serif">Espaço e grid</h2>
+  <p style="margin:0 0 40px;max-width:60ch;font:400 17px/1.6 'Barlow',sans-serif;color:#4a4a4f">Escala de 4 em 4 até 16 e depois progressiva. Grid de 12 colunas, com conteúdo até 1320px e margens fluidas. Os pares de colunas mais usados são 7/5 e 5/7.</p>
+  <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:20px">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:4px;height:4px;background:#0b0b0c"></div><span style="font:400 12px ui-monospace,monospace">4</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:8px;height:8px;background:#0b0b0c"></div><span style="font:400 12px ui-monospace,monospace">8</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:12px;height:12px;background:#0b0b0c"></div><span style="font:400 12px ui-monospace,monospace">12</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:16px;height:16px;background:#0b0b0c"></div><span style="font:400 12px ui-monospace,monospace">16</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:24px;height:24px;background:#0b0b0c"></div><span style="font:400 12px ui-monospace,monospace">24</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:32px;height:32px;background:#0b0b0c"></div><span style="font:400 12px ui-monospace,monospace">32</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:48px;height:48px;background:#0b0b0c"></div><span style="font:400 12px ui-monospace,monospace">48</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:64px;height:64px;background:#0b0b0c"></div><span style="font:400 12px ui-monospace,monospace">64</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:96px;height:96px;background:#0b0b0c"></div><span style="font:400 12px ui-monospace,monospace">96</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:128px;height:128px;background:#0b0b0c"></div><span style="font:400 12px ui-monospace,monospace">128</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:176px;height:176px;background:#0b0b0c"></div><span style="font:400 12px ui-monospace,monospace">176</span></div>
+  </div>
+  <div style="margin-top:40px;display:grid;grid-template-columns:repeat(12,1fr);gap:24px;height:72px">
+    <div style="background:#d6d6d3"></div><div style="background:#d6d6d3"></div><div style="background:#d6d6d3"></div><div style="background:#d6d6d3"></div><div style="background:#d6d6d3"></div><div style="background:#d6d6d3"></div><div style="background:#d6d6d3"></div><div style="background:#d6d6d3"></div><div style="background:#d6d6d3"></div><div style="background:#d6d6d3"></div><div style="background:#d6d6d3"></div><div style="background:#d6d6d3"></div>
+  </div>
+  <div style="margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;font:400 15px/1.6 'Barlow',sans-serif;color:#2b2b2f">
+    <div><b style="font-weight:600">Seção</b><br>Padding vertical: clamp(96px, 12vw, 176px). Uma seção por fundo, alternando preto e claro.</div>
+    <div><b style="font-weight:600">Container</b><br>max-width 1432px, com padding lateral clamp(20px, 4vw, 56px). Conteúdo útil ≈ 1320px.</div>
+    <div><b style="font-weight:600">Cantos e sombras</b><br>Raio 0 em imagens e molduras e 2px em botões. Círculos só em avatar, paradas da rota e ícone do FAQ. A única sombra é a do botão flutuante (0 16px 40px / 40%).</div>
+  </div>
+</section>
+
+<section id="imagem" style="padding:96px 0 0">
+  <h2 style="margin:0 0 8px;font:500 48px/1 'Barlow Condensed',sans-serif">Imagem</h2>
+  <p style="margin:0 0 40px;max-width:60ch;font:400 17px/1.6 'Barlow',sans-serif;color:#4a4a4f">Preto e branco com contraste alto e um véu frio. As fotos escolhidas mostram trajeto (barco, estrada, horizonte), não cartão-postal. Assim a imagem conta a mesma história do texto: o caminho até o destino.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">
+    <figure style="margin:0;display:flex;flex-direction:column;gap:12px"><div style="position:relative;aspect-ratio:4/5;overflow:hidden;background:#1c1c1f"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=700&amp;q=70" alt="Exemplo sem tratamento" style="width:100%;height:100%;object-fit:cover"></div><figcaption style="font:400 14px/1.5 'Barlow';color:#4a4a4f"><b style="color:#0b0b0c">Original</b>: não use</figcaption></figure>
+    <figure style="margin:0;display:flex;flex-direction:column;gap:12px"><div style="position:relative;aspect-ratio:4/5;overflow:hidden;background:#1c1c1f"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=700&amp;q=70" alt="Exemplo com tratamento de conteúdo" style="width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.12) brightness(.84)"></div><figcaption style="font:400 14px/1.5 'Barlow';color:#4a4a4f"><b style="color:#0b0b0c">Conteúdo</b>: grayscale(1) contrast(1.12) brightness(.84). No hover, brightness(1) e scale(1.035).</figcaption></figure>
+    <figure style="margin:0;display:flex;flex-direction:column;gap:12px"><div style="position:relative;aspect-ratio:4/5;overflow:hidden;background:#1c1c1f"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=700&amp;q=70" alt="Exemplo com tratamento de fundo" style="width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.12) brightness(.8)"><div style="position:absolute;inset:0;background:#26303c;mix-blend-mode:soft-light;opacity:.5"></div><div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,12,0) 40%,rgba(11,11,12,.92) 100%)"></div></div><figcaption style="font:400 14px/1.5 'Barlow';color:#4a4a4f"><b style="color:#0b0b0c">Fundo com texto</b>: + véu #26303c soft-light 50% + escurecimento até 94% na base.</figcaption></figure>
+  </div>
+  <p style="margin:24px 0 0;max-width:70ch;font:400 15px/1.6 'Barlow',sans-serif;color:#4a4a4f">Proporções: hero e CTA em tela cheia; serviços em 4:5; Otávio em 4:5 + 3:4. Todas as fotos de destino são placeholders do Unsplash até chegarem as fotos reais.</p>
+</section>
+
+<section id="componentes" style="padding:96px 0 0">
+  <h2 style="margin:0 0 8px;font:500 48px/1 'Barlow Condensed',sans-serif">Componentes</h2>
+  <p style="margin:0 0 40px;max-width:60ch;font:400 17px/1.6 'Barlow',sans-serif;color:#4a4a4f">Passe o mouse e use Tab para ver os estados. Existe um só CTA com duas aparências: prata sobre preto e preto sobre claro.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px">
+    <div style="background:#0b0b0c;padding:40px;display:flex;flex-direction:column;gap:20px;align-items:flex-start">
+      <span style="font:500 11px/1 'Barlow';letter-spacing:.2em;text-transform:uppercase;color:#a1a1a6">Botão principal · sobre preto</span>
+      <a href="#componentes" style="display:flex;align-items:center;gap:14px;min-height:60px;padding:0 28px;border-radius:2px;background:linear-gradient(110deg,#e6e6e6 0%,#a8a8ad 40%,#d9d9dc 60%,#e6e6e6 100%);background-size:240% 100%;background-position:0% 0;color:#0b0b0c;font:600 16px/1 'Barlow',sans-serif;text-decoration:none;transition:background-position .9s cubic-bezier(.2,.7,.2,1),box-shadow .32s,transform .16s;outline-color:#d9d9dc" style-hover="background-position:100% 0;box-shadow:0 0 0 1px #f2f2f0;color:#0b0b0c" style-active="transform:translateY(1px)"><svg width="20" height="20" aria-hidden="true"><use href="#i-wa"></use></svg>Quero planejar minha viagem<svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+      <span style="font:400 13px/1.5 'Barlow';color:#a1a1a6">Altura mínima de 60px (64px no CTA final e 56px no flutuante). No hover o brilho corre pelo prata em 900ms e aparece um contorno de 1px #f2f2f0. Ao pressionar, desce 1px. No foco, anel de 2px #d9d9dc a 4px de distância.</span>
+    </div>
+    <div style="background:#f2f2f0;padding:40px;display:flex;flex-direction:column;gap:20px;align-items:flex-start;box-shadow:inset 0 0 0 1px #d6d6d3">
+      <span style="font:500 11px/1 'Barlow';letter-spacing:.2em;text-transform:uppercase;color:#55555a">Botão principal · sobre claro</span>
+      <a href="#componentes" style="display:flex;align-items:center;gap:14px;min-height:60px;padding:0 28px;border-radius:2px;background:#0b0b0c;color:#f2f2f0;font:600 16px/1 'Barlow',sans-serif;text-decoration:none;transition:background .16s,transform .16s" style-hover="background:#1c1c1f;color:#ffffff" style-active="transform:translateY(1px)"><svg width="20" height="20" style="color:#d9d9dc" aria-hidden="true"><use href="#i-wa"></use></svg>Quero planejar minha viagem<svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+      <span style="font:400 13px/1.5 'Barlow';color:#4a4a4f">Preto em vez de prata, porque prata sobre #f2f2f0 não passa em contraste. No hover, graphite. No foco, anel de 2px #0b0b0c.</span>
+    </div>
+    <div style="background:#0b0b0c;padding:40px;display:flex;flex-direction:column;gap:20px;align-items:flex-start">
+      <span style="font:500 11px/1 'Barlow';letter-spacing:.2em;text-transform:uppercase;color:#a1a1a6">CTA do header e selo de confiança</span>
+      <a href="#componentes" style="display:flex;align-items:center;gap:10px;height:44px;padding:0 18px;border:1px solid #4a4a4f;border-radius:2px;font:500 14px/1 'Barlow',sans-serif;color:#f2f2f0;text-decoration:none;transition:border-color .16s,background .16s;outline-color:#d9d9dc" style-hover="border-color:#d9d9dc;background:rgba(242,242,240,.06)"><svg width="16" height="16" aria-hidden="true"><use href="#i-wa"></use></svg>Quero planejar minha viagem</a>
+      <div style="display:flex;align-items:center;gap:12px"><span aria-hidden="true" style="width:40px;height:40px;border-radius:50%;background:url(assets/otavio-1.jpg) 44% 16%/280% no-repeat;filter:grayscale(1);box-shadow:0 0 0 1px rgba(242,242,240,.25)"></span><span style="font:400 14px/1.4 'Barlow';color:#d9d9dc">Quem responde é o Otávio.<br><span style="color:#a1a1a6">Uma pessoa, sem robô e sem compromisso.</span></span></div>
+      <span style="font:400 13px/1.5 'Barlow';color:#a1a1a6">O selo fica sempre logo abaixo de um CTA principal. Não é um depoimento, só diz quem atende.</span>
+    </div>
+    <div style="background:#f2f2f0;padding:40px;display:flex;flex-direction:column;gap:16px;box-shadow:inset 0 0 0 1px #d6d6d3">
+      <span style="font:500 11px/1 'Barlow';letter-spacing:.2em;text-transform:uppercase;color:#55555a">Links e rótulos</span>
+      <a href="#componentes" style="align-self:flex-start;font:500 17px/1.3 'Barlow';color:#0b0b0c;text-decoration:underline;text-decoration-color:#a1a1a6;text-decoration-thickness:1px;text-underline-offset:6px;transition:text-decoration-color .16s" style-hover="text-decoration-color:#0b0b0c">@uaiviagens_</a>
+      <a href="#componentes" style="align-self:flex-start;font:500 12px/1 'Barlow';letter-spacing:.2em;text-transform:uppercase;color:#4a4a4f;padding:10px 0;border-bottom:1px solid transparent;text-decoration:none;transition:color .16s,border-color .16s" style-hover="color:#0b0b0c;border-color:#0b0b0c">Item de navegação</a>
+      <span style="align-self:flex-start;font:500 11px/1.4 'Barlow';letter-spacing:.16em;text-transform:uppercase;color:#55555a;border:1px dashed #8a8a90;padding:7px 12px">Selo · espaço reservado</span>
+      <span style="font:400 13px/1.5 'Barlow';color:#4a4a4f">Link de texto: sublinhado de 1px que escurece no hover. Navegação: sublinhado que aparece no hover. O selo tracejado marca só conteúdo pendente.</span>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px">
+    <div style="background:#0b0b0c;color:#f2f2f0;padding:32px;display:flex;flex-direction:column;gap:16px">
+      <span style="font:500 11px/1 'Barlow';letter-spacing:.2em;text-transform:uppercase;color:#a1a1a6">Figura de serviço</span>
+      <div style="aspect-ratio:4/5;overflow:hidden;background:#1c1c1f"><img src="https://images.unsplash.com/photo-1599640842225-85d111c60e6b?auto=format&amp;fit=crop&amp;w=600&amp;q=70" alt="Navio de cruzeiro" style="width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.12) brightness(.84);transition:transform 1.2s cubic-bezier(.2,.7,.2,1),filter .6s" style-hover="transform:scale(1.035);filter:grayscale(1) contrast(1.12) brightness(1)"></div>
+      <div style="padding-top:18px;border-top:1px solid #2a2a2e;display:flex;flex-direction:column;gap:10px"><span style="font:500 28px/1.05 'Barlow Condensed'">Cruzeiros</span><span style="font:400 15px/1.55 'Barlow';color:#a1a1a6">Cabine, roteiro e reserva resolvidos antes de você embarcar.</span></div>
+    </div>
+    <div style="background:#f2f2f0;padding:32px;display:flex;flex-direction:column;gap:24px;box-shadow:inset 0 0 0 1px #d6d6d3">
+      <span style="font:500 11px/1 'Barlow';letter-spacing:.2em;text-transform:uppercase;color:#55555a">Item de lista e parada de rota</span>
+      <div style="border-top:1px solid #0b0b0c;padding-top:24px;display:flex;flex-direction:column;gap:12px"><span style="font:500 30px/1 'Barlow Condensed'">Comparação</span><span style="font:400 16px/1.6 'Barlow';color:#4a4a4f">Voo, hospedagem e horário lado a lado.</span></div>
+      <div style="display:flex;align-items:center;gap:20px"><span style="width:16px;height:16px;border-radius:50%;background:#0b0b0c;box-shadow:0 0 0 6px #f2f2f0,0 0 0 7px #a8a8ad"></span><span style="flex:1;height:2px;background:repeating-linear-gradient(90deg,#8a8a90 0 6px,transparent 6px 12px)"></span><span style="width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:#0b0b0c;color:#d9d9dc;border-radius:50%"><svg width="24" height="24" style="transform:rotate(45deg)" aria-hidden="true"><use href="#i-plane"></use></svg></span></div>
+    </div>
+    <div style="background:#f2f2f0;padding:32px;display:flex;flex-direction:column;gap:20px;box-shadow:inset 0 0 0 1px #d6d6d3">
+      <span style="font:500 11px/1 'Barlow';letter-spacing:.2em;text-transform:uppercase;color:#55555a">Moldura de placeholder</span>
+      <div style="position:relative;border:1px dashed #a1a1a6;padding:28px;min-height:160px;display:flex;flex-direction:column;justify-content:space-between;gap:16px">
+        <span aria-hidden="true" style="position:absolute;top:-10px;left:-6px;font:300 18px/1 'Barlow';color:#6b6b70">+</span><span aria-hidden="true" style="position:absolute;top:-10px;right:-6px;font:300 18px/1 'Barlow';color:#6b6b70">+</span><span aria-hidden="true" style="position:absolute;bottom:-10px;left:-6px;font:300 18px/1 'Barlow';color:#6b6b70">+</span><span aria-hidden="true" style="position:absolute;bottom:-10px;right:-6px;font:300 18px/1 'Barlow';color:#6b6b70">+</span>
+        <span style="font:400 24px/1.15 'Barlow Condensed';color:#6b6b70">Depoimento real, com autorização.</span><span style="font:400 14px 'Barlow';color:#55555a">Nome · destino</span>
+      </div>
+      <span style="font:400 13px/1.5 'Barlow';color:#4a4a4f">Borda tracejada e marcas “+” (a herança do Industry). Só para conteúdo que ainda vai chegar.</span>
+    </div>
+    <div style="background:#f2f2f0;padding:32px;display:flex;flex-direction:column;gap:16px;box-shadow:inset 0 0 0 1px #d6d6d3">
+      <span style="font:500 11px/1 'Barlow';letter-spacing:.2em;text-transform:uppercase;color:#55555a">Item de FAQ</span>
+      <div style="border-top:1px solid #0b0b0c">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0;border-bottom:1px solid #d6d6d3;font:500 18px/1.35 'Barlow'"><span>Preciso já saber o destino?</span><span style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:1px solid #a1a1a6;border-radius:50%;flex:none"><svg width="16" height="16" aria-hidden="true"><use href="#i-plus"></use></svg></span></div>
+        <div style="padding:22px 0 0;display:flex;flex-direction:column;gap:14px"><div style="display:flex;align-items:center;justify-content:space-between;gap:16px;font:500 18px/1.35 'Barlow'"><span>Quanto custa?</span><span style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:#0b0b0c;color:#f2f2f0;border-radius:50%;flex:none;transform:rotate(45deg)"><svg width="16" height="16" aria-hidden="true"><use href="#i-plus"></use></svg></span></div><span style="font:400 16px/1.6 'Barlow';color:#4a4a4f">Depende do destino. O primeiro passo é conversar pelo WhatsApp, sem compromisso.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px">
+    <div style="background:#0b0b0c;padding:32px;display:flex;align-items:center;gap:32px"><svg viewBox="0 0 160 120" style="height:72px;width:auto;color:#d9d9dc" aria-hidden="true"><use href="#logo"></use></svg><span style="font:400 13px/1.5 'Barlow';color:#a1a1a6">Logo em prata #d9d9dc sobre preto. Altura: 56px no header, 44px no header rolado, 40px no mobile e 76px no footer.</span></div>
+    <div style="background:#f2f2f0;padding:32px;display:flex;align-items:center;gap:32px;box-shadow:inset 0 0 0 1px #d6d6d3"><svg viewBox="0 0 160 120" style="height:72px;width:auto;color:#0b0b0c" aria-hidden="true"><use href="#logo"></use></svg><span style="font:400 13px/1.5 'Barlow';color:#4a4a4f">Logo em preto sobre claro. Redesenhada a partir do print do perfil: mesma forma, cores trocadas. Precisa ser validada com o arquivo original.</span></div>
+    <div style="background:#f2f2f0;padding:32px;display:flex;flex-direction:column;gap:16px;box-shadow:inset 0 0 0 1px #d6d6d3"><div style="display:flex;gap:20px;color:#0b0b0c"><svg width="24" height="24" aria-hidden="true"><use href="#i-wa"></use></svg><svg width="24" height="24" aria-hidden="true"><use href="#i-arrow"></use></svg><svg width="24" height="24" aria-hidden="true"><use href="#i-plane"></use></svg><svg width="24" height="24" aria-hidden="true"><use href="#i-plus"></use></svg></div><span style="font:400 13px/1.5 'Barlow';color:#4a4a4f">Ícones Lucide com traço 1.5, mais a marca oficial do WhatsApp. Só quatro ícones em toda a página, cada um com uma função.</span></div>
+  </div>
+</section>
+
+<section id="movimento" style="padding:96px 0 0">
+  <h2 style="margin:0 0 8px;font:500 48px/1 'Barlow Condensed',sans-serif">Movimento</h2>
+  <p style="margin:0 0 32px;max-width:60ch;font:400 17px/1.6 'Barlow',sans-serif;color:#4a4a4f">Cada animação tem uma função: orientar, confirmar ou contar o trajeto. Não há parallax, contador, carrossel automático nem 3D. Com <code>prefers-reduced-motion</code> tudo aparece estático.</p>
+  <div style="border-top:1px solid #0b0b0c;font:400 15px/1.5 'Barlow',sans-serif">
+    <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.6fr);gap:16px;padding:16px 0;border-bottom:1px solid #d6d6d3;font-weight:600"><span>Elemento</span><span>Duração · curva</span><span>Função</span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.6fr);gap:16px;padding:16px 0;border-bottom:1px solid #d6d6d3"><span>Entrada de blocos</span><span style="font-family:ui-monospace,monospace;font-size:13px">900ms · ease-out · y 20→0, stagger 90–120ms</span><span style="color:#4a4a4f">Dá ritmo à leitura. Dispara uma vez, com 12% visível.</span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.6fr);gap:16px;padding:16px 0;border-bottom:1px solid #d6d6d3"><span>Foto do hero / CTA</span><span style="font-family:ui-monospace,monospace;font-size:13px">2.6s · ease-out · scale 1.06→1</span><span style="color:#4a4a4f">Abertura cinematográfica, sem loop.</span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.6fr);gap:16px;padding:16px 0;border-bottom:1px solid #d6d6d3"><span>Linha da rota</span><span style="font-family:ui-monospace,monospace;font-size:13px">1.8s · in-out · clip-path</span><span style="color:#4a4a4f">Desenha o trajeto. As paradas aparecem em sequência (150 → 1500ms).</span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.6fr);gap:16px;padding:16px 0;border-bottom:1px solid #d6d6d3"><span>Brilho do botão prata</span><span style="font-family:ui-monospace,monospace;font-size:13px">900ms · ease-out · background-position</span><span style="color:#4a4a4f">Confirma o hover sem mudar cor nem tamanho.</span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.6fr);gap:16px;padding:16px 0;border-bottom:1px solid #d6d6d3"><span>Foto de serviço</span><span style="font-family:ui-monospace,monospace;font-size:13px">1.2s · scale 1.035 + clareia</span><span style="color:#4a4a4f">Mostra que a foto responde ao ponteiro.</span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.6fr);gap:16px;padding:16px 0;border-bottom:1px solid #d6d6d3"><span>FAQ</span><span style="font-family:ui-monospace,monospace;font-size:13px">420ms · grid-rows 0fr→1fr · ícone gira 45°</span><span style="color:#4a4a4f">Abre sem pulo de layout. O “+” vira “×” e o círculo fica preto.</span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.6fr);gap:16px;padding:16px 0;border-bottom:1px solid #d6d6d3"><span>Header</span><span style="font-family:ui-monospace,monospace;font-size:13px">320ms · 96→72px, logo 56→44px, fundo 96%</span><span style="color:#4a4a4f">Fica compacto quando o conteúdo começa.</span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.6fr);gap:16px;padding:16px 0;border-bottom:1px solid #d6d6d3"><span>CTA flutuante</span><span style="font-family:ui-monospace,monospace;font-size:13px">320ms · fade + y 16→0</span><span style="color:#4a4a4f">Aparece depois de 75% do hero e some quando o CTA final entra na tela.</span></div>
+  </div>
+</section>
+
+<section id="responsivo" style="padding:96px 0 120px">
+  <h2 style="margin:0 0 8px;font:500 48px/1 'Barlow Condensed',sans-serif">Responsivo</h2>
+  <p style="margin:0 0 32px;max-width:60ch;font:400 17px/1.6 'Barlow',sans-serif;color:#4a4a4f">Três faixas: mobile abaixo de 700px, tablet entre 700 e 1099px e desktop a partir de 1100px. A rota fica horizontal a partir de 1000px.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;font:400 15px/1.6 'Barlow',sans-serif;color:#2b2b2f">
+    <div style="border-top:1px solid #0b0b0c;padding-top:20px;display:flex;flex-direction:column;gap:10px"><b style="font:500 28px/1 'Barlow Condensed'">Mobile · 375</b><span>• Header de 64px com logo, botão WhatsApp de 44px e menu.<br>• Hero em 100svh e CTA em largura total.<br>• Serviços em faixa horizontal com snap (78% por item), sem autoplay. Cada foto fica grande, em vez de quatro miniaturas.<br>• Rota vertical à esquerda.<br>• CTA fixo embaixo, em largura total (56px), no alcance do polegar.<br>• Menu em tela cheia com o selo do Otávio e o CTA.</span></div>
+    <div style="border-top:1px solid #0b0b0c;padding-top:20px;display:flex;flex-direction:column;gap:10px"><b style="font:500 28px/1 'Barlow Condensed'">Tablet · 834</b><span>• Header compacto (menu).<br>• Serviços em 2 colunas com deslocamento de 72px.<br>• Rota vertical, com largura máxima de 560px.<br>• Otávio e depoimentos em coluna única.<br>• CTA flutuante no canto.</span></div>
+    <div style="border-top:1px solid #0b0b0c;padding-top:20px;display:flex;flex-direction:column;gap:10px"><b style="font:500 28px/1 'Barlow Condensed'">Desktop · 1440</b><span>• Header de 96px que vai a 72px ao rolar, com a navegação completa.<br>• Pares 7/5 e 5/7.<br>• Serviços em 4 colunas desencontradas (0/128/48/176).<br>• Rota horizontal em zigue-zague.<br>• Título do FAQ fixo na coluna.<br>• CTA flutuante no canto inferior direito.</span></div>
+  </div>
+</section>
+</main>
+</x-dc>
+</body>
+</html>
