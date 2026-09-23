@@ -1,10 +1,9 @@
 import { ImageResponse } from "next/og";
+import { brandMarkDataUri, INK } from "./brand";
 
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
-// Monograma provisorio ate o logo oficial da UAI Viagens chegar em alta
-// resolucao (ver CLAUDE.md > Identidade visual).
 export default function AppleIcon() {
   return new ImageResponse(
     (
@@ -15,16 +14,13 @@ export default function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#c41e2a",
-          color: "#ffffff",
-          fontSize: 96,
-          fontWeight: 700,
-          fontFamily: "serif",
+          backgroundColor: INK,
         }}
       >
-        U
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={brandMarkDataUri()} width={132} height={75} alt="" />
       </div>
     ),
-    { ...size }
+    { ...size },
   );
 }

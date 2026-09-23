@@ -1,26 +1,47 @@
-import { type AnchorHTMLAttributes } from "react";
+import { site } from "@/content/site";
+import { Icon } from "@/components/ui/Icon";
+import { WhatsappIcon } from "@/components/ui/WhatsappIcon";
+import { WhatsAppLink, type WhatsAppEvent } from "@/components/ui/WhatsAppLink";
 
-type ButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
-  variant?: "primary" | "secondary" | "inverse";
-};
-
-export function Button({ variant = "primary", className = "", children, ...props }: ButtonProps) {
-  const base =
-    "inline-flex items-center justify-center rounded-(--radius-md) px-7 h-12 md:h-[52px] font-medium text-[15px] transition-colors duration-(--dur) ease-(--ease) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--color-accent)";
-
-  const variants = {
-    primary:
-      "bg-(--color-accent) text-(--color-accent-fg) hover:bg-(--color-accent-hover)",
-    secondary:
-      "bg-transparent text-(--color-text) border border-(--color-border) hover:bg-(--color-bg-subtle)",
-    // Para uso sobre fundo --color-accent (ex.: faixa de CTA final), onde a variante
-    // primary ficaria invisivel.
-    inverse: "bg-(--color-accent-fg) text-(--color-accent) hover:bg-(--color-bg-subtle)",
-  };
-
+/**
+ * CTA principal ("Quero planejar minha viagem").
+ * silver: fundo escuro · ink: seção clara · lg: CTA final.
+ * magnetic: só hero e CTA final (o wrapper sem transform é o que se mede).
+ */
+export function CtaButton({
+  event,
+  variant = "silver",
+  size = "md",
+  magnetic = false,
+  stretch = false,
+  className = "",
+}: {
+  event: WhatsAppEvent;
+  variant?: "silver" | "ink";
+  size?: "md" | "lg";
+  magnetic?: boolean;
+  /** Ocupa a largura toda da coluna também no desktop (como em "Quem cuida" na v2). */
+  stretch?: boolean;
+  className?: string;
+}) {
+  const lg = size === "lg";
+  const link = (
+    <WhatsAppLink
+      event={event}
+      data-magnetic-target={magnetic ? "" : undefined}
+      className={`btn ${variant === "silver" ? "btn-silver" : "btn-ink"} ${lg ? "btn-lg" : ""} w-full ${stretch ? "" : "tab:w-auto"} ${magnetic ? "" : className}`}
+    >
+      <span className="btn-content">
+        <WhatsappIcon className={`${lg ? "h-[22px] w-[22px]" : "h-5 w-5"} btn-wa`} />
+        {site.cta.principal}
+        <Icon name="arrow" size={lg ? 20 : 18} className="btn-arrow" />
+      </span>
+    </WhatsAppLink>
+  );
+  if (!magnetic) return link;
   return (
-    <a className={`${base} ${variants[variant]} ${className}`} {...props}>
-      {children}
-    </a>
+    <span data-magnetic="" className={`flex w-full tab:inline-flex tab:w-auto ${className}`}>
+      {link}
+    </span>
   );
 }

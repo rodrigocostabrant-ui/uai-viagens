@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
-import { site } from "@/content/site";
+import { site, tituloHeroTexto } from "@/content/site";
+import { brandMarkDataUri, INK, PAPER } from "./brand";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -13,24 +14,26 @@ export default function OpengraphImage() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
-          padding: "80px",
-          backgroundColor: "#c41e2a",
-          color: "#ffffff",
+          justifyContent: "space-between",
+          padding: "72px 80px",
+          backgroundColor: INK,
+          color: PAPER,
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ fontSize: 28, letterSpacing: 4, textTransform: "uppercase", opacity: 0.85 }}>
-          Agência de viagens · Belo Horizonte
-        </div>
-        <div style={{ fontSize: 76, fontWeight: 700, marginTop: 24, lineHeight: 1.1 }}>
-          {site.nome}
-        </div>
-        <div style={{ fontSize: 32, marginTop: 32, opacity: 0.92, maxWidth: 900 }}>
-          {site.hero.titulo}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={brandMarkDataUri()} width={176} height={100} alt="" />
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", alignItems: "center", fontSize: 22, letterSpacing: 5, textTransform: "uppercase", color: "#d9d9dc" }}>
+            <div style={{ width: 48, height: 1, background: "#a8a8ad", marginRight: 18 }} />
+            {site.hero.rotulo}
+          </div>
+          <div style={{ fontSize: 72, fontWeight: 600, marginTop: 28, lineHeight: 1.02, maxWidth: 980 }}>
+            {tituloHeroTexto}
+          </div>
         </div>
       </div>
     ),
-    { ...size }
+    { ...size },
   );
 }

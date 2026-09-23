@@ -1,104 +1,956 @@
 @import "tailwindcss";
 
-:root {
-  /* Cor — variante Editorial + vermelho da marca UAI Viagens (provisório, ver CLAUDE.md) */
-  --color-bg: #fbfaf7;
-  --color-bg-subtle: #f2efe9;
-  --color-surface: #ffffff;
-  --color-border: #e4dfd5;
-  --color-text: #1a1814;
-  --color-text-muted: #6d6659;
-  --color-accent: #c41e2a;
-  --color-accent-hover: #a5121c;
-  --color-accent-fg: #ffffff;
+/* O export do Claude Design é só referência; não entra na varredura de classes. */
+@source not "../claude-design-export";
 
-  /* Tipografia */
-  --font-display: var(--font-serif-display);
-  --font-body: var(--font-sans);
+/* ─── Tokens (v2 · claude-design-export/design_handoff_uai_viagens/tokens.css) ─── */
+@theme {
+  --color-*: initial;
+  --color-ink: #0b0b0c;
+  --color-graphite: #1c1c1f;
+  --color-line-dark: #2a2a2e;
+  --color-footer-line: #34343a;
+  --color-gray-700: #4a4a4f;
+  --color-gray-650: #55555a;
+  --color-gray-600: #6b6b70;
+  --color-gray-500: #8a8a90;
+  --color-gray-400: #a1a1a6;
+  --color-quote: #c9c9c7;
+  --color-line-light: #d6d6d3;
+  --color-silver-300: #d9d9dc;
+  --color-silver-500: #a8a8ad;
+  --color-silver-100: #e6e6e6;
+  --color-paper: #f2f2f0;
+  --color-text-on-light: #2b2b2f;
+  --color-white: #ffffff;
 
-  /* Raio — Editorial */
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --radius-lg: 8px;
+  --text-display-1: clamp(52px, 7.6vw, 120px);
+  --text-display-1--line-height: 0.94;
+  --text-display-1--letter-spacing: -0.012em;
+  --text-display-cta: clamp(64px, 9.6vw, 160px);
+  --text-display-cta--line-height: 0.88;
+  --text-display-cta--letter-spacing: -0.015em;
+  --text-display-2: clamp(44px, 5.2vw, 80px);
+  --text-display-2--line-height: 0.95;
+  --text-display-2--letter-spacing: -0.01em;
+  --text-display-about: clamp(44px, 4.8vw, 76px);
+  --text-display-about--line-height: 0.95;
+  --text-display-about--letter-spacing: -0.01em;
+  --text-lead: clamp(19px, 1.6vw, 23px);
+  --text-lead--line-height: 1.5;
+  --text-lead-sm: clamp(18px, 1.4vw, 21px);
+  --text-lead-sm--line-height: 1.55;
 
-  /* Sombra — discreta, sempre */
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.04);
-  --shadow-md: 0 8px 24px -12px rgb(0 0 0 / 0.12);
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
-  /* Movimento */
-  --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
-  --dur: 220ms;
+  --breakpoint-tab: 700px;
+  --breakpoint-route: 1000px;
+  --breakpoint-desk: 1100px;
 }
 
 @theme inline {
-  --color-bg: var(--color-bg);
-  --color-bg-subtle: var(--color-bg-subtle);
-  --color-surface: var(--color-surface);
-  --color-border: var(--color-border);
-  --color-text: var(--color-text);
-  --color-text-muted: var(--color-text-muted);
-  --color-accent: var(--color-accent);
-  --color-accent-hover: var(--color-accent-hover);
-  --color-accent-fg: var(--color-accent-fg);
-  --font-display: var(--font-display);
-  --font-body: var(--font-body);
-  --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
-  --radius-lg: var(--radius-lg);
+  --font-sans: var(--font-barlow), system-ui, sans-serif;
+  --font-display: var(--font-barlow-condensed), sans-serif;
 }
 
-body {
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-body);
-}
-
-h1,
-h2,
-h3 {
-  font-family: var(--font-display);
-  letter-spacing: -0.02em;
-}
-
-p {
-  max-width: 65ch;
-}
-
-/* Entrada de secao — opacity + translateY, disparada por IntersectionObserver */
-@keyframes reveal-up {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.reveal {
-  opacity: 0;
-}
-
-.reveal.is-visible {
-  animation: reveal-up 500ms var(--ease) forwards;
+/* Durações ficam fora do @theme: o reduced-motion as zera em runtime. */
+:root {
+  --dur-fast: 160ms;
+  --dur-ui: 320ms;
+  --dur-reveal: 900ms;
+  --dur-line: 1000ms;
+  --dur-hover-img: 1200ms;
+  --dur-image: 2600ms;
+  --dur-route: 1800ms;
+  --stagger: 90ms;
+  --rv-y: 20px;
+  --silver: linear-gradient(110deg, #e6e6e6 0%, #a8a8ad 40%, #d9d9dc 60%, #e6e6e6 100%);
+  --silver-icon: linear-gradient(135deg, #e6e6e6 0%, #a8a8ad 55%, #d9d9dc 100%);
+  --silver-text: linear-gradient(120deg, #f2f2f0 0%, #a8a8ad 55%, #d9d9dc 100%);
+  --silver-line: linear-gradient(90deg, #e6e6e6, #a8a8ad);
+  --sheen: linear-gradient(100deg, transparent 40%, rgb(255 255 255 / 0.95) 50%, transparent 60%);
+  --shadow-float: 0 0 0 1px rgb(11 11 12 / 0.5), 0 16px 40px rgb(0 0 0 / 0.4);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    animation: none;
+  :root {
+    --dur-ui: 0ms;
+    --dur-reveal: 0ms;
+    --dur-line: 0ms;
+    --dur-hover-img: 0ms;
+    --dur-image: 0ms;
+    --dur-route: 0ms;
+  }
+}
+
+/* ─── Base ─── */
+@layer base {
+  html {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-ink);
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  img {
+    display: block;
+  }
+  ::selection {
+    background: var(--color-silver-500);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-silver-300);
+    outline-offset: 4px;
+  }
+  [data-light] :focus-visible {
+    outline-color: var(--color-ink);
+  }
+  h1,
+  h2,
+  .text-balance-all {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  [id] {
+    scroll-margin-top: 64px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ─── Componentes ─── */
+@layer components {
+  .container-uai {
+    width: 100%;
+    max-width: 1432px;
+    margin-inline: auto;
+    padding-inline: clamp(20px, 4vw, 56px);
+  }
+  .section-y {
+    padding-block: clamp(96px, 12vw, 176px);
   }
 
-  /* Rede de seguranca: zera qualquer outra transicao/animacao/transform da
-     pagina (hover, drawer, hamburguer, botao flutuante) para quem pediu menos
-     movimento, sem precisar anotar cada componente individualmente. */
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  .label {
+    font: 500 12px/1 var(--font-sans);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
   }
+  .label-line {
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    flex: none;
+    background: var(--silver-line);
+  }
+  [data-light] .label-line {
+    background: var(--color-gray-600);
+  }
+
+  .silver-text {
+    background-image: var(--sheen), var(--silver-text);
+    background-size: 250% 100%, 100% 100%;
+    background-position: 150% 0, 0 0;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Fotos de conteúdo e de fundo, tratamento da v2 */
+  .photo-content {
+    filter: grayscale(1) contrast(1.12) brightness(0.84);
+  }
+  .photo-portrait {
+    filter: grayscale(1) contrast(1.1);
+  }
+  .photo-veil {
+    background: #26303c;
+    mix-blend-mode: soft-light;
+    opacity: 0.5;
+  }
+
+  /* Botões */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    min-height: 60px;
+    padding: 0 28px;
+    border-radius: 2px;
+    font: 600 16px/1 var(--font-sans);
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    transition:
+      background-position var(--dur-reveal) var(--ease-out),
+      background-color var(--dur-fast) ease,
+      color var(--dur-fast) ease,
+      box-shadow var(--dur-ui) ease,
+      transform var(--dur-fast) var(--ease-out);
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn-content {
+    display: inline-flex;
+    align-items: center;
+    gap: inherit;
+  }
+  .btn-silver {
+    background-image: var(--silver);
+    background-size: 240% 100%;
+    background-position: 0% 0;
+    color: var(--color-ink);
+  }
+  .btn-ink {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .btn-ink .btn-wa {
+    color: var(--color-silver-300);
+  }
+  .btn-lg {
+    min-height: 64px;
+    padding: 0 32px;
+    gap: 16px;
+    font-size: 17px;
+  }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: 44px;
+    padding: 0 18px;
+    border: 1px solid var(--color-gray-700);
+    border-radius: 2px;
+    font: 500 14px/1 var(--font-sans);
+    color: var(--color-paper);
+    white-space: nowrap;
+    transition:
+      border-color var(--dur-fast) ease,
+      background-color var(--dur-fast) ease;
+  }
+  .btn-ghost:active {
+    background-color: rgb(242 242 240 / 0.12);
+  }
+  .btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 2px;
+    flex: none;
+  }
+  .btn-icon-silver {
+    background: var(--silver-icon);
+    color: var(--color-ink);
+  }
+  .btn-icon-outline {
+    border: 1px solid var(--color-gray-700);
+    color: var(--color-paper);
+    background: transparent;
+    cursor: pointer;
+  }
+  .btn-arrow {
+    transition: translate 240ms var(--ease-out);
+  }
+
+  /* Links do header e do footer */
+  .nav-link {
+    padding: 10px 0;
+    border-bottom: 1px solid transparent;
+    color: var(--color-gray-400);
+    transition:
+      color var(--dur-fast) ease,
+      border-color var(--dur-fast) ease;
+  }
+  .nav-link[aria-current="location"] {
+    color: var(--color-paper);
+    border-color: var(--color-silver-500);
+  }
+  .text-link {
+    text-decoration: underline;
+    text-decoration-color: var(--color-gray-700);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 6px;
+    transition: text-decoration-color var(--dur-fast) ease, color var(--dur-fast) ease;
+  }
+
+  /* Placeholder de depoimento: marcas "+" nos cantos */
+  .placeholder-box {
+    position: relative;
+    border: 1px dashed var(--color-gray-400);
+  }
+  .placeholder-mark {
+    position: absolute;
+    font: 300 18px/1 var(--font-sans);
+    color: var(--color-gray-600);
+  }
+
+  /* FAQ — <details name> nativo */
+  .faq-item > summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  .faq-item > summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-q {
+    transition: color var(--dur-fast) ease;
+  }
+  .faq-icon {
+    border: 1px solid var(--color-gray-400);
+    color: var(--color-ink);
+    background: transparent;
+    transition:
+      rotate var(--dur-ui) var(--ease-out),
+      background-color var(--dur-ui) ease,
+      color var(--dur-ui) ease,
+      border-color var(--dur-ui) ease;
+  }
+  .faq-item[open] .faq-icon {
+    rotate: 45deg;
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .faq-a {
+    opacity: 0;
+    transition: opacity var(--dur-ui) ease;
+  }
+  .faq-item[open] .faq-a {
+    opacity: 1;
+  }
+}
+
+@supports (interpolate-size: allow-keywords) {
+  .faq-item {
+    interpolate-size: allow-keywords;
+  }
+  .faq-item::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size 420ms var(--ease-out),
+      content-visibility 420ms allow-discrete;
+  }
+  .faq-item[open]::details-content {
+    block-size: auto;
+  }
+}
+
+/* Hover com deslocamento só em mouse de verdade */
+@media (hover: hover) and (pointer: fine) {
+  .btn-silver:hover {
+    background-position: 100% 0;
+    box-shadow: 0 0 0 1px var(--color-paper);
+  }
+  .btn-ink:hover {
+    background-color: var(--color-graphite);
+    color: var(--color-white);
+  }
+  .btn:hover .btn-arrow {
+    translate: 4px 0;
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-silver-300);
+    background-color: rgb(242 242 240 / 0.06);
+  }
+  .nav-link:hover {
+    color: var(--color-paper);
+    border-color: var(--color-silver-500);
+  }
+  .text-link:hover {
+    text-decoration-color: var(--color-silver-300);
+    color: var(--color-white);
+  }
+  .faq-item > summary:hover .faq-q {
+    color: var(--color-gray-700);
+  }
+
+  /* Foto de serviço: brilho + escala aprovados; a linha da legenda vira prata */
+  .svc-figure .svc-img {
+    transition:
+      scale var(--dur-hover-img) var(--ease-out),
+      filter 600ms ease;
+  }
+  .svc-figure:hover .svc-img {
+    scale: 1.035;
+    filter: grayscale(1) contrast(1.12) brightness(1);
+  }
+  .svc-caption::before {
+    transition: scale 300ms var(--ease-out);
+  }
+  .svc-figure:hover .svc-caption::before {
+    scale: 1 1;
+    transition-duration: 600ms;
+  }
+}
+
+.svc-caption {
+  position: relative;
+}
+.svc-caption::before {
+  content: "";
+  position: absolute;
+  inset: -1px 0 auto 0;
+  height: 1px;
+  background: var(--silver-line);
+  transform-origin: left;
+  scale: 0 1;
+}
+
+/* ─── Motion ────────────────────────────────────────────────────────────
+   html.m-on só existe com JS e sem reduced-motion (script do <head>).
+   Sem essa classe, tudo aparece no lugar, sem animação. */
+
+/* Coreografia de entrada do hero (roda antes da hidratação, no compositor) */
+.m-on [data-load] {
+  animation-name: load-up;
+  animation-duration: var(--dur-reveal);
+  animation-timing-function: var(--ease-out);
+  animation-delay: var(--d, 0ms);
+  animation-fill-mode: both;
+}
+.m-on [data-load="down"] {
+  animation-name: load-down;
+  animation-duration: 600ms;
+}
+.m-on [data-load="line"] {
+  animation-name: load-line;
+  animation-duration: var(--dur-line);
+  animation-timing-function: var(--ease-in-out);
+  transform-origin: left;
+}
+.m-on [data-load="fade"] {
+  animation-name: load-fade;
+}
+@keyframes load-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--rv-y));
+  }
+}
+@keyframes load-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+@keyframes load-line {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes load-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Abertura da foto do hero: a <img> fica opaca desde o 1º paint (LCP);
+   o fade vem de um véu ink por cima. Começa no load da imagem. */
+.hero-open-veil {
+  display: none;
+}
+.m-on .hero-open-veil {
+  display: block;
+  background: var(--color-ink);
+}
+.m-on [data-loaded] > .hero-open-veil {
+  animation: veil-out 1200ms var(--ease-out) both;
+}
+.m-on .hero-media:not([data-loaded]) .photo-open {
+  transform: scale(1.06);
+}
+.m-on .hero-media[data-loaded] .photo-open {
+  animation: open-scale var(--dur-image) var(--ease-out) both;
+}
+@keyframes veil-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes open-scale {
+  from {
+    transform: scale(1.06);
+  }
+}
+
+/* Drift lento da foto no tier CSS (celular ou sem WebGL): a imagem nunca fica parada.
+   Começa na identidade para a troca canvas → img não pular. */
+html[data-motion="css"] .photo-drift {
+  animation: drift 28s var(--ease-in-out) infinite alternate;
+}
+@keyframes drift {
+  0% {
+    scale: 1;
+    translate: 0 0;
+  }
+  50% {
+    scale: 1.045;
+    translate: -0.8% -0.5%;
+  }
+  100% {
+    scale: 1.045;
+    translate: 0.8% 0.4%;
+  }
+}
+
+/* Título em linhas: o h1 real fica escondido enquanto o clone anima por cima.
+   No tier css (celular) o h1 do hero não espera JS: é revelado só com CSS, por
+   máscara, sem começar em opacity 0 — o h1 é o LCP no mobile. */
+.m-on [data-line-reveal="view"],
+html[data-motion="full"] [data-line-reveal="load"] {
+  opacity: 0;
+}
+html[data-motion="full"] [data-line-reveal="load"] {
+  animation: load-up var(--dur-reveal) var(--ease-out) 1400ms both;
+}
+html[data-motion="css"] [data-line-reveal="load"] {
+  animation: title-rise var(--dur-line) var(--ease-out) 220ms backwards;
+}
+@keyframes title-rise {
+  from {
+    clip-path: inset(-0.3em -0.3em 100% -0.3em);
+    transform: translateY(0.3em);
+  }
+  to {
+    clip-path: inset(-0.3em);
+    transform: none;
+  }
+}
+.m-on [data-line-reveal].lr-active {
+  animation: none;
+  opacity: 0;
+}
+.m-on [data-line-reveal].lr-done {
+  animation: none;
+  opacity: 1;
+}
+.lr-wrap {
+  position: relative;
+}
+.lr-clone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  pointer-events: none;
+}
+.lr-line {
+  display: block;
+  overflow: clip;
+  padding-block: 0.15em;
+  margin-block: -0.15em;
+}
+.lr-inner {
+  display: block;
+  will-change: transform;
+}
+
+/* Reveals disparados por IntersectionObserver (lib/motion/reveal.ts) */
+.m-on [data-reveal] {
+  transition:
+    opacity var(--dur-reveal) var(--ease-out) var(--rd, 0ms),
+    transform var(--dur-reveal) var(--ease-out) var(--rd, 0ms),
+    clip-path var(--dur-line) var(--ease-in-out) var(--rd, 0ms);
+}
+.m-on [data-reveal="up"]:not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(var(--rv-y));
+}
+.m-on [data-reveal="fade"]:not([data-revealed]) {
+  opacity: 0;
+}
+.m-on [data-reveal="line"] {
+  transform-origin: left;
+  transition: transform var(--dur-line) var(--ease-in-out) var(--rd, 0ms);
+}
+.m-on [data-reveal="line"]:not([data-revealed]) {
+  transform: scaleX(0);
+}
+.m-on [data-reveal="img"] {
+  transition:
+    opacity 1200ms var(--ease-out) var(--rd, 0ms),
+    transform var(--dur-image) var(--ease-out) var(--rd, 0ms);
+}
+.m-on [data-reveal="img"]:not([data-revealed]) {
+  opacity: 0;
+  transform: scale(1.06);
+}
+/* Foto que se descobre de baixo para cima, com a imagem interna assentando.
+   Não usar clip-path no estado escondido: o elemento passa a contar como invisível
+   para o IntersectionObserver e para o lazy-load da <img> (nunca revela, nunca carrega).
+   Uma "cortina" da cor da seção encolhe em direção ao topo (transform, compositor). */
+.m-on [data-reveal="clip"]::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 1;
+  background: var(--color-ink);
+  transform-origin: top;
+  pointer-events: none;
+  transition: transform var(--dur-line) var(--ease-in-out) var(--rd, 0ms);
+}
+.m-on [data-reveal="clip"][data-revealed]::after {
+  transform: scaleY(0);
+}
+.m-on [data-reveal="clip"] [data-reveal-media] {
+  transition: transform 1600ms var(--ease-out) var(--rd, 0ms);
+}
+.m-on [data-reveal="clip"]:not([data-revealed]) [data-reveal-media] {
+  transform: scale(1.1);
+}
+/* Faixa de serviços no mobile: revela como bloco (os cards cortados não intersectam) */
+@media (max-width: 699px) {
+  .m-on .svc-strip [data-reveal="clip"]::after {
+    display: none;
+  }
+  .m-on .svc-strip [data-reveal="clip"] [data-reveal-media] {
+    transform: none;
+    transition: none;
+  }
+}
+@media (min-width: 700px) {
+  .m-on [data-reveal="strip"] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+.m-on [data-reveal="strip"]:not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(var(--rv-y));
+}
+
+/* Seta "Deslize para ver os quatro": duas cutucadas quando entra */
+.m-on [data-revealed] .nudge {
+  animation: nudge 700ms var(--ease-in-out) 600ms 2;
+}
+@keyframes nudge {
+  50% {
+    translate: 6px 0;
+  }
+}
+
+/* Rota — fallback por tempo quando não há scroll-driven (Firefox) */
+@supports not (animation-timeline: view()) {
+  .m-on [data-route] {
+    transition:
+      clip-path var(--dur-route) var(--ease-in-out) var(--rd, 0ms),
+      opacity var(--dur-reveal) var(--ease-out) var(--rd, 0ms),
+      transform var(--dur-reveal) var(--ease-out) var(--rd, 0ms);
+  }
+  .m-on [data-route="wipe-x"]:not([data-revealed]) {
+    clip-path: inset(0 100% 0 0);
+  }
+  .m-on [data-route="wipe-y"]:not([data-revealed]) {
+    clip-path: inset(0 0 100% 0);
+  }
+  .m-on [data-route="up"]:not([data-revealed]) {
+    opacity: 0;
+    transform: translateY(var(--rv-y));
+  }
+  .m-on [data-route="pop"]:not([data-revealed]) {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  .cta-shutter {
+    display: none;
+  }
+}
+
+/* ─── Scroll-driven (compositor) ──────────────────────────────────────
+   Longhands com timeline/range DEPOIS do shorthand: o Lightning CSS descarta
+   animation-timeline declarado antes. Seções usam overflow:clip (não hidden). */
+.cta-shutter {
+  display: none;
+}
+
+@supports (animation-timeline: view()) {
+  /* Rota: o único efeito de scroll também no touch */
+  @media (prefers-reduced-motion: no-preference) {
+    .m-on .route-h {
+      view-timeline-name: --route;
+      view-timeline-axis: block;
+    }
+    .m-on .route-h .route-line {
+      animation: route-x linear both;
+      animation-timeline: --route;
+      animation-range: cover 22% cover 58%;
+    }
+    .m-on .route-h .route-stop {
+      animation: stop-in var(--ease-out) both;
+      animation-timeline: --route;
+      animation-range: cover calc(22% + 36% * var(--p)) cover calc(25% + 36% * var(--p));
+    }
+    .m-on .route-h .route-step {
+      animation: step-in var(--ease-out) both;
+      animation-timeline: --route;
+      animation-range: cover calc(20% + 36% * var(--p)) cover calc(30% + 36% * var(--p));
+    }
+    .m-on .route-h .route-ring {
+      animation: ring linear both;
+      animation-timeline: --route;
+      animation-range: cover 57% cover 66%;
+    }
+
+    .m-on .route-v {
+      view-timeline-name: --route-v;
+      view-timeline-axis: block;
+    }
+    .m-on .route-v .route-line {
+      animation: route-y linear both;
+      animation-timeline: --route-v;
+      animation-range: cover 22% cover 72%;
+    }
+    .m-on .route-v .route-step,
+    .m-on .route-v .route-end {
+      animation: step-in var(--ease-out) both;
+      animation-timeline: view();
+      animation-range: entry 30% cover 42%;
+    }
+  }
+
+  /* Efeitos de desktop (mouse): saída do hero, parallax e janela do CTA */
+  @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+    .m-on .hero {
+      view-timeline-name: --hero;
+      view-timeline-axis: block;
+    }
+    .m-on .hero-content {
+      animation: hero-out linear both;
+      animation-timeline: --hero;
+      animation-range: exit 0% exit 80%;
+    }
+    .m-on .hero-dolly {
+      animation: dolly linear both;
+      animation-timeline: --hero;
+      animation-range: exit 0% exit 100%;
+    }
+
+    .m-on .cta-final {
+      view-timeline-name: --cta;
+      view-timeline-axis: block;
+    }
+    .m-on .cta-shutter {
+      display: block;
+      position: absolute;
+      background: var(--color-ink);
+      animation: var(--shutter) linear both;
+      animation-timeline: --cta;
+      animation-range: entry 0% entry 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) and (min-width: 1100px) {
+    .m-on .svc-grid {
+      view-timeline-name: --svc;
+      view-timeline-axis: block;
+    }
+    .m-on .svc-par {
+      animation: par linear both;
+      animation-timeline: --svc;
+      animation-range: cover 0% cover 100%;
+    }
+    .m-on .dip {
+      view-timeline-name: --dip;
+      view-timeline-axis: block;
+    }
+    .m-on .dip-par {
+      animation: par linear both;
+      animation-timeline: --dip;
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+@keyframes route-x {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes route-y {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes stop-in {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes step-in {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes ring {
+  0% {
+    opacity: 0;
+    scale: 1;
+  }
+  20% {
+    opacity: 0.45;
+  }
+  100% {
+    opacity: 0;
+    scale: 1.9;
+  }
+}
+@keyframes hero-out {
+  to {
+    opacity: 0;
+    translate: 0 -8vh;
+  }
+}
+@keyframes dolly {
+  to {
+    scale: 1.06;
+  }
+}
+@keyframes par {
+  from {
+    translate: 0 var(--par);
+  }
+  to {
+    translate: 0 calc(var(--par) * -1);
+  }
+}
+@keyframes shutter-top {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -100%;
+  }
+}
+@keyframes shutter-bottom {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 100%;
+  }
+}
+@keyframes shutter-left {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: -100% 0;
+  }
+}
+@keyframes shutter-right {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 100% 0;
+  }
+}
+
+/* Canvas WebGL por cima da <img>; entra em crossfade depois da abertura CSS */
+.depth-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  transition: opacity 600ms var(--ease-out);
+}
+.depth-canvas.is-live {
+  opacity: 1;
+}
+/* Com o canvas ativo, o véu soft-light é feito no shader */
+[data-webgl] .photo-veil {
+  display: none;
+}
+
+/* Menu mobile */
+.menu-panel {
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 160ms ease,
+    visibility 0s linear 160ms;
+}
+.menu-panel[data-open="true"] {
+  visibility: visible;
+  opacity: 1;
+  transition:
+    opacity 200ms var(--ease-out),
+    visibility 0s;
+}
+.m-on .menu-panel .menu-item {
+  opacity: 0;
+  translate: 0 12px;
+  transition:
+    opacity 300ms var(--ease-out),
+    translate 300ms var(--ease-out);
+}
+.m-on .menu-panel[data-open="true"] .menu-item {
+  opacity: 1;
+  translate: 0 0;
+  transition-delay: calc(var(--i, 0) * 40ms);
+}
+
+/* Botão flutuante */
+.float-cta {
+  transition:
+    opacity var(--dur-ui) var(--ease-out),
+    translate var(--dur-ui) var(--ease-out),
+    background-position var(--dur-reveal) var(--ease-out);
+}
+.float-cta[data-visible="false"] {
+  opacity: 0;
+  translate: 0 16px;
+  pointer-events: none;
+}
+
+/* Header: logo encolhe por scale (compositor) */
+.header-logo {
+  transform-origin: left center;
+  transition: scale var(--dur-ui) var(--ease-out);
+}
+
+/* Com o menu mobile aberto o flutuante sai de cena (e do Tab) */
+html[data-menu-open] .float-cta {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }

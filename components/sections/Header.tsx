@@ -1,136 +1,157 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { site, whatsappHref } from "@/content/site";
-import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { site } from "@/content/site";
+import { getScrollState, getServerScrollState, subscribeScroll } from "@/lib/motion/scroll";
+import { Logo } from "@/components/ui/Logo";
+import { Icon } from "@/components/ui/Icon";
 import { WhatsappIcon } from "@/components/ui/WhatsappIcon";
+import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
+import { TrustChip } from "@/components/ui/TrustChip";
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
+  const { solid } = useSyncExternalStore(subscribeScroll, getScrollState, getServerScrollState);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const firstLinkRef = useRef<HTMLAnchorElement>(null);
 
+  // Scrollspy: o link da seção que ocupa o meio da tela fica marcado.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const sections = site.nav
+      .map((item) => document.querySelector(item.href))
+      .filter((el): el is Element => !!el);
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = `#${entry.target.id}`;
+          if (entry.isIntersecting) setActive(id);
+          else setActive((prev) => (prev === id ? null : prev));
+        }
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    sections.forEach((s) => io.observe(s));
+    return () => io.disconnect();
   }, []);
 
-  // trava o scroll do body com o drawer mobile aberto
+  // Menu aberto: trava o scroll, Esc fecha, o foco entra e depois volta ao botão.
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    if (!open) return;
+    document.body.style.overflow = "hidden";
+    firstLinkRef.current?.focus({ preventScroll: true });
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    const toggle = toggleRef.current;
     return () => {
       document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKey);
+      toggle?.focus({ preventScroll: true });
     };
   }, [open]);
 
+  // O botão flutuante some com o menu aberto.
+  useEffect(() => {
+    document.documentElement.toggleAttribute("data-menu-open", open);
+  }, [open]);
+
+  const bar = solid || open;
+
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 h-[68px] transition-colors duration-(--dur) ease-(--ease) ${
-        scrolled || open
-          ? "bg-(--color-bg)/95 backdrop-blur border-b border-(--color-border)"
-          : "bg-transparent"
-      }`}
+      className="fixed inset-x-0 top-0 z-40 border-b transition-[background-color,border-color] duration-(--dur-ui) ease-out"
+      style={{
+        backgroundColor: bar ? "rgb(11 11 12 / 0.96)" : "transparent",
+        borderColor: bar ? "var(--color-line-dark)" : "transparent",
+      }}
     >
-      <Container className="flex h-full items-center justify-between">
-        <a href="#" className="shrink-0 whitespace-nowrap font-display text-base md:text-lg font-semibold text-(--color-text)">
-          {site.nome}
-        </a>
-
-        <nav className="hidden md:flex items-center gap-8">
-          {site.nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-sm text-(--color-text-muted) hover:text-(--color-text) transition-colors duration-(--dur)"
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="hidden md:block">
-          <Button
-            href={whatsappHref()}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-analytics="whatsapp_click_header"
-            className="!h-10 !px-4 text-sm"
-          >
-            {site.cta.principal}
-          </Button>
-        </div>
-
-        <div className="flex items-center gap-2 md:hidden">
-          <a
-            href={whatsappHref()}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-analytics="whatsapp_click_header"
-            aria-label="Conversar no WhatsApp com a UAI Viagens"
-            className="flex h-11 w-11 items-center justify-center rounded-(--radius-md) bg-(--color-accent) text-(--color-accent-fg)"
-          >
-            <WhatsappIcon className="h-5 w-5" />
-          </a>
-
-          <button
-            type="button"
-            aria-label={open ? "Fechar menu" : "Abrir menu"}
-            aria-expanded={open}
-            aria-controls="menu-mobile"
-            onClick={() => setOpen((v) => !v)}
-            className="flex h-11 w-11 items-center justify-center rounded-(--radius-md) border border-(--color-border) text-(--color-text)"
-          >
-            <span className="relative block h-3.5 w-4">
-              <span
-                className={`absolute left-0 right-0 h-[1.5px] bg-current transition-transform duration-(--dur) ease-(--ease) ${
-                  open ? "top-1/2 -translate-y-1/2 rotate-45" : "top-0"
-                }`}
-              />
-              <span
-                className={`absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[1.5px] bg-current transition-opacity duration-(--dur) ${
-                  open ? "opacity-0" : "opacity-100"
-                }`}
-              />
-              <span
-                className={`absolute left-0 right-0 h-[1.5px] bg-current transition-transform duration-(--dur) ease-(--ease) ${
-                  open ? "top-1/2 -translate-y-1/2 -rotate-45" : "bottom-0"
-                }`}
-              />
-            </span>
-          </button>
-        </div>
-      </Container>
-
       <div
-        id="menu-mobile"
-        className={`md:hidden overflow-hidden bg-(--color-bg) border-b border-(--color-border) transition-[max-height,opacity] duration-300 ease-(--ease) ${
-          open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        data-load="down"
+        className={`container-uai flex items-center justify-between gap-6 h-16 transition-[height] duration-(--dur-ui) ease-out ${
+          solid ? "desk:h-[72px]" : "desk:h-24"
         }`}
       >
-        <Container className="flex flex-col gap-1 py-4">
+        <a href="#topo" aria-label={site.menu.voltarAoTopo} className="flex flex-none">
+          <Logo
+            className={`header-logo h-10 w-auto text-silver-300 desk:h-14 ${solid ? "desk:scale-[0.786]" : ""}`}
+          />
+        </a>
+
+        <nav aria-label="Principal" className="hidden items-center gap-10 desk:flex">
           {site.nav.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              onClick={() => setOpen(false)}
-              className="py-3 text-base text-(--color-text) border-b border-(--color-border) last:border-b-0"
+              aria-current={active === item.href ? "location" : undefined}
+              className="nav-link label tracking-[0.2em]"
             >
               {item.label}
             </a>
           ))}
-          <Button
-            href={whatsappHref()}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-analytics="whatsapp_click_header_menu"
-            className="mt-4 w-full"
-          >
+          <WhatsAppLink event="whatsapp_click_header" className="btn-ghost">
+            <WhatsappIcon className="h-4 w-4" />
             {site.cta.principal}
-          </Button>
-        </Container>
+          </WhatsAppLink>
+        </nav>
+
+        <div className="flex items-center gap-2 desk:hidden">
+          <WhatsAppLink
+            event="whatsapp_click_header_icon"
+            aria-label={site.cta.ariaIcone}
+            className="btn-icon btn-icon-silver"
+          >
+            <WhatsappIcon className="h-5 w-5" />
+          </WhatsAppLink>
+          <button
+            ref={toggleRef}
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? site.menu.fechar : site.menu.abrir}
+            aria-expanded={open}
+            aria-controls="menu-mobile"
+            className="btn-icon btn-icon-outline"
+          >
+            <Icon name={open ? "x" : "menu"} size={20} />
+          </button>
+        </div>
       </div>
+
+      <nav
+        id="menu-mobile"
+        aria-label="Menu"
+        data-open={open}
+        inert={!open}
+        className="menu-panel fixed inset-x-0 bottom-0 top-16 flex flex-col justify-between border-t border-line-dark bg-ink px-5 pt-6 pb-8 desk:hidden"
+      >
+        <div className="flex flex-col">
+          {site.nav.map((item, i) => (
+            <a
+              key={item.href}
+              ref={i === 0 ? firstLinkRef : undefined}
+              href={item.href}
+              onClick={() => setOpen(false)}
+              style={{ "--i": i } as React.CSSProperties}
+              className="menu-item flex items-center justify-between border-b border-line-dark py-5 font-display text-[40px] font-medium leading-none text-paper"
+            >
+              {item.label}
+              <Icon name="arrow" size={20} className="text-gray-600" />
+            </a>
+          ))}
+        </div>
+        <div className="menu-item flex flex-col gap-4" style={{ "--i": site.nav.length } as React.CSSProperties}>
+          <TrustChip variant="menu" linha1={site.selo.menu.linha1} linha2={site.selo.menu.linha2} />
+          <WhatsAppLink
+            event="whatsapp_click_header_menu"
+            className="flex h-14 items-center justify-center gap-3 rounded-[2px] font-semibold text-ink"
+            style={{ background: "var(--silver-icon)" }}
+          >
+            <WhatsappIcon className="h-5 w-5" />
+            {site.cta.principal}
+          </WhatsAppLink>
+        </div>
+      </nav>
     </header>
   );
 }

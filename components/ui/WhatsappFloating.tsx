@@ -1,31 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { whatsappHref } from "@/content/site";
+import { useSyncExternalStore } from "react";
+import { site } from "@/content/site";
+import { getScrollState, getServerScrollState, subscribeScroll } from "@/lib/motion/scroll";
 import { WhatsappIcon } from "@/components/ui/WhatsappIcon";
+import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
 
+/**
+ * CTA flutuante: aparece depois de 75% do hero e some quando o CTA final
+ * chega a 55% da tela (regra da v2). Oculto, fica inert (fora do Tab e do leitor).
+ */
 export function WhatsappFloating() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 480);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
+  const { floatVisible } = useSyncExternalStore(subscribeScroll, getScrollState, getServerScrollState);
   return (
-    <a
-      href={whatsappHref()}
-      target="_blank"
-      rel="noopener noreferrer"
-      data-analytics="whatsapp_click_floating"
-      aria-label="Conversar no WhatsApp com a UAI Viagens"
-      className={`fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-(--color-accent) text-(--color-accent-fg) shadow-(--shadow-md) transition-all duration-(--dur) ease-(--ease) hover:bg-(--color-accent-hover) md:bottom-8 md:right-8 ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
-      }`}
+    <WhatsAppLink
+      event="whatsapp_click_floating"
+      aria-label={site.cta.ariaIcone}
+      data-visible={floatVisible}
+      inert={!floatVisible}
+      className="float-cta btn-silver fixed right-3 bottom-3 left-3 z-50 flex h-14 items-center justify-center gap-3 rounded-[2px] px-6 text-[15px] font-semibold text-ink tab:right-7 tab:bottom-7 tab:left-auto"
+      style={{ boxShadow: "var(--shadow-float)" }}
     >
-      <WhatsappIcon className="h-7 w-7" />
-    </a>
+      <WhatsappIcon className="h-5 w-5" />
+      <span>{site.cta.principal}</span>
+    </WhatsAppLink>
   );
 }

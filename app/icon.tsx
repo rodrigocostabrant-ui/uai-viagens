@@ -1,10 +1,10 @@
 import { ImageResponse } from "next/og";
+import { brandMarkDataUri, INK } from "./brand";
 
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
-// Monograma provisorio ate o logo oficial da UAI Viagens chegar em alta
-// resolucao (ver CLAUDE.md > Identidade visual).
+// Marca vetorizada a partir do print do Instagram; trocar pelo logo oficial quando chegar.
 export default function Icon() {
   return new ImageResponse(
     (
@@ -15,16 +15,13 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#c41e2a",
-          color: "#ffffff",
-          fontSize: 20,
-          fontWeight: 700,
-          fontFamily: "serif",
+          backgroundColor: INK,
         }}
       >
-        U
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={brandMarkDataUri()} width={28} height={16} alt="" />
       </div>
     ),
-    { ...size }
+    { ...size },
   );
 }

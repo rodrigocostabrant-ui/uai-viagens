@@ -26,7 +26,7 @@ Página única (one-page) apresentando os 4 serviços com peso parecido — paco
 - Destaques do Instagram "Clientes" e "Documentação" indicam que existe conteúdo, mas ainda não foi extraído
 
 ## Marca
-- Cores / fontes / logo: paleta preliminar vermelho/preto/branco extraída do print do perfil (ver `identidade-visual.md`). Logo disponível só em baixa resolução (print do Instagram) — **pendência: pedir logo em SVG/PNG alta resolução ao Otávio** antes de fechar a paleta definitiva
+- Cores / fontes / logo: **decisão de 2026-09-22 — identidade em preto, prata e cinza** (design v2 aprovado no Claude Design, Barlow Condensed + Barlow). O vermelho do print do perfil saiu. Logo usado na página é um vetor redesenhado do print (baixa resolução) — **pendência: pedir logo em SVG/PNG alta resolução ao Otávio**
 - Referências que agradam: ainda não levantadas diretamente com o Otávio — o tom "editorial / cinematográfico / premium" partiu da direção do Rodrigo, não confirmado pelo cliente
 - Vetos: template genérico de agência de viagens, excesso de cards iguais, glassmorphism, gradientes em excesso, emojis como elemento de interface, "mineirês" caricato/exagerado
 - Variante visual escolhida: **Editorial** (confirmado) — muito respiro, serifa nos títulos, paleta quase neutra + uma cor de destaque discreta; parece revista, não anúncio. Combina com o posicionamento aspiracional/humano da marca

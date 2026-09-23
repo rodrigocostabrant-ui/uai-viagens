@@ -1,11 +1,10 @@
 import { Header } from "@/components/sections/Header";
 import { Hero } from "@/components/sections/Hero";
-import { Situacao } from "@/components/sections/Situacao";
+import { PontoDePartida } from "@/components/sections/PontoDePartida";
 import { Servicos } from "@/components/sections/Servicos";
 import { ComoFunciona } from "@/components/sections/ComoFunciona";
-import { Sobre } from "@/components/sections/Sobre";
-import { Diferenciais } from "@/components/sections/Diferenciais";
-import { Faq } from "@/components/sections/Faq";
+import { QuemCuida } from "@/components/sections/QuemCuida";
+import { Duvidas } from "@/components/sections/Duvidas";
 import { CtaFinal } from "@/components/sections/CtaFinal";
 import { Footer } from "@/components/sections/Footer";
 import { WhatsappFloating } from "@/components/ui/WhatsappFloating";
@@ -16,12 +15,11 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <Situacao />
+        <PontoDePartida />
         <Servicos />
         <ComoFunciona />
-        <Sobre />
-        <Diferenciais />
-        <Faq />
+        <QuemCuida />
+        <Duvidas />
         <CtaFinal />
       </main>
       <Footer />
