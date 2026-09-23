@@ -51,7 +51,7 @@ export function QuemCuida() {
             <h2 className="m-0 font-display text-display-about font-medium">
               {q.titulo.principal} <span className="text-gray-500">{q.titulo.destaque}</span>
             </h2>
-            <p className="m-0 max-w-[40ch] text-lead-sm font-light text-silver-300">{q.corpo}</p>
+            <p className="m-0 max-w-[40ch] text-lead-sm font-light text-gray-200">{q.corpo}</p>
           </div>
 
           <ul className="m-0 flex list-none flex-col border-t border-line-dark p-0">

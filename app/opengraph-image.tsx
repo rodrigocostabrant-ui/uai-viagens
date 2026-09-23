@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { site, tituloHeroTexto } from "@/content/site";
-import { brandMarkDataUri, INK, PAPER } from "./brand";
+import { brandMarkDataUri, INK, PAPER, RED } from "./brand";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -24,8 +24,8 @@ export default function OpengraphImage() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={brandMarkDataUri()} width={176} height={100} alt="" />
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", alignItems: "center", fontSize: 22, letterSpacing: 5, textTransform: "uppercase", color: "#d9d9dc" }}>
-            <div style={{ width: 48, height: 1, background: "#a8a8ad", marginRight: 18 }} />
+          <div style={{ display: "flex", alignItems: "center", fontSize: 22, letterSpacing: 5, textTransform: "uppercase", color: "#dcdcdc" }}>
+            <div style={{ width: 48, height: 1, background: RED, marginRight: 18 }} />
             {site.hero.rotulo}
           </div>
           <div style={{ fontSize: 72, fontWeight: 600, marginTop: 28, lineHeight: 1.02, maxWidth: 980 }}>

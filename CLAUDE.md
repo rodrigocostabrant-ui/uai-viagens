@@ -25,26 +25,37 @@ Famílias em grupo, casais, pessoas que querem praticidade e não sabem por onde
 começar. Segunda pessoa, direto, humano, brasileiro — nunca "mineirês" caricato.
 Proibido jargão de agência e drama artificial.
 
-## Identidade visual (v2 aprovada, 2026-09-22)
+## Identidade visual (layout v2 + cor da marca, 2026-09-23)
 
-- **Paleta só preto, prata e cinza** (tokens em `app/globals.css` > `@theme`):
-  ink `#0b0b0c`, graphite `#1c1c1f`, cinzas `#4a4a4f`…`#a1a1a6`, paper `#f2f2f0`,
-  prata em gradiente (`--silver`). Sem vermelho.
-- **Prata é sinal, não enfeite:** só no CTA principal, nas linhas, na logo e em **uma
-  frase por dobra** (hero e CTA final). A 2ª frase dos outros títulos vai em cinza.
-  Nunca prata ou `#a1a1a6` como texto sobre paper.
-- Seções alternam preto e claro. Cantos retos (botões 2px).
+A v2 nasceu em preto/prata/cinza, que remetia à Otávio Milhas. Em 2026-09-23 a cor
+migrou para a identidade própria da UAI (logo do Instagram): **preto + branco + vermelho**.
+Layout, tipografia e motion da v2 não mudaram. **Não reintroduzir prata/gradiente metálico.**
+
+- **Tokens** em `app/globals.css` > `@theme`: ink `#0b0b0c`, graphite `#171717`, cinzas
+  **neutros** `#4a4a4a`…`#a3a3a3`, `gray-200/100` (texto claro no escuro), paper `#fafafa`.
+  Vermelho da logo: `red #e0262e` (marca, linhas, texto grande no escuro, 4.2:1),
+  `red-strong #c41e26` (fundo de botão, branco 6.1:1), `red-deep #a3161d` (hover).
+- **Vermelho é assinatura, não fundo:** CTA principal e flutuante, botão de WhatsApp do
+  header, "A" e avião da logo, linha dos rótulos, sublinhado do nav, traço da rota e destino,
+  linha da legenda dos serviços, foco e seleção, e **uma frase por dobra** (hero e CTA
+  final, `.accent-text`). Nunca fundo de seção, card vermelho, glow ou gradiente vermelho.
+  A 2ª frase dos outros títulos vai em cinza. Nunca `#a3a3a3` como texto sobre paper.
+- Preto e branco dominam: seções alternam preto e claro; CTA em seção clara é preto
+  (`btn-ink`, ícone do WhatsApp em vermelho). Cantos retos (botões 2px).
 - **Tipografia:** Barlow Condensed 400/500 (títulos, caixa normal, peso 500) + Barlow
   300/400/500/600 (texto), via `next/font` (`--font-barlow-condensed`, `--font-barlow`).
 - **Logo:** vetor redesenhado do print do Instagram (`components/ui/Logo.tsx`, marca
-  para ícones/OG em `app/brand.ts`). **Trocar pelo arquivo original em alta** quando chegar.
+  para ícones/OG em `app/brand.ts`): "UAI"/"viagens" em `currentColor`, "A" e avião em
+  vermelho, como no original. **Trocar pelo arquivo original em alta** quando chegar.
 
 ## Direção de arte
 
 - Fotos de destino são **placeholders do Unsplash** baixados em `public/images/destinos/`
-  (trocar pelas fotos reais mantendo o nome do arquivo). Tratamento P&B da v2:
-  `grayscale(1) contrast(1.12) brightness(.84)` (conteúdo) e véu `#26303c` soft-light nas
-  fotos de fundo.
+  (trocar pelas fotos reais mantendo o nome do arquivo). **Fotos sempre coloridas e
+  naturais** (nada de grayscale/duotone/tingir de vermelho — a cor da marca é da interface):
+  conteúdo `contrast(1.04) saturate(.88) brightness(.94)`; fundo (hero/CTA, em
+  `DepthPhoto` CONFIG) `contrast → saturate → brightness` + véu neutro `#1c1c1c` soft-light
+  40%. O shader (`lib/three/shaders.ts`) replica o mesmo filtro — mudar os dois juntos.
 - Fotos reais do Otávio: `public/images/otavio-1.jpg`, `otavio-2.jpg`, e o recorte do
   selo `otavio-avatar.jpg` (160px, para não baixar a foto inteira acima da dobra).
 - **Ao trocar a foto do hero ou do CTA final**, gerar um novo mapa de profundidade

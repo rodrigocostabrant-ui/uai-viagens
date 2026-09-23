@@ -26,7 +26,7 @@ Página única (one-page) apresentando os 4 serviços com peso parecido — paco
 - Destaques do Instagram "Clientes" e "Documentação" indicam que existe conteúdo, mas ainda não foi extraído
 
 ## Marca
-- Cores / fontes / logo: **decisão de 2026-09-22 — identidade em preto, prata e cinza** (design v2 aprovado no Claude Design, Barlow Condensed + Barlow). O vermelho do print do perfil saiu. Logo usado na página é um vetor redesenhado do print (baixa resolução) — **pendência: pedir logo em SVG/PNG alta resolução ao Otávio**
+- Cores / fontes / logo: **decisão de 2026-09-23 — identidade própria da UAI em preto, branco e vermelho** (layout v2 do Claude Design mantido, Barlow Condensed + Barlow; o preto/prata/cinza de 2026-09-22 remetia à Otávio Milhas e saiu). Vermelho da logo como assinatura, fotos de destino coloridas. Logo usado na página é um vetor redesenhado do print (baixa resolução) — **pendência: pedir logo em SVG/PNG alta resolução ao Otávio**
 - Referências que agradam: ainda não levantadas diretamente com o Otávio — o tom "editorial / cinematográfico / premium" partiu da direção do Rodrigo, não confirmado pelo cliente
 - Vetos: template genérico de agência de viagens, excesso de cards iguais, glassmorphism, gradientes em excesso, emojis como elemento de interface, "mineirês" caricato/exagerado
 - Variante visual escolhida: **Editorial** (confirmado) — muito respiro, serifa nos títulos, paleta quase neutra + uma cor de destaque discreta; parece revista, não anúncio. Combina com o posicionamento aspiracional/humano da marca

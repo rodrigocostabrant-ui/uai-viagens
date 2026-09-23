@@ -38,7 +38,7 @@ function heroTitle(signal: Signal): (() => void) | undefined {
   if (!el) return;
   // No tier css o título já entrou só com CSS (sem esperar JS, por causa do LCP); aqui só o brilho.
   if (getTier() === "css") {
-    const t = window.setTimeout(() => sheen(el.querySelector(".silver-text")), Math.max(0, 1300 - performance.now()));
+    const t = window.setTimeout(() => sheen(el.querySelector(".accent-text")), Math.max(0, 1300 - performance.now()));
     return () => clearTimeout(t);
   }
   if (getTier() !== "full") return;
@@ -74,7 +74,7 @@ function reveals() {
     offs.push(
       observeReveal(el, (node) => {
         if (node instanceof HTMLElement && node.dataset.sheen !== undefined) {
-          sheen(node.querySelector(".silver-text"), 600);
+          sheen(node.querySelector(".accent-text"), 600);
         }
       }),
     );

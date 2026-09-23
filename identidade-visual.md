@@ -7,11 +7,13 @@ Extraído do perfil do Instagram [instagram.com/uaiviagens_](https://www.instagr
 - Paleta do logo: vermelho (destaque do ícone/traço), preto (tipografia "UAI"), com fundo branco.
 - Tagline abaixo da logo, em vermelho: **"Viajar conosco é bão dimais da conta só!"** — expressão mineira, tom regional/humorado, reforça identidade de Minas Gerais (mesmo território da marca "UAI").
 
-## Decisão para a landing page (2026-09-22)
-A página **não usa o vermelho**: a identidade da LP é preto, prata e cinza (design v2
-aprovado — ver `claude-design-export/design_handoff_uai_viagens/README.md` e os tokens em
-`app/globals.css`). A logo foi redesenhada em vetor, monocromática em prata/preto. A
-análise abaixo é do perfil original do Instagram e fica como registro.
+## Decisão para a landing page (2026-09-23, substitui a de 2026-09-22)
+A LP usa a identidade própria da UAI: **preto + branco + vermelho** (a versão preto/prata/
+cinza da v2 remetia à Otávio Milhas e foi abandonada; layout e motion da v2 continuam).
+Vermelho da logo `#e0262e` como assinatura (CTA, logo, linhas, rota, uma frase por dobra),
+nunca como fundo. Fotos de destino coloridas e naturais. A logo em vetor segue o original:
+"A" e avião em vermelho. Tokens em `app/globals.css`; regras no `CLAUDE.md`. A análise
+abaixo é do perfil original do Instagram.
 
 ## Paleta de cores do perfil (histórico)
 - Vermelho principal (logo/tagline) — algo próximo de `#E53935` / `#D32F2F` (a confirmar com o arquivo do logo em alta resolução)

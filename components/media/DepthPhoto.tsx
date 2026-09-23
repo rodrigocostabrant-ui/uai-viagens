@@ -12,16 +12,18 @@ type Variant = "hero" | "cta";
 const CONFIG = {
   hero: {
     objectPosition: [0.5, 0.6] as [number, number],
-    contrast: 1.12,
-    brightness: 0.8,
+    contrast: 1.06,
+    saturate: 0.92,
+    brightness: 0.86,
     particles: 90,
     gradient:
       "linear-gradient(180deg, rgb(11 11 12 / .6) 0%, rgb(11 11 12 / 0) 26%, rgb(11 11 12 / .2) 52%, rgb(11 11 12 / .94) 100%)",
   },
   cta: {
     objectPosition: [0.5, 0.5] as [number, number],
-    contrast: 1.15,
-    brightness: 0.66,
+    contrast: 1.08,
+    saturate: 0.9,
+    brightness: 0.76,
     particles: 0,
     gradient:
       "linear-gradient(180deg, rgb(11 11 12 / .3) 0%, rgb(11 11 12 / .1) 40%, rgb(11 11 12 / .9) 100%)",
@@ -175,6 +177,7 @@ export function DepthPhoto({
         depth,
         objectPosition: cfg.objectPosition,
         contrast: cfg.contrast,
+        saturate: cfg.saturate,
         brightness: cfg.brightness,
         horizon,
         particles: cfg.particles,
@@ -296,7 +299,7 @@ export function DepthPhoto({
       className="photo-drift object-cover"
       style={{
         objectPosition: `${cfg.objectPosition[0] * 100}% ${cfg.objectPosition[1] * 100}%`,
-        filter: `grayscale(1) contrast(${cfg.contrast}) brightness(${cfg.brightness})`,
+        filter: `contrast(${cfg.contrast}) saturate(${cfg.saturate}) brightness(${cfg.brightness})`,
       }}
     />
   );

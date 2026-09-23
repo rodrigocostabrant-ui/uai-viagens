@@ -32,6 +32,8 @@ export type DepthSceneOptions = {
   /** object-position da <img>, em 0..1 (x, y a partir do topo). */
   objectPosition: [number, number];
   contrast: number;
+  /** Saturação do filtro CSS saturate() (foto colorida, levemente contida). */
+  saturate: number;
   brightness: number;
   /** Linha do horizonte na imagem, 0..1 a partir do topo (faixa da névoa). */
   horizon: number;
@@ -111,6 +113,7 @@ export class DepthScene {
         uScroll: { value: 0 },
         uTime: { value: 0 },
         uContrast: { value: opts.contrast },
+        uSaturate: { value: opts.saturate },
         uBrightness: { value: opts.brightness },
         uHorizon: { value: 1 - opts.horizon },
         uMist: { value: 0.25 },

@@ -75,7 +75,7 @@ export function Header() {
       >
         <a href="#topo" aria-label={site.menu.voltarAoTopo} className="flex flex-none">
           <Logo
-            className={`header-logo h-10 w-auto text-silver-300 desk:h-14 ${solid ? "desk:scale-[0.786]" : ""}`}
+            className={`header-logo h-10 w-auto text-gray-200 desk:h-14 ${solid ? "desk:scale-[0.786]" : ""}`}
           />
         </a>
 
@@ -100,7 +100,7 @@ export function Header() {
           <WhatsAppLink
             event="whatsapp_click_header_icon"
             aria-label={site.cta.ariaIcone}
-            className="btn-icon btn-icon-silver"
+            className="btn-icon btn-icon-primary"
           >
             <WhatsappIcon className="h-5 w-5" />
           </WhatsAppLink>
@@ -144,8 +144,8 @@ export function Header() {
           <TrustChip variant="menu" linha1={site.selo.menu.linha1} linha2={site.selo.menu.linha2} />
           <WhatsAppLink
             event="whatsapp_click_header_menu"
-            className="flex h-14 items-center justify-center gap-3 rounded-[2px] font-semibold text-ink"
-            style={{ background: "var(--silver-icon)" }}
+            className="flex h-14 items-center justify-center gap-3 rounded-[2px] font-semibold text-white"
+            style={{ background: "var(--color-red-strong)" }}
           >
             <WhatsappIcon className="h-5 w-5" />
             {site.cta.principal}

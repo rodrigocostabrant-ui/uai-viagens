@@ -56,3 +56,5 @@ next-env.d.ts
 
 # configurações locais do Claude Code
 /.claude/settings.local.json
+/.claude/scheduled_tasks.lock
+"/.claude/scheduled_tasks.lock"  

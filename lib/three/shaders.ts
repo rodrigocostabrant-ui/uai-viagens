@@ -48,6 +48,7 @@ export const photoFragment = /* glsl */ `
   uniform float uScroll;
   uniform float uTime;        // já limitado a um intervalo pequeno no JS
   uniform float uContrast;
+  uniform float uSaturate;
   uniform float uBrightness;
   uniform float uHorizon;     // y da linha do horizonte, de baixo para cima
   uniform float uMist;
@@ -58,7 +59,7 @@ export const photoFragment = /* glsl */ `
   ${common}
 
   vec3 softLight(vec3 b, vec3 s) {
-    // W3C soft-light com a cor do véu (#26303c, todos os canais < 0.5)
+    // W3C soft-light com a cor do véu (#1c1c1c, todos os canais < 0.5)
     return b - (1.0 - 2.0 * s) * b * (1.0 - b);
   }
 
@@ -83,19 +84,20 @@ export const photoFragment = /* glsl */ `
 
     vec3 col = texture2D(uImage, clamp(st, 0.0, 1.0)).rgb;
 
-    // Mesmo filtro da <img>: grayscale → contrast → clamp → brightness (valores gamma, sem linearizar)
-    float g = dot(col, vec3(0.2126, 0.7152, 0.0722));
-    g = clamp((g - 0.5) * uContrast + 0.5, 0.0, 1.0);
-    g *= uBrightness;
+    // Mesmo filtro da <img>: contrast → clamp → saturate → clamp → brightness
+    // (valores gamma, sem linearizar; saturate() usa a luminância do W3C)
+    col = clamp((col - 0.5) * uContrast + 0.5, 0.0, 1.0);
+    float lum = dot(col, vec3(0.2126, 0.7152, 0.0722));
+    col = clamp(mix(vec3(lum), col, uSaturate), 0.0, 1.0);
+    col *= uBrightness;
 
     // Névoa na faixa do horizonte
     float band = exp(-pow((st.y - uHorizon) / 0.07, 2.0));
     float mist = fbm(vec2(st.x * 3.0 + uTime * 0.012, st.y * 9.0 - uTime * 0.004));
-    g = mix(g, 0.8, smoothstep(0.35, 0.8, mist) * band * uMist * uEnvelope);
+    col = mix(col, vec3(0.8), smoothstep(0.35, 0.8, mist) * band * uMist * uEnvelope);
 
-    // Véu soft-light #26303c a 50% (o DOM esconde a camada dele enquanto o canvas vive)
-    vec3 base = vec3(g);
-    vec3 veiled = mix(base, softLight(base, vec3(0.149, 0.188, 0.235)), 0.5);
+    // Véu soft-light neutro #1c1c1c a 40% (o DOM esconde a camada dele enquanto o canvas vive)
+    vec3 veiled = mix(col, softLight(col, vec3(0.110)), 0.4);
 
     // Grão
     float grain = hash12(gl_FragCoord.xy + floor(uTime * 24.0) * vec2(17.0, 29.0)) - 0.5;

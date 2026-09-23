@@ -23,11 +23,11 @@ export function CtaFinal() {
         <div className="lr-wrap">
           <h2 data-line-reveal="view" className="m-0 font-display text-display-cta font-medium [text-wrap:wrap]">
             {c.titulo.antes}
-            <span className="silver-text">{c.titulo.destaque}</span>
+            <span className="accent-text">{c.titulo.destaque}</span>
           </h2>
         </div>
         <div data-reveal="up" style={{ "--rd": "150ms" } as React.CSSProperties} className="flex flex-col items-start gap-6">
-          <p className="m-0 max-w-[30ch] text-lead font-light text-silver-100">{c.corpo}</p>
+          <p className="m-0 max-w-[30ch] text-lead font-light text-gray-100">{c.corpo}</p>
           <CtaButton event="whatsapp_click_final_cta" size="lg" magnetic />
           <TrustChip linha1={site.selo.ctaFinal.linha1} linha2={site.selo.ctaFinal.linha2} />
         </div>

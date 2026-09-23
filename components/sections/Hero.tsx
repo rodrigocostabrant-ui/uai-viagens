@@ -23,7 +23,7 @@ export function Hero() {
       />
 
       <div className="hero-content container-uai relative pt-40">
-        <div data-load="" style={d(100)} className="label mb-8 flex items-center gap-3 text-silver-300">
+        <div data-load="" style={d(100)} className="label mb-8 flex items-center gap-3 text-gray-200">
           <span data-load="line" style={d(100)} className="label-line" aria-hidden="true" />
           {hero.rotulo}
         </div>
@@ -31,13 +31,13 @@ export function Hero() {
         <div className="lr-wrap">
           <h1 data-line-reveal="load" className="m-0 max-w-[16ch] font-display text-display-1 font-medium">
             {hero.titulo.antes}
-            <span className="silver-text">{hero.titulo.destaque}</span>
+            <span className="accent-text">{hero.titulo.destaque}</span>
             {hero.titulo.depois}
           </h1>
         </div>
 
         <div className="mt-10 flex flex-wrap items-end justify-between gap-x-16 gap-y-8">
-          <p data-load="" style={d(380)} className="m-0 max-w-[30ch] text-lead font-light text-silver-100">
+          <p data-load="" style={d(380)} className="m-0 max-w-[30ch] text-lead font-light text-gray-100">
             {hero.lead}
           </p>
           <div className="flex w-full flex-col items-start gap-[18px] tab:w-auto">
@@ -57,7 +57,7 @@ export function Hero() {
             className="absolute inset-x-0 top-0 h-px bg-[rgb(242_242_240/0.16)]"
             aria-hidden="true"
           />
-          <ul className="m-0 flex list-none flex-wrap gap-x-8 gap-y-2 p-0 text-[12px] font-medium uppercase leading-[1.4] tracking-[0.18em] text-silver-300">
+          <ul className="m-0 flex list-none flex-wrap gap-x-8 gap-y-2 p-0 text-[12px] font-medium uppercase leading-[1.4] tracking-[0.18em] text-gray-200">
             {hero.faixa.map((item, i) => (
               <li key={item} data-load="fade" style={d(560 + i * 60)}>
                 {item}

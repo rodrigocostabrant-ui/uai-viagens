@@ -11,7 +11,7 @@ export function Footer() {
     <footer className="bg-graphite pt-[72px] pb-24 text-gray-400 tab:pb-8">
       <div className="container-uai flex flex-col gap-14">
         <div data-reveal="fade" className="flex flex-wrap items-start justify-between gap-12">
-          <Logo title={site.nome} className="h-[76px] w-auto text-silver-300" />
+          <Logo title={site.nome} className="h-[76px] w-auto text-gray-200" />
           <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,auto))] gap-x-[72px] gap-y-8">
             <div className="flex flex-col gap-3">
               <span className={colLabel}>{f.whatsapp}</span>

@@ -5,19 +5,19 @@ import { WhatsAppLink, type WhatsAppEvent } from "@/components/ui/WhatsAppLink";
 
 /**
  * CTA principal ("Quero planejar minha viagem").
- * silver: fundo escuro · ink: seção clara · lg: CTA final.
+ * primary: vermelho da marca, fundo escuro · ink: seção clara · lg: CTA final.
  * magnetic: só hero e CTA final (o wrapper sem transform é o que se mede).
  */
 export function CtaButton({
   event,
-  variant = "silver",
+  variant = "primary",
   size = "md",
   magnetic = false,
   stretch = false,
   className = "",
 }: {
   event: WhatsAppEvent;
-  variant?: "silver" | "ink";
+  variant?: "primary" | "ink";
   size?: "md" | "lg";
   magnetic?: boolean;
   /** Ocupa a largura toda da coluna também no desktop (como em "Quem cuida" na v2). */
@@ -29,7 +29,7 @@ export function CtaButton({
     <WhatsAppLink
       event={event}
       data-magnetic-target={magnetic ? "" : undefined}
-      className={`btn ${variant === "silver" ? "btn-silver" : "btn-ink"} ${lg ? "btn-lg" : ""} w-full ${stretch ? "" : "tab:w-auto"} ${magnetic ? "" : className}`}
+      className={`btn ${variant === "primary" ? "btn-primary" : "btn-ink"} ${lg ? "btn-lg" : ""} w-full ${stretch ? "" : "tab:w-auto"} ${magnetic ? "" : className}`}
     >
       <span className="btn-content">
         <WhatsappIcon className={`${lg ? "h-[22px] w-[22px]" : "h-5 w-5"} btn-wa`} />

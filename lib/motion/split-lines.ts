@@ -5,9 +5,9 @@
 
 import { DUR, EASE_IN_OUT, EASE_OUT, STAGGER } from "./tokens";
 
-const SILVER = "silver-text";
+const ACCENT = "accent-text";
 
-type Word = { el: HTMLSpanElement; silver: boolean };
+type Word = { el: HTMLSpanElement; accent: boolean };
 
 function wrapWords(root: HTMLElement): Word[] {
   const words: Word[] = [];
@@ -15,7 +15,7 @@ function wrapWords(root: HTMLElement): Word[] {
   const texts: Text[] = [];
   while (walker.nextNode()) texts.push(walker.currentNode as Text);
   for (const text of texts) {
-    const silver = !!text.parentElement?.closest(`.${SILVER}`);
+    const accent = !!text.parentElement?.closest(`.${ACCENT}`);
     const parts = text.data.split(/(\s+)/);
     const frag = document.createDocumentFragment();
     for (const part of parts) {
@@ -27,7 +27,7 @@ function wrapWords(root: HTMLElement): Word[] {
         const span = document.createElement("span");
         span.textContent = part;
         frag.append(span);
-        words.push({ el: span, silver });
+        words.push({ el: span, accent });
       }
     }
     text.replaceWith(frag);
@@ -52,7 +52,7 @@ function groupLines(words: Word[]) {
 function rebuild(clone: HTMLElement, lines: Word[][]) {
   clone.textContent = "";
   const inners: HTMLSpanElement[] = [];
-  const silverFrags: HTMLSpanElement[] = [];
+  const accentFrags: HTMLSpanElement[] = [];
   for (const line of lines) {
     const mask = document.createElement("span");
     mask.className = "lr-line";
@@ -60,16 +60,16 @@ function rebuild(clone: HTMLElement, lines: Word[][]) {
     inner.className = "lr-inner";
     let frag: HTMLSpanElement | null = null;
     line.forEach((w, i) => {
-      const target = w.silver
+      const target = w.accent
         ? (frag ??= (() => {
             const s = document.createElement("span");
-            s.className = SILVER;
+            s.className = ACCENT;
             inner.append(s);
-            silverFrags.push(s);
+            accentFrags.push(s);
             return s;
           })())
         : inner;
-      if (!w.silver) frag = null;
+      if (!w.accent) frag = null;
       if (i > 0) target.append(" ");
       target.append(w.el);
     });
@@ -77,11 +77,11 @@ function rebuild(clone: HTMLElement, lines: Word[][]) {
     clone.append(mask);
     inners.push(inner);
   }
-  // Gradiente contínuo entre fragmentos da frase prata (como o box-decoration-break: slice do original)
-  const widths = silverFrags.map((f) => f.getBoundingClientRect().width);
+  // Fundo contínuo entre fragmentos da frase de destaque (como o box-decoration-break: slice do original)
+  const widths = accentFrags.map((f) => f.getBoundingClientRect().width);
   const total = widths.reduce((a, b) => a + b, 0);
   let x = 0;
-  silverFrags.forEach((f, i) => {
+  accentFrags.forEach((f, i) => {
     f.style.backgroundSize = `250% 100%, ${total}px 100%`;
     f.style.backgroundPosition = `150% 0, ${-x}px 0`;
     x += widths[i];
@@ -95,7 +95,7 @@ export type LineRevealOptions = {
   signal: { cancelled: boolean };
 };
 
-/** Brilho prata único: a faixa de luz atravessa a frase e sai. */
+/** Brilho único: a faixa de luz atravessa a frase e sai. */
 export function sheen(el: Element | null, delay = 0) {
   if (!(el instanceof HTMLElement)) return;
   el.animate(
@@ -139,5 +139,5 @@ export async function lineReveal(real: HTMLElement, { delay, signal }: LineRevea
   real.classList.remove("lr-active");
   real.classList.add("lr-done");
   clone.remove();
-  if (!signal.cancelled) sheen(real.querySelector(`.${SILVER}`), 120);
+  if (!signal.cancelled) sheen(real.querySelector(`.${ACCENT}`), 120);
 }

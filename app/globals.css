@@ -3,26 +3,34 @@
 /* O export do Claude Design é só referência; não entra na varredura de classes. */
 @source not "../claude-design-export";
 
-/* ─── Tokens (v2 · claude-design-export/design_handoff_uai_viagens/tokens.css) ─── */
+/* ─── Tokens ───────────────────────────────────────────────────────────
+   Layout, tipo e motion da v2 (claude-design-export/…/tokens.css); cor na
+   identidade da marca (2026-09-23): preto + branco + vermelho da logo.
+   Cinzas neutros (sem o tom frio do prata) só para hierarquia de texto.
+   Vermelho é assinatura, não fundo: CTA, logo, linhas, rota, estados. */
 @theme {
   --color-*: initial;
   --color-ink: #0b0b0c;
-  --color-graphite: #1c1c1f;
-  --color-line-dark: #2a2a2e;
-  --color-footer-line: #34343a;
-  --color-gray-700: #4a4a4f;
-  --color-gray-650: #55555a;
-  --color-gray-600: #6b6b70;
-  --color-gray-500: #8a8a90;
-  --color-gray-400: #a1a1a6;
-  --color-quote: #c9c9c7;
-  --color-line-light: #d6d6d3;
-  --color-silver-300: #d9d9dc;
-  --color-silver-500: #a8a8ad;
-  --color-silver-100: #e6e6e6;
-  --color-paper: #f2f2f0;
-  --color-text-on-light: #2b2b2f;
+  --color-graphite: #171717;
+  --color-line-dark: #2a2a2a;
+  --color-footer-line: #333333;
+  --color-gray-700: #4a4a4a;
+  --color-gray-650: #565656;
+  --color-gray-600: #6b6b6b;
+  --color-gray-500: #8a8a8a;
+  --color-gray-400: #a3a3a3;
+  --color-gray-200: #dadada;
+  --color-gray-100: #ebebeb;
+  --color-quote: #c9c9c9;
+  --color-line-light: #dedede;
+  --color-paper: #fafafa;
+  --color-text-on-light: #1f1f1f;
   --color-white: #ffffff;
+  /* Vermelho da logo. red: marca, linhas e texto grande no escuro (4.2:1 no ink);
+     red-strong: fundo de botão (branco 6.1:1); red-deep: hover e texto no claro. */
+  --color-red: #e0262e;
+  --color-red-strong: #c41e26;
+  --color-red-deep: #a3161d;
 
   --text-display-1: clamp(52px, 7.6vw, 120px);
   --text-display-1--line-height: 0.94;
@@ -65,11 +73,10 @@
   --dur-route: 1800ms;
   --stagger: 90ms;
   --rv-y: 20px;
-  --silver: linear-gradient(110deg, #e6e6e6 0%, #a8a8ad 40%, #d9d9dc 60%, #e6e6e6 100%);
-  --silver-icon: linear-gradient(135deg, #e6e6e6 0%, #a8a8ad 55%, #d9d9dc 100%);
-  --silver-text: linear-gradient(120deg, #f2f2f0 0%, #a8a8ad 55%, #d9d9dc 100%);
-  --silver-line: linear-gradient(90deg, #e6e6e6, #a8a8ad);
-  --sheen: linear-gradient(100deg, transparent 40%, rgb(255 255 255 / 0.95) 50%, transparent 60%);
+  /* Varredura do CTA: o vermelho escurece da esquerda para a direita no hover */
+  --cta-sweep: linear-gradient(110deg, #c41e26 0%, #c41e26 45%, #a3161d 60%, #a3161d 100%);
+  --accent-fill: linear-gradient(var(--color-red), var(--color-red));
+  --sheen: linear-gradient(100deg, transparent 40%, rgb(255 236 236 / 0.75) 50%, transparent 60%);
   --shadow-float: 0 0 0 1px rgb(11 11 12 / 0.5), 0 16px 40px rgb(0 0 0 / 0.4);
 }
 
@@ -104,11 +111,11 @@
     display: block;
   }
   ::selection {
-    background: var(--color-silver-500);
-    color: var(--color-ink);
+    background: var(--color-red-strong);
+    color: var(--color-white);
   }
   :focus-visible {
-    outline: 2px solid var(--color-silver-300);
+    outline: 2px solid var(--color-red);
     outline-offset: 4px;
   }
   [data-light] :focus-visible {
@@ -155,14 +162,12 @@
     width: 32px;
     height: 1px;
     flex: none;
-    background: var(--silver-line);
-  }
-  [data-light] .label-line {
-    background: var(--color-gray-600);
+    background: var(--color-red);
   }
 
-  .silver-text {
-    background-image: var(--sheen), var(--silver-text);
+  /* Uma frase por dobra (hero e CTA final), no vermelho da marca */
+  .accent-text {
+    background-image: var(--sheen), var(--accent-fill);
     background-size: 250% 100%, 100% 100%;
     background-position: 150% 0, 0 0;
     background-repeat: no-repeat;
@@ -171,17 +176,19 @@
     color: transparent;
   }
 
-  /* Fotos de conteúdo e de fundo, tratamento da v2 */
+  /* Fotografia colorida e natural, levemente contida (cinema, não catálogo).
+     Sem grayscale/duotone: a cor da marca fica na interface, não na foto. */
   .photo-content {
-    filter: grayscale(1) contrast(1.12) brightness(0.84);
+    filter: contrast(1.04) saturate(0.88) brightness(0.94);
   }
   .photo-portrait {
-    filter: grayscale(1) contrast(1.1);
+    filter: contrast(1.03) saturate(0.95);
   }
+  /* Véu neutro das fotos de fundo: aprofunda as sombras sem tingir */
   .photo-veil {
-    background: #26303c;
+    background: #1c1c1c;
     mix-blend-mode: soft-light;
-    opacity: 0.5;
+    opacity: 0.4;
   }
 
   /* Botões */
@@ -212,18 +219,18 @@
     align-items: center;
     gap: inherit;
   }
-  .btn-silver {
-    background-image: var(--silver);
+  .btn-primary {
+    background-image: var(--cta-sweep);
     background-size: 240% 100%;
     background-position: 0% 0;
-    color: var(--color-ink);
+    color: var(--color-white);
   }
   .btn-ink {
     background-color: var(--color-ink);
     color: var(--color-paper);
   }
   .btn-ink .btn-wa {
-    color: var(--color-silver-300);
+    color: var(--color-red);
   }
   .btn-lg {
     min-height: 64px;
@@ -247,7 +254,7 @@
       background-color var(--dur-fast) ease;
   }
   .btn-ghost:active {
-    background-color: rgb(242 242 240 / 0.12);
+    background-color: rgb(250 250 250 / 0.12);
   }
   .btn-icon {
     display: flex;
@@ -258,9 +265,9 @@
     border-radius: 2px;
     flex: none;
   }
-  .btn-icon-silver {
-    background: var(--silver-icon);
-    color: var(--color-ink);
+  .btn-icon-primary {
+    background: var(--color-red-strong);
+    color: var(--color-white);
   }
   .btn-icon-outline {
     border: 1px solid var(--color-gray-700);
@@ -283,7 +290,7 @@
   }
   .nav-link[aria-current="location"] {
     color: var(--color-paper);
-    border-color: var(--color-silver-500);
+    border-color: var(--color-red);
   }
   .text-link {
     text-decoration: underline;
@@ -358,9 +365,8 @@
 
 /* Hover com deslocamento só em mouse de verdade */
 @media (hover: hover) and (pointer: fine) {
-  .btn-silver:hover {
+  .btn-primary:hover {
     background-position: 100% 0;
-    box-shadow: 0 0 0 1px var(--color-paper);
   }
   .btn-ink:hover {
     background-color: var(--color-graphite);
@@ -370,22 +376,22 @@
     translate: 4px 0;
   }
   .btn-ghost:hover {
-    border-color: var(--color-silver-300);
-    background-color: rgb(242 242 240 / 0.06);
+    border-color: var(--color-red);
+    background-color: rgb(250 250 250 / 0.06);
   }
   .nav-link:hover {
     color: var(--color-paper);
-    border-color: var(--color-silver-500);
+    border-color: var(--color-red);
   }
   .text-link:hover {
-    text-decoration-color: var(--color-silver-300);
+    text-decoration-color: var(--color-red);
     color: var(--color-white);
   }
   .faq-item > summary:hover .faq-q {
     color: var(--color-gray-700);
   }
 
-  /* Foto de serviço: brilho + escala aprovados; a linha da legenda vira prata */
+  /* Foto de serviço: brilho + escala aprovados; a linha da legenda se desenha em vermelho */
   .svc-figure .svc-img {
     transition:
       scale var(--dur-hover-img) var(--ease-out),
@@ -393,7 +399,7 @@
   }
   .svc-figure:hover .svc-img {
     scale: 1.035;
-    filter: grayscale(1) contrast(1.12) brightness(1);
+    filter: contrast(1.04) saturate(0.88) brightness(1.02);
   }
   .svc-caption::before {
     transition: scale 300ms var(--ease-out);
@@ -412,7 +418,7 @@
   position: absolute;
   inset: -1px 0 auto 0;
   height: 1px;
-  background: var(--silver-line);
+  background: var(--color-red);
   transform-origin: left;
   scale: 0 1;
 }

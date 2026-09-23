@@ -18,7 +18,7 @@ export function WhatsappFloating() {
       aria-label={site.cta.ariaIcone}
       data-visible={floatVisible}
       inert={!floatVisible}
-      className="float-cta btn-silver fixed right-3 bottom-3 left-3 z-50 flex h-14 items-center justify-center gap-3 rounded-[2px] px-6 text-[15px] font-semibold text-ink tab:right-7 tab:bottom-7 tab:left-auto"
+      className="float-cta btn-primary fixed right-3 bottom-3 left-3 z-50 flex h-14 items-center justify-center gap-3 rounded-[2px] px-6 text-[15px] font-semibold text-white tab:right-7 tab:bottom-7 tab:left-auto"
       style={{ boxShadow: "var(--shadow-float)" }}
     >
       <WhatsappIcon className="h-5 w-5" />

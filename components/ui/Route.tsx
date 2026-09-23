@@ -8,9 +8,9 @@ import { Icon } from "@/components/ui/Icon";
 type Vars = React.CSSProperties & Record<`--${string}`, string | number>;
 const at = (p: number, rd: number): Vars => ({ "--p": p, "--rd": `${rd}ms` });
 
-const DASH_X = "repeating-linear-gradient(90deg, #8a8a90 0 6px, transparent 6px 12px)";
-const DASH_Y = "repeating-linear-gradient(180deg, #8a8a90 0 6px, transparent 6px 12px)";
-const STOP = "block h-4 w-4 rounded-full bg-ink shadow-[0_0_0_6px_#f2f2f0,0_0_0_7px_#a8a8ad]";
+const DASH_X = "repeating-linear-gradient(90deg, var(--color-red) 0 6px, transparent 6px 12px)";
+const DASH_Y = "repeating-linear-gradient(180deg, var(--color-red) 0 6px, transparent 6px 12px)";
+const STOP = "block h-4 w-4 rounded-full bg-ink shadow-[0_0_0_6px_var(--color-paper),0_0_0_7px_var(--color-gray-400)]";
 
 function Step({ i, className = "", titleSize }: { i: number; className?: string; titleSize: string }) {
   const e = site.comoFunciona.etapas[i];
@@ -66,10 +66,10 @@ export function Route() {
                 <span data-route="pop" className={`route-stop ${STOP}`} style={at(0.75, 1200)} />
                 <span
                   data-route="pop"
-                  className="route-stop relative flex h-14 w-14 items-center justify-center rounded-full bg-ink text-silver-300"
+                  className="route-stop relative flex h-14 w-14 items-center justify-center rounded-full bg-ink text-red"
                   style={at(0.97, 1500)}
                 >
-                  <span className="route-ring absolute inset-0 rounded-full border border-silver-500 opacity-0" />
+                  <span className="route-ring absolute inset-0 rounded-full border border-red opacity-0" />
                   <Icon name="plane" size={24} style={{ transform: "rotate(45deg)" }} />
                 </span>
               </div>
@@ -109,7 +109,7 @@ export function Route() {
         ))}
         <div data-route="up" className="route-end relative flex min-h-[52px] items-center">
           <span
-            className="absolute -left-[66px] flex h-[52px] w-[52px] items-center justify-center rounded-full bg-ink text-silver-300"
+            className="absolute -left-[66px] flex h-[52px] w-[52px] items-center justify-center rounded-full bg-ink text-red"
             aria-hidden="true"
           >
             <Icon name="plane" size={22} style={{ transform: "rotate(135deg)" }} />
