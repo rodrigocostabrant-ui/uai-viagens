@@ -1062,21 +1062,24 @@ html[data-menu-open] .float-cta {
   }
 }
 
-/* ─── Quem cuida: órbita de fotos (components/ui/PhotoOrbit.tsx) ─── */
-.orbit-stage {
+/* ─── Quem cuida: faixa de fotos (components/ui/PhotoMarquee.tsx) ─── */
+.marquee-stage {
   container-type: size;
-  perspective: 1500px;
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
 }
-.orbit-card {
-  width: min(28cqw, 25cqh);
+.marquee-track {
+  gap: 5cqw;
   will-change: transform;
-  backface-visibility: hidden;
 }
-.orbit-face {
+.marquee-card {
+  width: min(58cqw, 52cqh);
+  perspective: 900px;
+}
+.marquee-face {
   transition: scale var(--dur-ui) var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) {
-  .orbit-card:hover .orbit-face {
+  .marquee-card:hover .marquee-face {
     scale: 1.05;
   }
 }

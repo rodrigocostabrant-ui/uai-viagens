@@ -119,12 +119,11 @@ export const site = {
     corpo:
       "A UAI Viagens é conduzida pelo Otávio e pela equipe que organiza cada roteiro, uma viagem de cada vez. Em Belo Horizonte, dá pra conversar pessoalmente. No resto do Brasil, online.",
     legenda: "Otávio · UAI Viagens, Belo Horizonte",
-    // Órbita de fotos: lê todas as imagens de public/images/otavio/ (ordem = nome do arquivo;
+    // Faixa de fotos: lê todas as imagens de public/images/otavio/ (ordem = nome do arquivo;
     // legenda = nome do arquivo sem número inicial, ex. "02-Lisboa, 2024.jpg" → "Lisboa, 2024").
-    // As duas fotos abaixo vêm sempre primeiro.
-    orbita: { dica: "Role o mouse sobre as fotos para girar", dicaToque: "Arraste para o lado para girar" },
+    // As fotos abaixo vêm sempre primeiro. Só fotos profissionais e descontraídas.
+    faixa: { dica: "Passe o mouse ou arraste as fotos", dicaToque: "Arraste para o lado" },
     fotos: [
-      { src: "/images/otavio-1.jpg", titulo: "Em estúdio", alt: "Otávio, à frente da UAI Viagens, em retrato de estúdio", posicao: "50% 18%" },
       { src: "/images/otavio-2.jpg", titulo: "De braços abertos", alt: "Otávio sorrindo, de braços abertos", posicao: "48% 20%" },
     ],
     // Diferenciais ainda a validar com o cliente (ver brief.md).

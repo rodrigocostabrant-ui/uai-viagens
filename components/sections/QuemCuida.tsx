@@ -1,14 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
 import { site } from "@/content/site";
-import { PhotoOrbit, type OrbitPhoto } from "@/components/ui/PhotoOrbit";
+import { PhotoMarquee, type MarqueePhoto } from "@/components/ui/PhotoMarquee";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CtaButton } from "@/components/ui/Button";
 
 const rd = (ms: number) => ({ "--rd": `${ms}ms` }) as React.CSSProperties;
 
 /** Fotos fixas do site + tudo o que estiver em public/images/otavio/ (lido no build). */
-function fotos(): OrbitPhoto[] {
+function fotos(): MarqueePhoto[] {
   const base = site.quemCuida.fotos.map((f) => ({ src: f.src, title: f.titulo, alt: f.alt, position: f.posicao }));
   const dir = path.join(process.cwd(), "public", "images", "otavio");
   if (!fs.existsSync(dir)) return base;
@@ -29,7 +29,7 @@ export function QuemCuida() {
     <section id="quem-cuida" className="section-y bg-ink text-paper">
       <div className="container-uai grid grid-cols-1 items-center gap-x-[clamp(48px,6vw,104px)] gap-y-16 desk:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
         <div data-reveal="fade">
-          <PhotoOrbit photos={fotos()} hint={q.orbita.dica} touchHint={q.orbita.dicaToque} />
+          <PhotoMarquee photos={fotos()} hint={q.faixa.dica} touchHint={q.faixa.dicaToque} />
         </div>
 
         <div className="flex flex-col gap-8">

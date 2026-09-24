@@ -78,15 +78,15 @@ tela) → Quem cuida (órbita de fotos do Otávio + diferenciais) → Depoimento
   (`.tl-title`) para nunca descer até a linha. Altura da seção = 100svh + trilha × 1,25, recalculada só quando a
   **largura** muda. Sem `html.m-on` (sem JS, reduced motion) ou se o GSAP falhar
   (`.tl-failed`), mostra a rota estática (`Route.tsx`).
-- **Quem cuida** (`components/ui/PhotoOrbit.tsx`, 2026-09-23): fotos do Otávio girando
-  em 360° em duas órbitas alternadas (externa/alta num sentido, interna/baixa no outro,
-  inclinadas para lados opostos), cada foto com desvio próprio fixo de ângulo, raio,
-  altura, inclinação e tamanho. Rolar o mouse sobre as fotos acelera o giro no sentido do
-  scroll **sem prender a página**; toque: arrasto lateral. Posições em `cqw/cqh`, então o
-  servidor já entrega o arranjo. Com menos de 6 fotos, elas se repetem em lados opostos.
-  **Fotos novas: soltar em `public/images/otavio/`** (lidas no build; ordem = nome do
-  arquivo; legenda = nome sem o número inicial, ex. `02-Lisboa, 2024.jpg` → "Lisboa, 2024").
-  As duas de `site.quemCuida.fotos` vêm antes. (A "roda" WorksWheel foi descartada.)
+- **Quem cuida** (`components/ui/PhotoMarquee.tsx`, 2026-09-24): fotos do Otávio numa faixa
+  contínua da esquerda para a direita, em velocidade constante, cada foto com desvio fixo
+  de altura e inclinação. Mouse em cima desacelera (nunca para) e inclina a foto sob o
+  cursor; a roda empurra a faixa **sem prender a página**; arrastar (mouse ou toque) puxa
+  e arremessa, e o impulso volta sozinho ao ritmo de cruzeiro. Reduced motion: parada, só
+  arrasto. **Só fotos profissionais e descontraídas** (a de braços baixos olhando para a
+  câmera, `otavio-1.jpg`, saiu da seção). **Fotos novas: soltar em `public/images/otavio/`**
+  (lidas no build; ordem = nome do arquivo; legenda = nome sem o número inicial, ex.
+  `02-Lisboa, 2024.jpg` → "Lisboa, 2024"). As de `site.quemCuida.fotos` vêm antes.
 - **Destinos** (`components/media/GlobeExplorer.tsx` + `lib/three/GlobeScene.ts`): globo
   estilizado nas cores da marca. **Clicável por continente** (decisão de 2026-09-23: por
   país dava a impressão de que só havia pacote para aqueles países). Cada continente
@@ -189,7 +189,7 @@ components/
                 QuemCuida, Duvidas, Destinos, CtaFinal, Footer
   ui/           Button (CtaButton), WhatsAppLink, WhatsappFloating (client),
                 WhatsappIcon, Logo, Icon, Route, SectionLabel, TrustChip, Container,
-                Timeline (client, GSAP), PhotoOrbit (client)
+                Timeline (client, GSAP), PhotoMarquee (client)
   media/        DepthPhoto (client) — foto de fundo + canvas Three.js
                 GlobeExplorer (client) — globo + painel + índice por continente
   motion/       MotionBootstrap (client)
@@ -199,7 +199,7 @@ lib/three/      DepthScene, shaders, GlobeScene
 content/site.ts  toda a copy (v2)
 content/destinos.ts  continentes do globo e países da galeria (foto, crédito)
 public/images/   destinos/ (placeholders), hero/ (mapas de profundidade), otavio-*,
-                 otavio/ (fotos extras da roda), globo/<iso>.jpg (fotos dos países)
+                 otavio/ (fotos extras da faixa de Quem cuida), globo/<iso>.jpg (fotos dos países)
 public/data/globo.json  contornos dos países para o globo
 claude-design-export/  handoff do Claude Design (referência; fora do Tailwind e do ESLint)
 ```
