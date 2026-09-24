@@ -8,6 +8,7 @@ export type WhatsAppEvent =
   | "whatsapp_click_hero"
   | "whatsapp_click_como_funciona"
   | "whatsapp_click_quem_cuida"
+  | "whatsapp_click_destinos"
   | "whatsapp_click_final_cta"
   | "whatsapp_click_footer"
   | "whatsapp_click_floating";
@@ -15,7 +16,8 @@ export type WhatsAppEvent =
 /** Todo link de WhatsApp passa por aqui: o evento de analytics é obrigatório. */
 export function WhatsAppLink({
   event,
+  mensagem,
   ...props
-}: Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "target" | "rel"> & { event: WhatsAppEvent }) {
-  return <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" data-analytics={event} {...props} />;
+}: Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "target" | "rel"> & { event: WhatsAppEvent; mensagem?: string }) {
+  return <a href={whatsappHref(mensagem)} target="_blank" rel="noopener noreferrer" data-analytics={event} {...props} />;
 }

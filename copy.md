@@ -69,3 +69,35 @@ Navegação: Serviços · Como funciona · Quem cuida · Dúvidas · botão "Que
 
 ## Footer
 WhatsApp +55 31 98951-9239 · Instagram @uaiviagens_ · Atendimento: Presencial em Belo Horizonte / Online em todo o Brasil · UAI Viagens · CNPJ 55.372.856/0001-80 · © 2026 UAI Viagens
+
+## Destinos (nova seção, 2026-09-23 — antes do CTA final)
+
+**Objetivo:** dar um ponto de partida para quem ainda não tem destino (a dor "não sei por
+onde começar") e transformar a curiosidade num clique contextualizado no WhatsApp.
+
+- Rótulo: Destinos
+- Título (h2): **Ainda sem destino?** *Comece pela paisagem.* (2ª frase em cinza)
+- Lead: Gire o globo e toque num continente pra ver alguns lugares de lá. Quando algum
+  prender o seu olhar, é só chamar: a UAI monta a viagem a partir dele.
+- Dica: Arraste para girar. Toque num continente.
+- Estado vazio: Escolha um continente no globo ou na lista.
+- Painel: "Alguns destinos" · nome do continente · galeria (país + lugar) · "E também: …"
+  · "Esses são só alguns. Tem outro país em mente? Conta pra UAI." · botão "Quero viajar
+  pela …"
+- Mensagem do WhatsApp: "Oi! Vi o globo no site da UAI e quero planejar uma viagem pela …"
+- Imagens: 31 fotos de paisagem do Wikimedia Commons, com crédito visível.
+
+Alternativas de título consideradas (escolher uma troca só `site.destinos.titulo`):
+1. **Ainda sem destino? Comece pela paisagem.** (escolhida: responde à dor do brief e
+   conversa com a pergunta do FAQ "Preciso já saber o destino?")
+2. Gire o mundo. Pare onde der vontade.
+3. O mundo inteiro, sem abrir vinte abas. (ecoa "Sem vinte abas abertas" de Serviços)
+
+## Como funciona — linha do tempo (2026-09-23)
+Mesmos textos da rota. Fundo da seção: nuvens vistas do avião, 16:9 (Commons, crédito
+no canto). Rótulos da linha: "Você, hoje" → "Seu destino".
+
+## Quem cuida — órbita de fotos (2026-09-23)
+Legendas: "Em estúdio", "De braços abertos", "Em viagem" + nome dos arquivos em
+`public/images/otavio/`. Dica: "Role o mouse sobre as fotos para girar" (toque: "Arraste
+para o lado para girar").

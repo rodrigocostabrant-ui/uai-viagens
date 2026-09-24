@@ -14,6 +14,7 @@ export const site = {
     { label: "Como funciona", href: "#como-funciona" },
     { label: "Quem cuida", href: "#quem-cuida" },
     { label: "Dúvidas", href: "#duvidas" },
+    { label: "Destinos", href: "#destinos" },
   ],
 
   cta: {
@@ -105,6 +106,11 @@ export const site = {
       { tag: "Embarque", titulo: "Você viaja com tudo organizado", texto: "E com alguém da UAI a uma mensagem de distância durante a viagem." },
     ],
     fechamento: "A primeira parada é uma conversa.",
+    imagem: {
+      src: "/images/destinos/como-funciona-nuvens.jpg",
+      alt: "Nuvens vistas da janela do avião, acima do céu azul",
+      credito: { autor: "Jakec", licenca: "CC BY-SA 3.0", fonte: "https://commons.wikimedia.org/wiki/File:Cumulus_clouds_as_seen_from_an_airplane.JPG" },
+    },
   },
 
   quemCuida: {
@@ -113,9 +119,13 @@ export const site = {
     corpo:
       "A UAI Viagens é conduzida pelo Otávio e pela equipe que organiza cada roteiro, uma viagem de cada vez. Em Belo Horizonte, dá pra conversar pessoalmente. No resto do Brasil, online.",
     legenda: "Otávio · UAI Viagens, Belo Horizonte",
+    // Órbita de fotos: lê todas as imagens de public/images/otavio/ (ordem = nome do arquivo;
+    // legenda = nome do arquivo sem número inicial, ex. "02-Lisboa, 2024.jpg" → "Lisboa, 2024").
+    // As duas fotos abaixo vêm sempre primeiro.
+    orbita: { dica: "Role o mouse sobre as fotos para girar", dicaToque: "Arraste para o lado para girar" },
     fotos: [
-      { src: "/images/otavio-1.jpg", alt: "Otávio, à frente da UAI Viagens, em retrato de estúdio", posicao: "50% 18%" },
-      { src: "/images/otavio-2.jpg", alt: "Otávio sorrindo, de braços abertos", posicao: "48% 20%" },
+      { src: "/images/otavio-1.jpg", titulo: "Em estúdio", alt: "Otávio, à frente da UAI Viagens, em retrato de estúdio", posicao: "50% 18%" },
+      { src: "/images/otavio-2.jpg", titulo: "De braços abertos", alt: "Otávio sorrindo, de braços abertos", posicao: "48% 20%" },
     ],
     // Diferenciais ainda a validar com o cliente (ver brief.md).
     diferenciais: [
@@ -123,6 +133,18 @@ export const site = {
       { titulo: "Roteiro do seu jeito", texto: "Pensado pra como você gosta de viajar, não um pacote igual pra todo mundo." },
       { titulo: "Até o embarque", texto: "O acompanhamento não termina na venda da passagem." },
     ],
+  },
+
+  destinos: {
+    rotulo: "Destinos",
+    titulo: { principal: "Ainda sem destino?", destaque: "Comece pela paisagem." },
+    lead: "Gire o globo e toque num continente pra ver alguns lugares de lá. Quando algum prender o seu olhar, é só chamar: a UAI monta a viagem a partir dele.",
+    dica: "Arraste para girar. Toque num continente.",
+    vazio: "Escolha um continente no globo ou na lista.",
+    rotuloGaleria: "Alguns destinos",
+    tambem: "E também",
+    outros: "Esses são só alguns. Tem outro país em mente? Conta pra UAI.",
+    mensagem: (viagem: string) => `Oi! Vi o globo no site da UAI e quero planejar ${viagem}.`,
   },
 
   depoimentos: {

@@ -58,3 +58,11 @@ next-env.d.ts
 /.claude/settings.local.json
 /.claude/scheduled_tasks.lock
 "/.claude/scheduled_tasks.lock"  
+
+# Página do Instagram salva localmente (pode conter dados de sessão; não vai para o repositório)
+/Instagram.html
+/Instagram_files/
+
+# Página do Instagram salva localmente (pode conter dados de sessão; não vai para o repositório)
+/Instagram.html
+/Instagram_files/

@@ -960,3 +960,123 @@ html[data-menu-open] .float-cta {
   visibility: hidden;
   pointer-events: none;
 }
+
+/* ─── Linha do tempo de "Como funciona" (components/ui/Timeline.tsx) ───
+   Com motion: trilha horizontal presa na tela. Sem JS / reduced motion / falha
+   do GSAP: a rota estática (.cf-static). Medidas em vw para a trilha escalar
+   com a tela; o JS mede em px. */
+.cf-pinned {
+  display: none;
+}
+.m-on .cf-pinned {
+  display: block;
+}
+.m-on .cf-static {
+  display: none;
+}
+.m-on .cf-pinned:has(.tl-failed) {
+  display: none;
+}
+.m-on .cf-pinned:has(.tl-failed) + .cf-static {
+  display: block;
+}
+.tl-root {
+  height: 300svh;
+  --tl-h: min(60svh, 540px);
+  --tl-pad: clamp(20px, 4vw, 56px);
+  --tl-gap: 8vw;
+  --tl-img: 82vw;
+  --tl-title: 86vw;
+  --tl-step: 74vw;
+  --tl-itemw: 66vw;
+}
+@media (min-width: 700px) {
+  .tl-root {
+    --tl-h: min(64svh, 600px);
+    --tl-gap: 6vw;
+    --tl-img: 46vw;
+    --tl-title: 52vw;
+    --tl-step: 44vw;
+    --tl-itemw: 38vw;
+  }
+}
+@media (min-width: 1000px) {
+  .tl-root {
+    --tl-h: min(66svh, 640px);
+    --tl-gap: 5vw;
+    --tl-img: 28vw;
+    --tl-title: 30vw;
+    --tl-step: 29vw;
+    --tl-itemw: 25vw;
+  }
+}
+.tl-rail {
+  width: calc(var(--tl-title) + 3 * var(--tl-step) + var(--tl-itemw) + 96px);
+}
+/* Título limitado também pela altura: em tela baixa ele não pode descer até a linha */
+.tl-title {
+  font-size: clamp(38px, min(5.2vw, 7.2svh), 80px);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+}
+/* Véu claro sobre as nuvens: mantém a seção "clara" e o texto escuro legível */
+.tl-veil {
+  background: linear-gradient(180deg, rgb(250 250 250 / 0.5) 0%, rgb(250 250 250 / 0.3) 45%, rgb(250 250 250 / 0.12) 70%, rgb(250 250 250 / 0.4) 100%);
+}
+.tl-track {
+  will-change: transform;
+}
+.tl-ln {
+  padding-block: 0.12em;
+  margin-block: -0.12em;
+}
+/* Estado inicial antes do GSAP assumir (evita piscar tudo aberto) */
+.m-on .tl-root:not(.tl-ready) :is(.tl-stem, .tl-dot, .tl-text, .tl-line, .tl-end) {
+  visibility: hidden;
+}
+
+/* ─── Destinos: globo (components/media/GlobeExplorer.tsx) ─── */
+.globe-canvas {
+  opacity: 0;
+  animation: globe-in var(--dur-reveal) var(--ease-out) forwards;
+}
+@keyframes globe-in {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes globe-wait {
+  50% {
+    opacity: 0.35;
+  }
+}
+.m-on .globe-wait {
+  animation: globe-wait 1600ms var(--ease-in-out) infinite;
+}
+.m-on .globe-panel {
+  animation: load-up 420ms var(--ease-out) both;
+}
+@media (hover: hover) and (pointer: fine) {
+  .globe-pick:hover > span:first-child {
+    color: var(--color-paper);
+  }
+}
+
+/* ─── Quem cuida: órbita de fotos (components/ui/PhotoOrbit.tsx) ─── */
+.orbit-stage {
+  container-type: size;
+  perspective: 1500px;
+}
+.orbit-card {
+  width: min(28cqw, 25cqh);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.orbit-face {
+  transition: scale var(--dur-ui) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .orbit-card:hover .orbit-face {
+    scale: 1.05;
+  }
+}

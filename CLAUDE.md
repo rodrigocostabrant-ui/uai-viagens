@@ -66,9 +66,40 @@ Layout, tipografia e motion da v2 não mudaram. **Não reintroduzir prata/gradie
 
 ## Arquitetura da página
 
-Header → Hero → Ponto de partida → Serviços → Como funciona (rota) → Quem cuida
-(Otávio + diferenciais) → Depoimentos + Dúvidas (`#duvidas`) → CTA final → Footer →
-CTA flutuante.
+Header → Hero → Ponto de partida → Serviços → Como funciona (linha do tempo presa na
+tela) → Quem cuida (órbita de fotos do Otávio + diferenciais) → Depoimentos + Dúvidas
+(`#duvidas`) → Destinos (globo 3D, `#destinos`) → CTA final → Footer → CTA flutuante.
+
+- **Como funciona** (`components/ui/Timeline.tsx`, 2026-09-23): trilha horizontal presa
+  por CSS `sticky`, movida por GSAP ScrollTrigger (scrub); a linha vermelha termina
+  exatamente no destino e cada etapa sobe linha a linha (SplitText com máscara, `aria:
+  "none"`) quando a ponta chega. **Foto de nuvens 16:9 de fundo da seção inteira**, com
+  véu claro (`.tl-veil`) e parallax lateral; o título é limitado pela altura da tela
+  (`.tl-title`) para nunca descer até a linha. Altura da seção = 100svh + trilha × 1,25, recalculada só quando a
+  **largura** muda. Sem `html.m-on` (sem JS, reduced motion) ou se o GSAP falhar
+  (`.tl-failed`), mostra a rota estática (`Route.tsx`).
+- **Quem cuida** (`components/ui/PhotoOrbit.tsx`, 2026-09-23): fotos do Otávio girando
+  em 360° em duas órbitas alternadas (externa/alta num sentido, interna/baixa no outro,
+  inclinadas para lados opostos), cada foto com desvio próprio fixo de ângulo, raio,
+  altura, inclinação e tamanho. Rolar o mouse sobre as fotos acelera o giro no sentido do
+  scroll **sem prender a página**; toque: arrasto lateral. Posições em `cqw/cqh`, então o
+  servidor já entrega o arranjo. Com menos de 6 fotos, elas se repetem em lados opostos.
+  **Fotos novas: soltar em `public/images/otavio/`** (lidas no build; ordem = nome do
+  arquivo; legenda = nome sem o número inicial, ex. `02-Lisboa, 2024.jpg` → "Lisboa, 2024").
+  As duas de `site.quemCuida.fotos` vêm antes. (A "roda" WorksWheel foi descartada.)
+- **Destinos** (`components/media/GlobeExplorer.tsx` + `lib/three/GlobeScene.ts`): globo
+  estilizado nas cores da marca. **Clicável por continente** (decisão de 2026-09-23: por
+  país dava a impressão de que só havia pacote para aqueles países). Cada continente
+  mostra uma galeria de alguns países (`content/destinos.ts`, 5 com foto + o resto pelo
+  nome) e "Esses são só alguns. Tem outro país em mente?". Pontos vermelhos marcam os
+  países da galeria. Contornos em `public/data/globo.json` (Natural Earth 110m, campo
+  CONTINENT, Rússia na Ásia; gerado com d3-geo numa pasta temporária, **nunca como
+  dependência**). CTA "Quero viajar pela …" (WhatsApp com o continente, evento
+  `whatsapp_click_destinos`).
+  O índice por continente é o caminho acessível e o fallback sem WebGL.
+- **Fotos dos países e da linha do tempo são do Wikimedia Commons** (CC0/CC BY/CC BY-SA):
+  o crédito (autor, licença, link) **tem de continuar visível junto da foto**. Trocar uma
+  foto = trocar o arquivo e o crédito em `content/destinos.ts` / `site.comoFunciona.imagem`.
 
 - Depoimentos: espaço reservado da v2, controlado por
   `content/site.ts > depoimentos.mostrarEspacoReservado`. **Desligar antes de publicar**
@@ -79,7 +110,7 @@ CTA flutuante.
 
 - CTA único **"Quero planejar minha viagem"** → `wa.me` com mensagem pré-preenchida.
   Todo link de WhatsApp passa por `components/ui/WhatsAppLink.tsx` (prop `event`
-  obrigatória → `data-analytics`, 9 pontos hoje).
+  obrigatória → `data-analytics`, 10 pontos hoje; o do globo leva o país na mensagem).
 - Header: 96→72px no desktop ao rolar 40px; abaixo de 1100px, logo + WhatsApp + menu em
   tela cheia (`inert` quando fechado, Esc fecha, foco volta ao botão).
 - Flutuante: aparece após 75% do hero, some quando o CTA final passa 55% da tela e com o
@@ -124,9 +155,14 @@ Camada premium por cima da v2, sem mudar layout. Regras:
   quadros (pega GPU lenta). Por isso, testar o caminho WebGL com GPU real
   (`chromium.launch({ args: ["--use-angle=d3d11", "--enable-gpu", "--ignore-gpu-blocklist"] })`);
   no Chromium headless padrão (sem GPU) ele cai corretamente para `css` em ~6s.
+- **GSAP** (`gsap` 3.15, com ScrollTrigger e SplitText) é usado **só** na linha do tempo
+  de Como funciona (pedido do cliente em 2026-09-23); o resto continua sem biblioteca.
+- **Three.js no celular:** o hero e o CTA final seguem só no tier `full`; o **globo** é a
+  exceção (é interação, não enfeite) e baixa o chunk por proximidade (600px), em qualquer tier.
 - Proibido: contador animado, texto digitando, carrossel com autoplay, cursor
-  customizado, blur/glassmorphism, bounce, smooth-scroll que sequestra o scroll (Lenis),
-  3D que invente destinos (globo, rotas reais).
+  customizado, blur/glassmorphism, bounce, smooth-scroll que sequestra o scroll (Lenis).
+  O globo mostra países reais com fotos de lá; não desenhar rotas nem prometer destino
+  vendido que o cliente não confirmou.
 
 ## SEO
 
@@ -140,7 +176,8 @@ Camada premium por cima da v2, sem mudar layout. Regras:
 `next/image` em toda imagem (Next 16: `priority` descontinuado — hero usa
 `loading="eager"`; `sizes` em retrato `160vw` por causa do `object-fit: cover`).
 Dependências: Next + Tailwind + `@vercel/analytics`/`speed-insights` + **`three`**
-(lazy, só desktop). Sem formulário/Server Action.
+(lazy: hero/CTA só desktop, globo por proximidade) + **`gsap`** (linha do tempo). Sem
+formulário/Server Action.
 
 ## Componentes
 
@@ -149,16 +186,21 @@ app/            layout.tsx (fontes, script de tier), page.tsx, globals.css, bran
                 icon.tsx, apple-icon.tsx, opengraph-image.tsx, sitemap.ts, robots.ts
 components/
   sections/     Header (client), Hero, PontoDePartida, Servicos, ComoFunciona,
-                QuemCuida, Duvidas, CtaFinal, Footer
+                QuemCuida, Duvidas, Destinos, CtaFinal, Footer
   ui/           Button (CtaButton), WhatsAppLink, WhatsappFloating (client),
-                WhatsappIcon, Logo, Icon, Route, SectionLabel, TrustChip, Container
+                WhatsappIcon, Logo, Icon, Route, SectionLabel, TrustChip, Container,
+                Timeline (client, GSAP), PhotoOrbit (client)
   media/        DepthPhoto (client) — foto de fundo + canvas Three.js
+                GlobeExplorer (client) — globo + painel + índice por continente
   motion/       MotionBootstrap (client)
   Analytics.tsx, AnalyticsEvents.tsx (clique delegado em [data-analytics])
 lib/motion/     tokens, tier, ticker, scroll, pointer, reveal, split-lines
-lib/three/      DepthScene, shaders
+lib/three/      DepthScene, shaders, GlobeScene
 content/site.ts  toda a copy (v2)
-public/images/   destinos/ (placeholders), hero/ (mapas de profundidade), otavio-*
+content/destinos.ts  continentes do globo e países da galeria (foto, crédito)
+public/images/   destinos/ (placeholders), hero/ (mapas de profundidade), otavio-*,
+                 otavio/ (fotos extras da roda), globo/<iso>.jpg (fotos dos países)
+public/data/globo.json  contornos dos países para o globo
 claude-design-export/  handoff do Claude Design (referência; fora do Tailwind e do ESLint)
 ```
 
@@ -178,7 +220,7 @@ claude-design-export/  handoff do Claude Design (referência; fora do Tailwind e
 - [x] Hero vivo no desktop (drift + ponteiro + profundidade), drift CSS no celular
 - [x] Reduced motion: nada escondido nem animado; sem JS: tudo visível e FAQ funciona;
       sem WebGL: cai para `css` sem erro; Three.js não é baixado no celular
-- [x] 9 CTAs de WhatsApp com `data-analytics`; menu com Esc/foco; flutuante `inert`
+- [x] 10 CTAs de WhatsApp com `data-analytics`; menu com Esc/foco; flutuante `inert`
 - [x] Lighthouse desktop: Perf 97–99, A11y 100, SEO 100, BP 96 (os 4 pontos são o 404 de
       `/_vercel/*` local). Mobile: Perf ~86, A11y 100, SEO 100; LCP observado 0,9s, simulado
       ~4s (a simulação de 4G lento conta os bytes da foto do hero) — **re-testar no preview

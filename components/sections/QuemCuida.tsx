@@ -1,48 +1,35 @@
-import Image from "next/image";
+import fs from "node:fs";
+import path from "node:path";
 import { site } from "@/content/site";
+import { PhotoOrbit, type OrbitPhoto } from "@/components/ui/PhotoOrbit";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CtaButton } from "@/components/ui/Button";
 
 const rd = (ms: number) => ({ "--rd": `${ms}ms` }) as React.CSSProperties;
 
+/** Fotos fixas do site + tudo o que estiver em public/images/otavio/ (lido no build). */
+function fotos(): OrbitPhoto[] {
+  const base = site.quemCuida.fotos.map((f) => ({ src: f.src, title: f.titulo, alt: f.alt, position: f.posicao }));
+  const dir = path.join(process.cwd(), "public", "images", "otavio");
+  if (!fs.existsSync(dir)) return base;
+  const extra = fs
+    .readdirSync(dir)
+    .filter((f) => /\.(jpe?g|png|webp|avif)$/i.test(f))
+    .sort((a, b) => a.localeCompare(b, "pt-BR", { numeric: true }))
+    .map((file) => {
+      const title = file.replace(/\.[^.]+$/, "").replace(/^\d+[\s._-]*/, "").trim() || "Otávio";
+      return { src: `/images/otavio/${encodeURIComponent(file)}`, title, alt: `Otávio, ${title}` };
+    });
+  return [...base, ...extra];
+}
+
 export function QuemCuida() {
   const { quemCuida: q } = site;
-  const [principal, secundaria] = q.fotos;
   return (
     <section id="quem-cuida" className="section-y bg-ink text-paper">
       <div className="container-uai grid grid-cols-1 items-center gap-x-[clamp(48px,6vw,104px)] gap-y-16 desk:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
-        <div className="flex flex-col gap-4">
-          <div className="dip grid grid-cols-[minmax(0,1.62fr)_minmax(0,1fr)] items-end gap-4">
-            <div data-reveal="clip" className="relative aspect-[4/5] overflow-clip bg-graphite">
-              <div data-reveal-media="" className="absolute inset-0">
-                <Image
-                  src={principal.src}
-                  alt={principal.alt}
-                  fill
-                  sizes="(min-width: 1100px) 36vw, 60vw"
-                  className="photo-portrait object-cover"
-                  style={{ objectPosition: principal.posicao }}
-                />
-              </div>
-            </div>
-            <div className="dip-par mb-10 tab:mb-24" style={{ "--par": "24px" } as React.CSSProperties}>
-              <div data-reveal="clip" style={rd(150)} className="relative aspect-[3/4] overflow-clip bg-graphite">
-                <div data-reveal-media="" className="absolute inset-0">
-                  <Image
-                    src={secundaria.src}
-                    alt={secundaria.alt}
-                    fill
-                    sizes="(min-width: 1100px) 22vw, 38vw"
-                    className="photo-portrait object-cover"
-                    style={{ objectPosition: secundaria.posicao }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <span data-reveal="fade" className="label leading-[1.4] tracking-[0.2em] text-gray-400">
-            {q.legenda}
-          </span>
+        <div data-reveal="fade">
+          <PhotoOrbit photos={fotos()} hint={q.orbita.dica} touchHint={q.orbita.dicaToque} />
         </div>
 
         <div className="flex flex-col gap-8">
